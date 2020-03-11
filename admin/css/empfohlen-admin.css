@@ -1,0 +1,115 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.w100{ width: 100%; }
+.acf_field_w20 .acf-input .acf-input-wrap { width: 20%; }
+.d_block{ display: block; }
+.clear_both{ clear: both !important; }
+
+.block_w20p img { max-width: 120px; }
+
+.block_row{
+		    margin-top: 80px;
+    text-align: center;
+	}
+
+.block_w20p {
+	     display: inline-block;
+    border: 2px solid #9E9E9E;
+    min-width: 10%;
+    text-align: center;
+    padding: 5px 0px 0px 0px;
+    border-radius: 10px 10px 0px 0px;
+        margin: 20px;
+
+ }
+
+
+
+.block_w20p .btitle{
+	     margin: 10px 0px 0px 0px;
+    background: #9E9E9E;
+    padding: 10px;
+    color: white;
+}
+
+.d_link{ text-decoration: none; }
+
+
+
+/*========== Dashboard css =============*/
+.d_p_stats .stats_counter {
+    display: block;
+    color: black;
+}
+/*========== General Common css end =============*/
+
+
+
+
+
+/*========== General Common css =============*/
+.jconfirm .jconfirm-cell .jconfirm-holder { max-width: 50% !important; margin: 0 auto; }
+.wp-core-ui .button-success {
+    background: #4CAF50;
+    border-color: #4CAF50;
+        color: white;
+    font-weight: bold;
+}
+
+.wp-core-ui .button:hover{
+    background: #43A047;
+    border-color: #43A047;
+    color: white;
+}
+.table{ display: table;  }
+.trow{ display: table-row; margin: 4px; }
+.th,.td{ display: table-cell;     padding: 8px; }
+.w100{ width: 100%; }
+.bold{ font-weight: bold;  }
+
+
+/*================ Member listing layout page css ==============*/
+.user_skill{   border: 1px solid #9E9E9E;
+    padding: 2px 4px;
+    margin: 4px;
+    border-radius: 8px; 
+} 
+
+
+/*================ Project post type css ==============*/
+.keyword_term{ 
+    border: 1px solid #9E9E9E;
+    padding: 2px 4px;
+    margin: 4px;
+    border-radius: 8px;
+}
+
+
+/*================ Task post type css ==============*/
+.task_documents .task_file {
+    display: inline-block;
+    text-align: center;
+    margin: 10px;
+    padding: 5px;
+    border: 1px solid #888888;
+}
+.task_documents .file-icon img { margin: 0 auto; }
+.task_documents .file_button{ display: block; }
+.task_documents .file_button a{ text-decoration: none; }
+a.btn.generate_task {
+    background: #FF9800;
+    border-color: #FF9800;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 2.15384615;
+    padding: 0 10px;
+    cursor: pointer;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+}
+

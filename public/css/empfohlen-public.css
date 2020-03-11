@@ -1,0 +1,1061 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+
+.content-area.memberDashboard .tabs{
+    text-align:center;
+} 
+.content-area.memberDashboard .tabs ul.tabBar {
+    overflow:hidden;
+    padding-top: 60px;
+    padding-bottom: 40px;
+    padding-left:0;
+    display:inline-block;
+}
+.content-area.memberDashboard .tabs ul.tabBar li{
+    float: left;
+    display: inline-block;
+    /*border: 1px solid;
+    border-radius: 5px;*/
+    position: relative;
+    line-height: 40px;
+    padding: 0 25px;
+    margin: 0 0 0 -1px;
+    cursor: pointer;
+    color: #fff;
+    background: #261c46;
+    background: -moz-linear-gradient(top, #261c46 0%, #302b63 100%);
+    background: -webkit-linear-gradient(top, #261c46 0%, #302b63 100%);
+    background: linear-gradient(to bottom, #261c46 0%, #302b63 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#261c46", endColorstr="#302b63", GradientType=0);
+    font-size: 1em;
+}
+
+.content-area.memberDashboard .tabs ul.tabBar li:first-child {
+    -webkit-border-top-left-radius: 10px;
+    -moz-border-top-left-radius: 10px;
+    border-top-left-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+.content-area.memberDashboard .tabs ul.tabBar li:last-child {
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    border-top-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
+.content-area.memberDashboard .tabs ul.tabBar li:hover{
+    opacity: .9;
+    filter: alpha(opacity=90);
+}
+
+.content-area.memberDashboard .tabs ul.tabBar li a{
+    color:#fff;
+    font-size: 16px;
+}
+
+.content-area.memberDashboard .tabs ul.tabBar li.active {
+    background: #fb4b43;
+    background: -moz-linear-gradient(top, #fb4b43 0%, #dd1005 100%);
+    background: -webkit-linear-gradient(top, #fb4b43 0%, #dd1005 100%);
+    background: linear-gradient(to bottom, #fb4b43 0%, #dd1005 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fb4b43", endColorstr="#dd1005", GradientType=0);
+}
+
+.content-area.memberDashboard .tabs ul.tabBar li.active::before {
+    content: "";
+    width: 100%;
+    height: 7px;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    background: url(./../../images/tab_spitze.svg) top center no-repeat;
+    background-size: auto 100%;
+}
+.content-area.memberDashboard .content .content_bg{
+    background: rgba(255,255,255,.87);
+    border-radius: 10px;
+}
+body.page-template-member-template .fusion-header .fusion-logo {
+    margin: 10px 0px 10px 0px;
+}
+body.page-template-member-template #main,
+body.single.single-task #main{
+    background: url(./../../images/dashboard.jpg) top center no-repeat;
+    background-size: 100% 100%;
+}
+
+.project_item {
+    /*padding: 20px;*/
+    font-size: 16px;
+    color: #231d37;
+}
+.project_item div {
+    color: #231d37;
+}
+
+.row.project_item .p_info {
+    background: rgba(0,0,0,.04);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    /*height:60px;*/
+    display: table;  
+}
+
+.project_item .p_pay {
+    /*width: 10%;*/
+    display: inline-block;
+    padding: 20px;
+}
+
+.project_item .p_info .p_pay, 
+.project_item .p_info .p_info_btn, 
+.project_item .p_info .p_title,
+.project_item .p_info .p_keyword,
+.project_item .p_my_task_status,
+.project_item .p_info .p_request,
+.project_item .p_info .p_status_t
+{
+    display: block;
+    float:left;
+    padding: 10px;
+}
+
+.p_infoButton span.expand {
+    background-image: url(./../../images/icon-expand_job.svg);
+    background-position: right 2px center;
+    background-repeat: no-repeat;
+    background-size: 21px;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 5px 40px 5px 8px;
+    font-size: 14px;
+}
+.p_infoButton span.collapse {
+    display: none;
+    background-image: url(./../../images/icon-collapse_job.svg);
+    background-position: right 2px center;
+    background-repeat: no-repeat;
+    background-size: 21px;
+    border-radius: 20px;
+    padding: 5px 40px 5px 8px;
+    font-size: 14px;
+    background-color: rgba(0,0,0,.1);
+}
+
+.project_item.show_detail .p_infoButton span.expand{
+    display:none;
+}
+.project_item.show_detail .p_infoButton span.collapse{
+    display:block;
+}
+
+.btn {
+    background: #ffa400;
+    border-radius: 20px;
+    padding: 15px 20px;
+    color: #fff;
+    border: 2px solid rgba(255,255,255, 0.5);
+    font-weight: 500;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    font-family: "Open Sans",sans-serif;
+}
+
+.project_item .p_info .p_request {
+    padding-top: 5px;
+}
+
+.p_content{
+    background: rgba(0,0,0,.5);
+    border-radius: 30px 30px 30px 30px;
+    padding: 15px;
+    color: #fff;
+}   
+.p_content p{color:#fff !important;    font-size: .875rem;}
+.content-area.memberDashboard{padding-bottom:150px;    font-family: "Open Sans",sans-serif;}
+
+
+.row.project_item.show_detail{
+    background: #fff;
+    border-radius: 25px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(0,0,0,.4);
+    -moz-box-shadow: 0 0 5px 0 rgba(0,0,0,.4);
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.4);
+}
+
+.row.project_item.show_detail .p_info{
+     background: rgba(255,255,255,.04);
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px 25px 0 0;
+}
+.project_item.show_detail .p_content {
+    margin: 0px 5px 5px 5px;
+}
+
+.show_detail .p_info_btn {
+    padding-top: 14px !important;
+}
+.project_item .p_title {
+    padding-left:10px;
+}
+.p_info .p_status{
+    float: right;
+    margin-right: 5px;
+}
+.p_info .p_status p{
+    padding: 5px;
+    border: 1px solid #dd1005;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.project_item .p_keyword .p_kwd {
+    border: 1px solid #dd1005;
+    display: inline-block;
+    border-radius: 5px;
+}
+.project_item .p_keyword .p_kwd p {
+    margin: 0;
+    padding: 5px;
+    font-size: 12px;
+}
+
+.setting .content{
+    padding:25px;
+}
+
+.setting-heading p {
+    font-size: 1.2em;
+    margin-top: 0;
+    font-family: "Open Sans",sans-serif;
+}
+.emp_form_profile p{font-family: "Open Sans",sans-serif; font-size: 1.1em;}
+.emp_form_profile{
+/*     background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px; */
+}
+.fusion-layout-column.setting-left {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 0;
+}
+
+.fusion-layout-column.setting-right {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 0;
+    padding-left: 40px;
+    width: 49% !important;
+    margin-left: 1% !important;
+}
+
+.emp_form_profile label{
+    font-size: 1em;
+    font-family: "Open Sans",sans-serif;
+    color: #231d37;
+    margin-bottom: 5px;
+    display: block;
+}
+.emp_form_profile input{
+    margin-bottom: 10px;
+    height: 45px !important;
+    border-radius: 5px !important;
+    font-family: "Open Sans",sans-serif;
+}
+
+.profile-picture img{
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    margin-right: 5%;
+}
+
+.upload-outer{
+    display: inline-block;
+    margin-top: 15px;
+    vertical-align: top;
+}
+.other-info{
+        display: inline-block;
+    overflow: hidden;
+    width: 100%;
+}
+
+p.skill-checkbox input {
+    float: left;
+    width: 8%;
+    height: 18px !important;
+}
+p.skill-checkbox label {
+    font-family: "Open Sans",sans-serif;
+}
+
+ul.c_skills_list{padding-left:0;}
+
+p.bold {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* input[type=checkbox]:checked+label::before {
+    background-image: url(//static.empfohlen.de/themes/default/img/checkbox_checked.svg);
+}
+input[type=checkbox]+label::before, input[type=checkbox]:checked+label::before, input[type=radio]+label::before, input[type=radio]:checked+label::before {
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+input[type=checkbox]:checked+label::before, input[type=checkbox]:not(:checked)+label::before, input[type=radio]:checked+label::before, input[type=radio]:not(:checked)+label::before {
+    content: " ";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 4px;
+    margin-right: 5px;
+} */
+
+.other-info h4 {
+    font-weight: normal;
+}
+
+p.skill-checkbox {
+    padding-left: 10px;
+}
+.emp_form_profile textarea{
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    padding: 10px;
+}
+/* upload button */
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+margin-top: 10px;
+}
+
+.profile-picture .btn {
+    color: white;
+    padding: 8px 100px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: normal;
+    border: 1px solid #261c46;
+    background: #514b6d;
+    background: -moz-linear-gradient(top, #514b6d 0%, #261c46 100%);
+    background: -webkit-linear-gradient(top, #514b6d 0%, #261c46 100%);
+    background: linear-gradient(to bottom, #514b6d 0%, #261c46 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$colorTop", endColorstr="$colorBottom", GradientType=0);
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+#emp_profile_btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#emp_profile_btn{
+    margin: 0 auto;
+    display: block;
+    line-height: 34px;
+    padding: 0 75px;
+    color: #fff !important;
+    font-size: 1.2em;
+    text-decoration: none;
+    border: none;
+    background: #ffae56;
+    background: -moz-linear-gradient(top, #ffae56 0%, #ff9100 100%);
+    background: -webkit-linear-gradient(top, #ffae56 0%, #ff9100 100%);
+    background: linear-gradient(to bottom, #ffae56 0%, #ff9100 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="$colorTop", endColorstr="$colorBottom", GradientType=0);
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+@media only screen and (max-width: 1199px){
+.btn.btn-sm{
+    line-height: 12px;
+    padding: 12px 0;
+    font-weight: 500;
+    font-size: 14px;
+}
+}
+
+@media screen and (max-width: 1050px) and (min-width: 900px){
+.project_item .p_info_btn {
+    width: 12% !important;
+
+}
+.project_item.show_detail .p_info .p_status{
+        visibility:hidden;
+    }
+
+}
+
+
+
+@media only screen and (max-width: 900px){
+.project_item .p_info_btn {
+    width: 15% !important;
+}
+.project_item .p_request {
+    width: 20% !important;
+}
+.btn.btn-sm{
+    line-height: 10px;
+    padding: 10px 10px;
+    font-weight: 400;
+    font-size: 12px;
+}
+.project_item {
+    font-size: 12px;
+}
+.project_item.show_detail .p_info .p_status{
+        visibility:hidden;
+    }
+
+
+}
+
+@media only screen and (max-width: 500px){
+    .content-area.memberDashboard .tabs ul.tabBar li {
+        padding: 0 20px;
+    }
+    .content-area.memberDashboard .tabs ul.tabBar li a {
+        font-size: 12px;
+    }
+
+    .profile-picture .btn {
+        padding: 8px 58px;
+    }
+    #emp_profile_btn {
+        padding: 0 38px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+
+/*  */
+
+
+.project_item {
+        padding: 0;
+        border-bottom: 1px solid #9E9E9E;
+        font-size: 12px;
+    }
+    .project_item .p_pay {
+        padding: 10px;
+    }
+
+    .project_item .p_info .p_pay, .project_item .p_info .p_info_btn, .project_item .p_info .p_title, .project_item .p_info .p_keyword, .project_item .p_info .p_request {
+        padding: 10px;
+    }
+
+    .row.project_item .p_info {
+        background: none;
+    }
+    .project_item .p_info_btn {
+        width: auto !important;
+    }
+
+    .project_item .p_title {
+        width: 40% !important;
+    }
+
+    .project_item .p_request {
+        width: 50%;
+    }
+    .btn.btn-sm{
+        width:auto !important;
+        padding: 5px 15px;
+        line-height: 12px;
+    }
+    
+    .project_item.show_detail .p_info_btn span.collapse {
+        padding: 7px 35px 7px 8px;
+    }
+
+    .project_item.show_detail .p_info .p_request, .project_item.show_detail .p_info .p_status{
+        visibility:hidden;
+    }
+
+
+/*  */
+
+
+}
+
+@media only screen and (max-width: 400px){
+
+    .content-area.memberDashboard .tabs ul.tabBar li {
+        padding: 0 15px;
+    }   
+    
+    .project_item {
+        padding: 0;
+        border-bottom: 1px solid #9E9E9E;
+        font-size: 12px;
+    }
+    .project_item .p_pay {
+        padding: 10px;
+    }
+
+    .project_item .p_info .p_pay, .project_item .p_info .p_info_btn, .project_item .p_info .p_title, .project_item .p_info .p_keyword, .project_item .p_info .p_request {
+        padding: 10px;
+    }
+
+    .row.project_item .p_info {
+        background: none;
+    }
+    .project_item .p_info_btn {
+        width: auto !important;
+    }
+
+    .project_item .p_title {
+        width: 40% !important;
+    }
+
+    .project_item .p_request {
+        width: 50%;
+    }
+    .btn.btn-sm{
+        width:auto !important;
+        padding: 5px 15px;
+        line-height: 12px;
+    }
+    
+    .project_item.show_detail .p_info_btn span.collapse {
+        padding: 7px 35px 7px 8px;
+    }
+
+    .project_item.show_detail .p_info .p_request, .project_item.show_detail .p_info .p_status{
+        visibility:hidden;
+    }
+
+}
+
+
+
+@media only screen and (max-width: 380px){
+    .profile-picture .btn {
+        padding: 8px 50px;
+    }
+    #emp_profile_btn {
+        padding: 0 30px;
+    }
+
+}
+@media only screen and (max-width: 360px){
+    .profile-picture .btn {
+        padding: 8px 40px;
+    }
+    #emp_profile_btn {
+        padding: 0 20px;
+    }
+}
+
+
+/*Pay OFF  */
+
+main.pay .content-area.memberDashboard .content {
+    background: transparent;
+    border-radius: 10px;
+}
+
+main.pay .content-area.memberDashboard .content .credit{
+   margin-right:5%;
+}
+main.pay .content-area.memberDashboard .content .fusion-layout-column.fusion-one-third {
+    width: 30.3333%;
+}
+
+main.pay .content-area.memberDashboard .content .credit {
+    margin-right: 3%;
+    background: rgba(255,255,255,.87);
+    border-radius: 10px;
+}
+
+main.pay .content-area.memberDashboard .content .fusion-layout-column.revenues{
+    background: rgba(255,255,255,.87);
+    border-radius: 10px;
+}
+main.pay .content-area.memberDashboard .content .fusion-column-wrapper {
+    min-height: 1px;
+    padding: 10px;
+}
+
+.credit .fusion-column-wrapper h3, .revenues .fusion-column-wrapper h3{
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+main.pay .content-area.memberDashboard .content .credit .innerBox {
+    padding: 10px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    background: rgba(255,255,255,.87);
+
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .amountContainerNew {
+    border: none;
+    background: url(./../../images/bg_effekt.png) no-repeat center;
+    background-size: cover;
+    color: #fff;
+    padding: 20px;
+    font-size: .875em;
+    text-align: center;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin-bottom: 10px;
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .textContainer {
+    display: flex;
+    min-height: 35px;
+    align-items: center;
+}
+main.pay .content-area.memberDashboard .content .credit .innerBox .textContainer .icon {
+    min-width: 34px;
+    height: 34px;
+    margin-right: 10px;
+    background: url(./../../images/haken.svg) center no-repeat;
+    background-size: 100% auto;
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .textContainer .text {
+    text-align: left;
+    font-weight: normal;
+    margin-bottom: 0;
+    font-size: .875rem;
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .value {
+    display: inline-block;
+    background: url(./../../images/BGCash.png) no-repeat center;
+    background-size: cover;
+    width: 160px;
+    height: 76px;
+    line-height: 56px;
+    font-size: 2rem;
+    border: 1px solid #3f0;
+    color: #000;
+    padding: 10px 20px;
+    margin: 20px 0;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-box-shadow: inset 0 0 0 3px #3f436b;
+    -moz-box-shadow: inset 0 0 0 3px #3f436b;
+    box-shadow: inset 0 0 0 3px #3f436b;
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .value>.animation {
+    display: none;
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .value>.animation .innerAnimation {
+    width: 45px;
+    height: 45px;
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .buttonBar {
+    text-align: center;
+}
+main.pay .content-area.memberDashboard .content .credit .innerBox .buttonBar .button {
+    background: #ffa400;
+    border-radius: 20px;
+    padding: 2px 10px;
+    color: #fff;
+    border: 2px solid rgba(255,255,255, 0.5);
+    font-weight: 500;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+    font-family: "Open Sans",sans-serif;
+
+}
+
+
+main.pay .payout_btn{
+    margin: 0px;
+    padding: 5px 10px;
+    width: auto;
+    border-radius: 5px;
+    background: #ffa400;
+    color: #fff;
+    border: 2px solid rgba(255,255,255, 0.5);
+    font-weight: 500;
+    cursor: pointer;
+    min-width: 80px;
+}
+
+main.pay .dt_cell{ width: 20%;}
+
+/*main.pay .payout_currency {
+    border: 1px solid #cbcbcb;
+    margin: 5px;
+    padding: 10px;
+}*/
+
+
+/*============================= Dashbaord Css ==================================*/
+button.btn.btn-sm.resend_v_email_btn {
+    width: auto;
+    border-radius: 4px;
+}
+
+.close_nofi{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 10px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 40px;
+    height: 100%;
+    border: 0px;
+}
+.close_nofi a{
+    color: white !important;
+    opacity: 1;
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    top: 6px;
+}
+.nofi_bottom_pointer::after {
+    display: block;
+    height: 7.07px;
+    content: "";
+    background: url(./../../images/messsage_spitze.svg) no-repeat center;
+    background-size: 25px 7.07px;
+}
+/*============================= Dashboard Css end  ==================================*/
+
+
+/*============================= Registeration Css ==================================*/
+
+@media (min-width: 992px){
+.login-form-register{ width: 100% !important; } 
+}
+
+.field-wrapper.skill_select{ display: block !important;   }
+ul.c_user_group_list {
+    display: block;
+    margin: 15px 10px;
+}
+.ugroup_cont { padding: 5px 0px; }
+.reg_tax_select {
+    margin: 10px 0px;
+    border: 1px solid #d7d6d66b;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/*.dob_cont_box{ 
+    width: 100%;
+    display: table;  }*/
+.dob_cont {
+    display: table-row;
+    width: 100%;
+}
+.dob_select{ 
+       height: 46px;
+    line-height: 46px;
+    padding: 10px 16px !important;
+    font-size: 18px;
+    display: table-cell;
+    width: 100%;
+}
+.dob_cont > div select{
+    background: #345a90;
+    border-color: #9ab6cb;
+    color: white;
+}
+.dob_cont > div {
+    padding: 0px 1px;
+    display: table-cell !important;
+}
+select.reg_currency_dropdown {
+    background: #345a90;
+    border-color: #9ab6cb;
+    color: white;
+    height: 46px;
+    line-height: 46px;
+    padding: 10px 16px !important;
+    font-size: 18px;
+    display: table-cell;
+    width: 100%;
+}
+
+
+
+/* ============ popup  ================ */
+.reg_modal {
+    display: block;
+    z-index: 10;
+    position: fixed;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+.reg_modal-content {
+    font-size: 2em;
+    text-align: center;
+    color: #2C4A9D;
+    margin: 70px auto;
+    border-radius: 5px;
+    width: 40%;
+    background-color: #fefefe;
+    padding: 30px;
+}
+.reg_modal-content p {
+    margin: 0px;
+    color: #2C4A9D !important;
+}
+.close_reg {
+    font-size: 30px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    float: right;
+    line-height: 1;
+    opacity: .2;
+}
+.close_reg:hover,
+.close_reg:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+   opacity: 1;
+}
+
+
+/*============================= Registeration Css end ==================================*/
+
+
+/*============================= General Css ==================================*/
+.w100{ width: 100%;  }
+.wauto{ width: auto; }
+.dinline{ display: inline-block;  }
+.dinline{ display: inline-block;  }
+.dinline{ display: inline-block;  }
+.dblock{ display: block; }
+.dtable { display: table; }
+.dtable_row { display: table-row; }
+.dt_cell { display: table-cell; }
+.text_center{ text-align: center;  }
+.text_left{ text-align: left;  }
+.text_right{ text-align: right;  }
+.capitalize{ text-transform: capitalize;  }
+.p_0{ padding: 0px !important; }
+.m_0{ margin: 0px !important; }
+.p_20{ padding: 20px;   } 
+.m_20{ margin: 20px;   } 
+.mt_20{ margin-top: 20px;  }
+.mb_20{ margin-bottom: 20px;  }
+.color_white{ color: white !important; }
+.relative{ position: relative; }
+.bg_black_shad{      background-color: rgba(0,0,0,.4) !important; }
+.border_radius_25{ border-radius: 25px;  }
+.alert.alert-error {
+    background-color: #de2d2b87 !important;
+    color: white;
+}
+
+
+
+/*============================= General Css end ==================================*/
+
+
+/*============================= withdrawl Css ==================================*/
+.withdrawal_list td,
+.invoice_list td {
+    border: 1px solid #efa31d;
+    padding: 4px;
+}
+/*============================= withdrawl Css end ==================================*/
+
+
+
+/*============================= Project listing Jobs Tab Css ==================================*/
+.timer_icon, .exp_duration{
+    font-size: 11px;
+    margin: 4px 0;
+}
+.p_request_btn,
+.p_request_chat_btn,
+.p_task_btn,
+.p_add_review,
+.btn_small{ 
+    padding: 5px 10px;
+    width: auto;
+    border-radius: 6px;
+}
+.p_status_t{ margin-right: 5px; }
+.p_info .p_status_t p{
+    padding: 5px;
+    font-size: 13px;
+}
+.p_task_heading{ padding: 20px;  margin: 0px;  }
+.my_projectList.content_bg { padding-bottom: 20px; }
+a.add_review_file {
+    background: #9E9E9E;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+}
+.ticket_form_submit {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+
+
+.review_files_upload.has_selected_file input { display: none; }
+.review_files_upload.has_selected_file .file_wrap{ display: inline-block !important;  }  
+.file_wrap{
+    display: none;
+    border: #DFDFDF solid 1px;
+    position: relative;
+    background: #fff;
+}
+.file_wrap .file-icon {
+    padding: 10px;
+    background: #F1F1F1;
+    border-right: #E5E5E5 solid 1px;
+    display: inline-block;
+    /*border: 1px solid black;*/
+    vertical-align: text-bottom;
+    display: table-cell;
+}
+
+.file_wrap  .file-info {
+    padding: 10px;
+    display: inline-block;
+    /*border: 1px solid red;*/
+    display: table-cell;
+}
+
+.file_wrap .file-info p {
+    margin: 4px 0;
+    font-size: 12px;
+}
+
+.file_wrap .file_action {
+        position: absolute;
+    left: -5px;
+    top: -2px;
+}
+
+.file_wrap .file_action a.cancel_icon { 
+    color: white;
+       border-color: transparent;
+    background: #9E9E9E;
+    color: #eee;
+    height: 22px;
+    width: 21px;
+    display: block;
+    border-radius: 100%;
+    font-size: 12px;
+    line-height: 23px;
+    text-align: center;
+}
+
+ 
+
+/*============================= Project listing Jobs Tab Css end ==================================*/
+
+
+
+/*============================= Task Css =====================================*/
+body.single.single-task .avada-page-titlebar-wrapper{ display: none;  }
+/*============================= Task Css end ==================================*/
+
+
+
+/*============================= Review Css ======================================*/
+.p_add_review.add_review_btn { background: #509753; }
+.review_submit {
+    display: inline-block;
+    width: 100%;
+    background: #f0f0f0;
+    padding: 20px;
+}
+.review_form label {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.review_form .field-wrapper { 
+    margin: 10px 0px;
+    margin-bottom: 20px;
+}
+
+#rf_title{ border-radius: 6px;  color: black;}
+.review_form .content_edit{
+    border-radius: 6px;
+    border: 1px solid #d2d2d2;
+    overflow: hidden;
+    padding: 4px 0px;
+    padding-bottom: 0px;
+}
+ 
+/*============================= Review Css end ==================================*/
+
+

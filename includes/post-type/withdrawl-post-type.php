@@ -173,93 +173,152 @@ function payout_withdrawl_submit_callback() {
     }
 
         
-    $currency = isset($_POST['currency'])?(sanitize_text_field($_POST['currency'])):'';
-    if(empty($currency)) { 
-        $return['status'] =  'error'; 
-        $return['message'] =  'Currency can not be empty'; 
-        wp_send_json( $return ); 
-    }     
+    // $currency = isset($_POST['currency'])?(sanitize_text_field($_POST['currency'])):'';
+    // if(empty($currency)) { 
+    //     $return['status'] =  'error'; 
+    //     $return['message'] =  'Currency can not be empty'; 
+    //     wp_send_json( $return ); 
+    // }     
 
-    $balances = get_field('balance',  'user_'.$userData->ID );
+    $balances = get_field('balance_amount',  'user_'.$userData->ID );
     if(empty($balances)){
         $return['status'] =  'error'; 
         $return['message'] =  'You have zero balance to payout'; 
         wp_send_json( $return ); 
     }
 
-    $currency_found = false; 
-    foreach ($balances as $bk => $bv) {
-      if ($bv['balance_currency'] == $currency) {
-         $currency_found = true; 
+
+
+    // check if already have a pending withdrawl request. 
+    // check if task not exist already
+    $args = array(
+        'post_type'              => array( 'withdrawl' ),
+        'meta_query'             => array(
+            array(
+                'key'     => 'withdrawl_member_id',
+                'value'   => $userData->ID,
+            ),
+            array(
+                'key'     => 'withdrawl_status',
+                'value'   => 'pending',
+            )
+        ),
+    ); 
+    $withdrawl_query = new WP_Query( $args );
+    $withdrawl_exist = $withdrawl_query->posts;
+
+     // echo "<pre> withdrawl_exist "; print_r( $withdrawl_exist ); echo "</pre> ";  
+
+    if(!empty($withdrawl_exist)){
+        $return['status'] =   'error'; 
+        $return['message'] =  'You Already have a pending withdrawl payment request'; 
+        wp_send_json( $return ); 
+    }
+
+    $payout_amount    = (int) $_POST['payout_amount'];
+    $user_currency    = EmpHelper::getUserCurrency($userData->ID);
+    $withdrawl_info   = wp_kses_post($_POST['payout_description']);
+
+    if($payout_amount < 1){
+        $return['status'] =   'error'; 
+        $return['message'] =  'Incorrect withdrawl amount'; 
+        wp_send_json( $return ); 
+    }
+
+    // create withdrawl post type post. 
+    $withdrawl_id = (int) wp_insert_post(array(
+       'post_type'   => 'withdrawl',
+       'post_title'  => 'Withdrawl request by User: '.$userData->ID.' amount: '.$payout_amount,
+       'post_status' => 'publish',
+    ));
+
+
+    if($withdrawl_id > 0){
+      $withdrawl_id_code = 'WD'.$userData->ID; 
+      update_post_meta($withdrawl_id, 'withdrawl_id', $withdrawl_id_code );
+      update_post_meta($withdrawl_id, 'withdrawl_member_id', $userData->ID );
+      update_post_meta($withdrawl_id, 'withdrawl_amount', $payout_amount );
+      update_post_meta($withdrawl_id, 'withdrawl_currency',  $user_currency );
+      update_post_meta($withdrawl_id, 'withdrawl_status',  'pending');
+      update_post_meta($withdrawl_id, 'withdrawl_info',  $withdrawl_info);
+    }
+
+
+      $return['status'] =  'success'; 
+      $return['message'] =  'Your withdrawl request has been submited succesfully'; 
+      wp_send_json( $return ); 
+      exit; 
+
+
+    // $currency_found = false; 
+    // foreach ($balances as $bk => $bv) {
+    //   if ($bv['balance_currency'] == $currency) {
+    //      $currency_found = true; 
          // check if member has enough balance for payout. 
          // if ( (int) $bv['balance_value'] >=  )
 
-        // check if already have a pending withdrawl request. 
-        // check if task not exist already
-        $args = array(
-            'post_type'              => array( 'withdrawl' ),
-            'meta_query'             => array(
-                array(
-                    'key'     => 'withdrawl_member_id',
-                    'value'   => $userData->ID,
-                ),
-                array(
-                    'key'     => 'withdrawl_status',
-                    'value'   => 'pending',
-                ),
-                array(
-                    'key'     => 'withdrawl_currency',
-                    'value'   => $bv['balance_currency'],
-                ),
-            ),
-        ); 
-        $withdrawl_query = new WP_Query( $args );
-        $withdrawl_exist = $withdrawl_query->posts;
+        // // check if already have a pending withdrawl request. 
+        // // check if task not exist already
+        // $args = array(
+        //     'post_type'              => array( 'withdrawl' ),
+        //     'meta_query'             => array(
+        //         array(
+        //             'key'     => 'withdrawl_member_id',
+        //             'value'   => $userData->ID,
+        //         ),
+        //         array(
+        //             'key'     => 'withdrawl_status',
+        //             'value'   => 'pending',
+        //         ),
+        //         array(
+        //             'key'     => 'withdrawl_currency',
+        //             'value'   => $bv['balance_currency'],
+        //         ),
+        //     ),
+        // ); 
+        // $withdrawl_query = new WP_Query( $args );
+        // $withdrawl_exist = $withdrawl_query->posts;
 
-         // echo "<pre> withdrawl_exist "; print_r( $withdrawl_exist ); echo "</pre> ";  
+        //  // echo "<pre> withdrawl_exist "; print_r( $withdrawl_exist ); echo "</pre> ";  
 
-        if(!empty($withdrawl_exist)){
-            $return['status'] =   'error'; 
-            $return['message'] =  'You Already have a pending withdrawl payment request'; 
-            wp_send_json( $return ); 
-        }
-
-
+        // if(!empty($withdrawl_exist)){
+        //     $return['status'] =   'error'; 
+        //     $return['message'] =  'You Already have a pending withdrawl payment request'; 
+        //     wp_send_json( $return ); 
+        // }
 
 
-        // create withdrawl post type post. 
-        $withdrawl_id = (int) wp_insert_post(array(
-           'post_type'   => 'withdrawl',
-           'post_title'  => 'Withdrawl request by User: '.$userData->ID.' amount: '. $bv['balance_value'],
-           'post_status' => 'publish',
-        ));
+
+
+        // // create withdrawl post type post. 
+        // $withdrawl_id = (int) wp_insert_post(array(
+        //    'post_type'   => 'withdrawl',
+        //    'post_title'  => 'Withdrawl request by User: '.$userData->ID.' amount: '. $bv['balance_value'],
+        //    'post_status' => 'publish',
+        // ));
 
          // echo "<pre> withdrawl_id "; print_r( $withdrawl_id ); echo "</pre> ";  
 
-        if($withdrawl_id > 0){
-            $withdrawl_id_code = 'WD'.$userData->ID; 
-            update_post_meta($withdrawl_id, 'withdrawl_id', $withdrawl_id_code );
-            update_post_meta($withdrawl_id, 'withdrawl_member_id', $userData->ID );
-            update_post_meta($withdrawl_id, 'withdrawl_amount', (int) $bv['balance_value'] );
-            update_post_meta($withdrawl_id, 'withdrawl_currency',  $bv['balance_currency'] );
-            update_post_meta($withdrawl_id, 'withdrawl_status',  'pending');
-        }
+        // if($withdrawl_id > 0){
+        //     $withdrawl_id_code = 'WD'.$userData->ID; 
+        //     update_post_meta($withdrawl_id, 'withdrawl_id', $withdrawl_id_code );
+        //     update_post_meta($withdrawl_id, 'withdrawl_member_id', $userData->ID );
+        //     update_post_meta($withdrawl_id, 'withdrawl_amount', (int) $bv['balance_value'] );
+        //     update_post_meta($withdrawl_id, 'withdrawl_currency',  $bv['balance_currency'] );
+        //     update_post_meta($withdrawl_id, 'withdrawl_status',  'pending');
+        // }
 
 
-        $return['status'] =  'success'; 
-        $return['message'] =  'Your withdrawl request has been submited succesfully'; 
-        wp_send_json( $return ); 
-        exit; 
+        // $return['status'] =  'success'; 
+        // $return['message'] =  'Your withdrawl request has been submited succesfully'; 
+        // wp_send_json( $return ); 
+        // exit; 
 
-      }
-    } // foreach end here
+    //   }
+    // } // foreach end here
 
 
-    $return['status'] =  'error'; 
-    $return['message'] =  'Error Submitting withdrawl request'; 
-    wp_send_json( $return ); 
-   
-
+ 
   }else{
     $return['status'] =  'error'; 
     $return['message'] =  'please login to submit request'; 
@@ -331,3 +390,155 @@ function save_widthdrawl_post_callback($post_id){
   }
 }
 
+
+
+
+
+
+// custom meta boxes 
+add_action( 'add_meta_boxes',  'add_meta_boxes_withdrawl_completed' );
+ function add_meta_boxes_withdrawl_completed() {
+
+      add_meta_box('advanced-options_withdrawl_comp',
+            __( 'Withdrawl Action', 'emp_task' ),
+            'add_meta_boxes_withdrawl_complete_callback',
+            'withdrawl',
+            'side',
+            'low'
+        );
+  
+}
+
+
+
+ function add_meta_boxes_withdrawl_complete_callback( $post ){
+
+     // $task_request_id = (int) get_post_meta( $post->ID, 'request_id', true );
+     // $args = array(
+     //        'post_type'              => array( 'invoice' ),
+     //        'meta_query'             => array(
+     //            array(
+     //                'key'     => 'invoice_task_id',
+     //                'value'   => $post->ID,
+     //            ),
+     //        ),
+     // );
+     // $inv_query = new WP_Query( $args );
+     // $invoice_exist = $inv_query->posts;
+     // // echo "<pre> invoice_exist "; print_r( $invoice_exist ); echo "</pre> ";  
+     // if (!empty($invoice_exist)){
+     //    $invoice = $invoice_exist[0];
+     //    $inv =  '<div class="invoice">';
+     //    $inv .= '<a href="'.get_edit_post_link($invoice->ID).'">Invoice Detail</div>';
+     // } else {
+     //    $inv =  '<div class="generate_invoice">';
+     //    $inv .= '<a class="button button-success button-large generate_task_invoice" data-tid="'.$post->ID.'">Task Complete(Generate Invoice)</a>';
+     //    $inv .= '</div>';
+     // }
+     // echo $inv;
+
+
+   // withdrawl_status
+   $withdrawl_status =  get_post_meta( $post->ID, 'withdrawl_status', true );
+
+   // echo "<pre> withdrawl_status "; print_r( $withdrawl_status ); echo "</pre> ";  
+
+    $t_comp  = '<div>';
+    $t_comp .= '<p>Once the withdrawl is completed and user has been paid then click this button so the amount can be deducted from user balance.</p>';
+    $t_comp .= '<div class="withdrawl_message" style="color:red;"></div>'; 
+
+    if( $withdrawl_status == 'pending' ){
+       $t_comp .= '<input type="hidden" id="withdrawl_complete_nonce" name="withdrawl_complete_nonce" value="'.wp_create_nonce('withdrawl-complete-nonce').'"/>';
+       $t_comp .= '<a class="button buttons-uccess button-large withdrawl_action_btn withdrawl_complete '.$withdrawl_status.'" data-wid="'.$post->ID.'">Withdrawl Complete (Deduct Amount)</a>';
+    }else if($withdrawl_status == 'completed'){
+       $t_comp .= '<a class="button buttons-uccess button-large withdrawl_action_btn '.$withdrawl_status.'" disabled>Withdrawl Completed Succesfully</a>';
+    }
+    $t_comp .= '</div>';
+    echo $t_comp;
+ }
+
+
+
+
+
+
+// complete task and generate invoice. 
+add_action( 'wp_ajax_nopriv_withdrawl_complete_deduct_amount', 'withdrawl_complete_deduct_amount' );
+add_action( 'wp_ajax_withdrawl_complete_deduct_amount', 'withdrawl_complete_deduct_amount' );
+function withdrawl_complete_deduct_amount() {
+    
+    // wp_send_json( $return); 
+    if (!is_admin() || !defined( 'DOING_AJAX' ) || !DOING_AJAX ){
+        // wp_send_json_success( 'admin is login and its ajax' ); 
+        die();
+    }// is_admin
+    
+    check_ajax_referer( 'withdrawl-complete-nonce', 'security' );
+    
+    $return = array();
+    $withdrawl_id = (int) $_POST['wid'];
+    if ( $withdrawl_id ){
+        $withdrawl = get_post($withdrawl_id);
+         // echo "<pre> withdrawl "; print_r(  $withdrawl ); echo "</pre> ";  exit; 
+        if(!empty($withdrawl)){
+          // withdrawl_status
+          $withdrawl_status = get_post_meta( $withdrawl->ID, 'withdrawl_status', true );
+          $withdrawl_amount = (int) get_post_meta( $withdrawl->ID, 'withdrawl_amount', true );
+          if( $withdrawl_status == 'pending' ){
+            if( $withdrawl_amount > 0 ){
+              // get task member_id
+              $withdrawl_member_id = (int) get_post_meta( $withdrawl->ID, 'withdrawl_member_id', true );
+              if( $withdrawl_member_id > 0){
+                 $member_balance = get_field('balance_amount', 'user_'.$withdrawl_member_id );
+                 if($member_balance > 0){
+
+                   $member_balance = $member_balance -  $withdrawl_amount; 
+                   update_field('balance_amount', $member_balance,'user_'.$withdrawl_member_id );
+                   update_post_meta($withdrawl_id, 'withdrawl_status', 'completed' );
+
+                    // send email to user that his withdrawl has been completed and amount has been paid to him.  
+                    $user_info = get_userdata($withdrawl_member_id);
+                    $withdrawl_id_code = get_field( "withdrawl_id", $withdrawl->ID);
+                    $w_permalink = get_permalink($withdrawl->ID);
+
+                    $ehtml = sprintf(__('Your <a href="%s"> Withdrawl Request(%s)</a> has been completed and amount has been transfered to your account', 'emp'),$w_permalink,$withdrawl_id_code);                    
+                  
+                    $headers = array( 'Content-type: text/html' );
+                    wp_mail( $user_info->user_email, __('Withdrawl ('.$withdrawl_id_code.') Completed','emp') , $ehtml, $headers);
+                    
+                    $return['status']   = 'success';
+                    $return['message']  = 'Withdrawl Completed Succesfully';
+                    $return['data'] = '<a class="button button-success button-large">Withdrawl completed and payment has been paid</a>';
+                    wp_send_json( $return ); 
+
+                 }else{
+                    $return['status']   = 'error';
+                    $return['message']  = 'User Earning amount should be grater than zero. User has not earning to deduct from';
+                    $return['data'] = '<a class="button button-success button-large">Error</a>';
+                    wp_send_json( $return ); 
+                 }
+              }else{
+                $return['status']   = 'error';
+                $return['message']  = 'Withdrawl Member(User) doest not exist.';
+                $return['data'] = '<a class="button button-success button-large">Error</a>';
+                wp_send_json( $return ); 
+              }
+            }else{
+              $return['status']   = 'error';
+              $return['message']  = 'Withdrawl amount must be grater than zero.';
+              $return['data'] = '<a class="button button-success button-large">Error</a>';
+              wp_send_json( $return ); 
+            }
+          }else{
+            $return['status']   = 'error';
+            $return['message']  = 'Only Withdrawl with status pending can be processed';
+            $return['data'] = '<a class="button button-success button-large">Error</a>';
+            wp_send_json( $return ); 
+          }
+        }
+    }
+
+    $return['status']   = 'error';
+    $return['message']  = 'Error processing your request.';
+    wp_send_json( $return ); 
+}

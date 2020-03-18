@@ -9,8 +9,8 @@ get_header();
 // do_action('submit_task_port');
 global $_SESSION;
 
-$success =  	$_SESSION['task_success'];
-$error 	= 	$_SESSION['task_error'];
+$success = $_SESSION['task_success'];
+$error 	 = $_SESSION['task_error'];
 
 unset($_SESSION['task_success']);
 unset($_SESSION['task_error']);
@@ -46,51 +46,44 @@ if(is_dir($dest_dir)) {
 $download_dir = $upload_dir['baseurl'].'/userdata/'.$user_id.'/task/'.$post->ID;
 $post->download_dir = $download_dir;
 
-// echo "<pre>  task_files "; print_r( $task_files ); echo "</pre> ";
-// echo "<pre> post "; print_r( $post ); echo "</pre> ";
-// get project detail of this task
-
-$request_id = (int) get_field('request_id', $post->ID);
-if(!empty($request_id)){
-    $repest   		= get_post( $request_id);
-    $post->repest = $repest;
-    // echo "<pre> repest "; print_r( $repest  ); echo "</pre> ";
-
-    // get request project data
-    if(!empty($repest)){
-        $project_id = (int) get_field('select_project_id', $repest->ID);
-        if(!empty($project_id)){
-            $project   			= get_post($project_id);
-            if(!empty($project)) {
-
-                // get project meta data
-                $project->keyword 				= get_field('keyword', $project->ID);
-                $project->timer_enable 		= get_field('timer_enable', $project->ID);
-                $project->duration 				= get_field('duration', $project->ID);
-                $project->pay 						= get_field('pay', $project->ID);
-                $project->expiration_date = get_field('expiration_date', $project->ID);
-                $project->description 		= get_field('description', $project->ID);
-                $project->requirments 		= get_field('requirments', $project->ID);
-                $project->additional_information = get_field('additional_information', $project->ID);
-
-
-                $project->user_currency = EmpHelper::getUserCurrency($current_user->ID);
-                $project->price         = get_post_meta($project->ID, 'price', true);  
-                $project->user_price    = EmpHelper::cc_base_to_currency($project->user_currency, $project->price );
-
-
-                 // echo "<pre> project  "; print_r( $project  ); echo "</pre> ";  
-
-
-
-            }
-            //keyword
-
-
-            $post->project 	= $project;
-        }
+// check if task is of type request or without request 
+$task_type_request = get_field( "task_type_request", $post->ID );
+if($task_type_request){
+    // for task_type_request get the project info from request 
+    $request_id = (int) get_field('request_id', $post->ID);
+    if(!empty($request_id)){
+        $repest         = get_post( $request_id);
+        $post->repest = $repest;
+        // echo "<pre> repest "; print_r( $repest  ); echo "</pre> ";
     }
 }
+
+
+// get task project data
+$project_id = (int) get_field('project_id', $post->ID);
+if(!empty($project_id)){
+    $project = get_post($project_id);
+    if(!empty($project)) {
+        // get project meta data
+        $project->keyword               = get_field('keyword', $project->ID);
+        $project->timer_enable      = get_field('timer_enable', $project->ID);
+        $project->duration              = get_field('duration', $project->ID);
+        $project->pay                       = get_field('pay', $project->ID);
+        $project->expiration_date = get_field('expiration_date', $project->ID);
+        $project->description       = get_field('description', $project->ID);
+        $project->requirments       = get_field('requirments', $project->ID);
+        $project->additional_information = get_field('additional_information', $project->ID);
+
+        $project->user_currency = EmpHelper::getUserCurrency($current_user->ID);
+        $project->price         = get_post_meta($project->ID, 'price', true);  
+        $project->user_price    = EmpHelper::cc_base_to_currency($project->user_currency, $project->price );
+         // echo "<pre> project  "; print_r( $project  ); echo "</pre> ";  
+    }
+    //keyword
+    $post->project  = $project;
+}
+
+
 
 
 

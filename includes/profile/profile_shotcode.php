@@ -68,7 +68,7 @@ function emp_profile_save(){
       $user_group     = $postData['user_group'];
 
 
-
+      
       if(!empty( $first_name )){
         $userData->display_name = $first_name;
       }
@@ -84,7 +84,26 @@ function emp_profile_save(){
 
       $user_data = wp_update_user( $userData  );
 
-      if(isset($currency) && !empty($currency)){ update_user_meta( $user_id, 'user_currency', $currency ); }
+      // if user decided to change his currency then convert all earning to new currency 
+      $user_currency = EmpHelper::getUserCurrency($current_user->ID);
+      if(isset($currency) && !empty($currency) && ($currency != $user_currency ) ){
+        $total_user_price =  get_field('balance_amount',  'user_'.$userData->ID ); 
+        if(!empty($total_user_price)) {
+          $user_earning_baseprice = EmpHelper::cc_tobase($user_currency, $total_user_price);
+          $user_earning_converted_currency = EmpHelper::cc_base_to_currency($currency, $user_earning_baseprice); 
+          update_user_meta( $user_id, 'balance_amount', $user_earning_converted_currency );
+          update_user_meta( $user_id, 'user_currency', $currency );
+
+          $log_act  = ' Old  currency = '.$user_currency.' amount = '.$total_user_price;
+          $log_act .= ' \r\n New currency = '.$currency.'  amount = '.$user_earning_converted_currency;
+
+          EmpHelper::add_log_activity($user_id,'Currency changed', $log_act);
+
+        }
+      }
+
+
+       
       if(isset($birthday) && !empty($birthday)){ update_user_meta( $user_id, 'birthday', $birthday ); }
       if(isset($address)  && !empty($address)){  update_user_meta( $user_id, 'address', $address ); }
       if(isset($contact)  && !empty($contact)){  update_user_meta( $user_id, 'contact', $contact ); }

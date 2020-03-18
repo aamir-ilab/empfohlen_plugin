@@ -127,39 +127,39 @@
 
 
 		// payout_btn click 
-    jQuery('.payout_btn').on('click', function(){
-    	var currency = jQuery(this).attr('data-currency');
-    	var current_item = jQuery(this); 
+    // jQuery('.payout_btn').on('click', function(){
+    // 	var currency = jQuery(this).attr('data-currency');
+    // 	var current_item = jQuery(this); 
 
-    	jQuery(this).prop('disabled', true).html('Processing..');
+    // 	jQuery(this).prop('disabled', true).html('Processing..');
 
-    	console.log(' payout_btn currency ', currency);
-    	var data = {
-	 			currency: currency,
-	 			action : 'payout_withdrawl_submit',
-	 			security: jQuery('#payout_nonce').val()
-	 		};
-    	var ajax_url = emp_vars.emp_ajax_url;
-		    // Do AJAX request
-		    $.ajax({
-		        url: ajax_url,
-		       	type: 'POST',
-		        dataType: 'json',
-		        data: data,
-		        success: function (response) {
-		        		 console.log('success response = ', response);
-		        		 if( response && response.status == 'success') {
-		        		 		jQuery(current_item).replaceWith('<p>'+response.status+' : '+response.message);
-		        		 }else{
-		        		 	jQuery(current_item).replaceWith('<p>'+response.status+' : '+response.message);
-		        		 }
-		        },
-		        error: function(jqXHR, textStatus, errorThrown) {
-		        	 console.log('error jqXHR ');
-		           console.log(textStatus, errorThrown);
-		        }
-		    });
-    });    
+    // 	console.log(' payout_btn currency ', currency);
+    // 	var data = {
+	 		// 	currency: currency,
+	 		// 	action : 'payout_withdrawl_submit',
+	 		// 	security: jQuery('#payout_nonce').val()
+	 		// };
+    // 	var ajax_url = emp_vars.emp_ajax_url;
+		  //   // Do AJAX request
+		  //   $.ajax({
+		  //       url: ajax_url,
+		  //      	type: 'POST',
+		  //       dataType: 'json',
+		  //       data: data,
+		  //       success: function (response) {
+		  //       		 console.log('success response = ', response);
+		  //       		 if( response && response.status == 'success') {
+		  //       		 		jQuery(current_item).replaceWith('<p>'+response.status+' : '+response.message);
+		  //       		 }else{
+		  //       		 	jQuery(current_item).replaceWith('<p>'+response.status+' : '+response.message);
+		  //       		 }
+		  //       },
+		  //       error: function(jqXHR, textStatus, errorThrown) {
+		  //       	 console.log('error jqXHR ');
+		  //          console.log(textStatus, errorThrown);
+		  //       }
+		  //   });
+    // });    
 
 
 
@@ -352,6 +352,89 @@
     	file_select_html  	+= '</div>'; 
 
     	jQuery(this).closest('.additional_info_edit').append(file_select_html);
+
+    });
+
+
+
+
+    // function to submit payout withdrawl form. 
+    jQuery('.withdrawl_btn').on('click', function(){
+    	console.log(' withdrawl_btn '); 
+
+    	jQuery('.payout_withdrawl_body .info_box').html('');
+
+    	var total_user_price =  parseInt(jQuery('#total_user_price').val());
+    	var payout_amount =  parseInt(jQuery('#payout_amount').val());
+    	var payout_description =  jQuery('#payout_description').val();
+
+    	console.log(' total_user_price ', total_user_price);
+    	console.log(' payout_amount ', payout_amount);
+
+    	if( payout_amount > total_user_price ){
+
+    		var info_message  = '<div id="top-alert" class="cmodal relative alert alert-danger alert-dismissible mt_20" role="alert">'; 
+    				info_message += '<div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>'; 
+    				info_message += '<strong>Error ! </strong> You can  withdrawl maximun '+total_user_price+'  amount '; 
+    				info_message += '</div>'; 
+
+    		jQuery('.payout_withdrawl_body .info_box').html(info_message);
+
+    		return false; 
+    	}
+
+
+    	var info_message  = '<div id="top-alert" class="cmodal relative alert alert-danger alert-dismissible mt_20" role="alert">'; 
+  				info_message += '<div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>'; 
+  				info_message += 'Processing your request please wait... '; 
+  				info_message += '</div>'; 
+
+  		jQuery('.payout_withdrawl_body .info_box').html(info_message);
+  		jQuery('.payout_withdrawl_body .payment_info').addClass('hidden');
+
+
+    // 	var current_item = jQuery(this); 
+    // 	jQuery(this).prop('disabled', true).html('Processing..');
+    // 	console.log(' payout_btn currency ', currency);
+     	var data = {
+     		payout_amount: payout_amount,
+     		payout_description: payout_description,
+	 			action : 'payout_withdrawl_submit',
+	 			security: jQuery('#payout_nonce').val()
+	 		};
+    	var ajax_url = emp_vars.emp_ajax_url;
+		    // Do AJAX request
+		    $.ajax({
+		        url: ajax_url,
+		       	type: 'POST',
+		        dataType: 'json',
+		        data: data,
+		        success: function (response) {
+		        		 console.log('success response = ', response);
+		        		 if( response && response.status == 'success') {
+		        		 		 var info_message = '<div class="cmodal relative alert alert-success alert-dismissible mt_20" style="background-color: #8bc34ad4;color: white;font-weight: bold;">'; 
+					  				info_message 	+= '<div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>'; 
+					  				info_message 	+= '<strong><p>'+response.status+' : '+response.message+'.</strong> '; 
+					  				info_message 	+= '</div>'; 
+					  				jQuery('.payout_withdrawl_body .info_box').html(info_message);
+		        		 }else{
+		        		 	var info_message = '<div id="top-alert" class="cmodal relative alert alert-danger alert-dismissible mt_20" role="alert">'; 
+				  				info_message 	+= '<div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>'; 
+				  				info_message 	+= '<strong><p>'+response.status+' : '+response.message+'.</strong> ';  
+				  				info_message 	+= '</div>'; 
+				  				jQuery('.payout_withdrawl_body .info_box').html(info_message);
+		        		 }
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		        	console.log('error jqXHR ');
+		          console.log(textStatus, errorThrown);
+		          var info_message = '<div id="top-alert" class="cmodal relative alert alert-danger alert-dismissible mt_20" role="alert">'; 
+		  				info_message 	+= '<div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>'; 
+		  				info_message 	+= '<strong>Error creating withdrawl request.</strong> '; 
+		  				info_message 	+= '</div>'; 
+		  				jQuery('.payout_withdrawl_body .info_box').html(info_message);
+		        }
+		    });
 
     });
 

@@ -1,57 +1,38 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; 
-
-
 wp_enqueue_script( 'dobPicker', EMPFOHLEN_URI.'public/js/dobPicker.js', array('jquery'),'',false);
-
 $current_user = wp_get_current_user();
 $userData = $current_user->data;
 // echo "<pre> userData "; print_r( $userData ); echo "</pre> ";  
-
 $profile_img	= get_user_meta($current_user->ID, 'profile_image', true);
 $profile_img  = !$profile_img ? '' : $profile_img;
-
 $tax_skill	= get_user_meta($current_user->ID, 'user_skill', true);
 $tax_skill  = empty($tax_skill)?(array()):($tax_skill);
-
-
  
 $birthday = get_user_meta( $current_user->ID, 'birthday' , true );
 // echo "<pre> birthday "; print_r( $birthday ); echo "</pre> ";  
-
 $day = ''; 
 $month = ''; 
 $year = ''; 
-
 if(!empty($birthday)){
     $birthday_array = explode('-', $birthday);
     $day = isset($birthday_array[0])?($birthday_array[0]):'';
     $month = isset($birthday_array[1])?($birthday_array[1]):'';
     $year = isset($birthday_array[2])?($birthday_array[2]):'';
-
      // echo "<pre> birthday_array "; print_r( $birthday_array ); echo "</pre> ";  
 }
-
 $address = get_user_meta( $current_user->ID, 'address' , true );
 $city = get_user_meta( $current_user->ID, 'city' , true );
 $state = get_user_meta( $current_user->ID, 'state' , true );
 $zip = get_user_meta( $current_user->ID, 'zip' , true );
 $contact = get_user_meta( $current_user->ID, 'contact' , true );
-
 $currency_list =   EmpHelper::get_currency_list();
 $user_currency = get_user_meta( $current_user->ID, 'user_currency' , true );
-
  // echo "<pre> user_currency "; print_r( $user_currency ); echo "</pre> ";  
-
 if ( ! session_id() ) { session_start(); }
-
 $success   =  ( isset($_SESSION['prof_success']) && !empty($_SESSION['prof_success']) )?( $_SESSION['prof_success']):'';
 $error   =  ( isset($_SESSION['prof_error']) && !empty($_SESSION['prof_error']) )?( $_SESSION['prof_error']):'';
-
 unset($_SESSION['prof_success']);  
 unset($_SESSION['prof_error']);  
-
-
-
 if( !empty($success) ){?>
    <div class="cmodal relative alert alert-success alert-dismissible mt_20" style="background-color: #8bc34ad4;color: white;font-weight: bold;">
       <div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>
@@ -60,8 +41,6 @@ if( !empty($success) ){?>
    </div>
 <?php
 }
-
-
 if( !empty($error) ){ ?>
    <div id="top-alert" class="alert alert-danger" role="alert">
     <div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>
@@ -70,38 +49,26 @@ if( !empty($error) ){ ?>
    </div>
 <?php  
 }
-
-
-
-
 ?>
-
-
-
  
-
 <div class="content_bg p_20 setting">
   
   <div class="setting_header">
         <div class="set_title boxTitle"><?php _e('Your settings','emp'); ?></div>
         <p class="subTitle"><?php _e('Your data and profile settings are located here','emp'); ?></p>
   </div>  
-
  <div class="fusion-builder-row fusion-row ">
     <form id="emp_profile_form" class="emp_form_profile" method="post" enctype="multipart/form-data">
-
         <div class="col-md-6 p_0">
             <div class="subBox">
                 <div class="field_box">
                     <label for="emp_user_id"><?php _e('User ID', 'emp'); ?></label>
                     <div class="notEditable"><span><?php echo  $userData->ID; ?></span></div>
                 </div>
-
                 <div class="field_box">
                      <label for="emp_user_Login"><?php _e('Username', 'emp'); ?></label>
                      <div class="notEditable"><span><?php echo  $userData->user_login; ?></span></div>
                 </div>
-
                 <div class="field_box editableContent">
                       <label for="emp_user_first"><?php _e('First Name', 'emp'); ?></label>
                       <div class="editable focus_close">
@@ -109,7 +76,6 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_first" id="emp_user_first" type="text" value="<?php echo  $userData->display_name; ?>" />
                       </div> 
                 </div>
-
                 <div class="field_box editableContent">
                       <label for="emp_user_last"><?php _e('Surname', 'emp'); ?></label>
                       <div class="editable focus_close">
@@ -117,7 +83,6 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_last" id="emp_user_last" type="text" value="<?php echo  $userData->user_nicename; ?>"/>
                       </div> 
                 </div>
-
                 <div class="field_box editableContent">
                     <label for="emp_user_birthday"><?php _e('Birthday', 'emp'); ?></label>
                     <div class="editable edit_dob">
@@ -129,15 +94,9 @@ if( !empty($error) ){ ?>
                             <div><select id="dobmonth" data-month="<?php echo $month; ?>" class="dob_select" name="dobmonth"></select></div>
                             <div><select id="dobyear" data-year="<?php echo $year; ?>" class="dob_select" name="dobyear"></select></div>
                         </div>
-
                     </div> 
                 </div>
-
             </div>
-
-
-
-
             <div class="subBox addressbox">
                 <div class="field_box editableContent">
                       <label for="emp_user_address"><?php _e('Address', 'emp'); ?></label>
@@ -146,7 +105,6 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_address" id="emp_user_address" type="text" value="<?php echo $address;?>" />
                       </div> 
                 </div>
-
                 <div class="field_box editableContent">
                       <label for="emp_user_city"><?php _e('City', 'emp'); ?></label>
                       <div class="editable focus_close">
@@ -154,7 +112,6 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_city" id="emp_user_city" type="text" value="<?php echo  $city; ?>"/>
                       </div> 
                 </div>
-
                 <div class="field_box editableContent">
                     <label for="emp_user_state"><?php _e('State', 'emp'); ?></label>
                     <div class="editable focus_close">
@@ -162,7 +119,6 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_state" id="emp_user_state" type="text" value="<?php  echo $state; ?>" />
                       </div> 
                 </div>
-
                 <div class="field_box editableContent">
                     <label for="emp_user_zip"><?php _e('Zip', 'emp'); ?></label>
                     <div class="editable focus_close">
@@ -171,10 +127,6 @@ if( !empty($error) ){ ?>
                       </div> 
                 </div>
             </div>
-
-
-
-
             <div class="subBox addressbox">
                 <div class="field_box editableContent">
                       <label for="emp_user_email"><?php _e('E-mail address', 'emp'); ?></label>
@@ -183,8 +135,6 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_email" id="emp_user_email" type="emil" value="<?php echo $userData->user_email;?>" />
                       </div> 
                 </div>
-
-
                 <div class="field_box editableContent">
                       <label for="emp_user_contact"><?php _e('Contact number', 'emp'); ?></label>
                       <div class="editable focus_close">
@@ -192,11 +142,8 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_contact" id="emp_user_contact" type="text" value="<?php echo $contact;?>" />
                       </div> 
                 </div>
-
                  
             </div>
-
-
         </div>
         <!-- left col -->
         
@@ -213,22 +160,16 @@ if( !empty($error) ){ ?>
                             <?php
                         }
                         ?>
-
                     </div>
                     <div class="upload-outer">
                         <div class="upload-btn-wrapper">
                             <button class="btn">Upload a file</button>
                             <input data-type="image" type="file" name="profilepicture" class="upload" />
                         </div>
-
                     </div>
                 </div>
                 </div>
            </div>
-
-
-
-
         <div class="subBox addressbox">
             <div class="other-info">
             <h4 style="margin: 10px 0;"><strong><?php _e('Relevant information','emp');?></strong></h4>
@@ -274,8 +215,6 @@ if( !empty($error) ){ ?>
             ?>
             </div>
         </div>
-
-
         <div class="subBox password_reset_box">
             <div><a class="reset_password_link"><?php _e('Click here to reset your password','emp'); ?></a></div>
             <div class="reset_password_form">
@@ -285,25 +224,20 @@ if( !empty($error) ){ ?>
                           <input name="emp_user_current_password" id="emp_user_current_password" type="password" value="" />
                       </div> 
                 </div>
-
                 <div class="field_box editableContent">
                       <label for="emp_user_new_password"><?php _e('New Password', 'emp'); ?></label>
                       <div class="input_bx">
                           <input name="emp_user_new_password" id="emp_user_new_password" type="password" value="" />
                       </div> 
                 </div>
-
                 <div class="field_box editableContent">
                       <label for="emp_user_new_password_conf"><?php _e('New Password Confirmation', 'emp'); ?></label>
                       <div class="input_bx">
                           <input name="emp_user_new_password_conf" id="emp_user_new_password_conf" type="password" value="" />
                       </div> 
                 </div>
-
             </div>
         </div>
-
-
         <div class="subBox password_reset_box">
           <label for="emp_user_contact"><?php _e('Default Currency','emp');?></label>
           <select class="prof_currency_dropdown" name="emp_user_currency">
@@ -316,12 +250,9 @@ if( !empty($error) ){ ?>
           ?>
           </select>
         </div>
-
         <div class="subBox addressbox">
             <div><a href="<?php echo wp_logout_url(get_home_url());?>" class="logout_link" class="emp_logout"><?php _e('Click here to Logout','emp'); ?></a></div>
         </div>
-
-
         <div class="subBox addressbox">
             <div>
             <input type="hidden" name="emp_profile_nonce" value="<?php echo wp_create_nonce('emp-profile-nonce'); ?>"/>
@@ -329,25 +260,11 @@ if( !empty($error) ){ ?>
             <input id="emp_profile_btn" class="up-pro" type="submit" value="<?php _e('Upate Your Profile', 'emp'); ?>"/>
             </div>
         </div>
-
-
-
         </div>
         <!-- right col -->
-
     </form>
 </div>
-
-
-
-
 </div>
-
-
-
-
-
-
 <style type="text/css">
  .reset_password_link,
  .logout_link{
@@ -356,10 +273,8 @@ if( !empty($error) ){ ?>
     background: url(<?php echo EMPFOHLEN_URI?>images/link_button.svg) no-repeat center left;
     line-height: 20px;
     padding-left: 22px;
-
  }   
 .upload-thumb.profile_image{
-
     display: inline-block;
     vertical-align: text-bottom;
     margin: 0px 10px;
@@ -380,7 +295,6 @@ if( !empty($error) ){ ?>
     padding: 10px;
     margin-bottom: 10px;
 }    
-
 .field_box .editable input { display: none; }
 .field_box .editable.edit span { display: none !important; }
 .field_box .editable.edit input { display: block !important; }
@@ -407,4 +321,3 @@ if( !empty($error) ){ ?>
     color: black;
  }
 </style>
-

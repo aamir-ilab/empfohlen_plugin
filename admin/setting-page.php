@@ -148,6 +148,15 @@ class EmpfohlenSetting {
 
 
 		add_settings_field(
+			'emp_forex_api', // id
+			'Currency api', // title
+			array( $this, 'emp_currency_forex_api_callback' ), // callback
+			'empfohlen-setting-admin', // page
+			'empfohlen_setting_setting_section' // section
+		);
+
+
+		add_settings_field(
 			'emp_forex', // id
 			'Currency api', // title
 			array( $this, 'emp_currency_forex_page_callback' ), // callback
@@ -156,9 +165,21 @@ class EmpfohlenSetting {
 		);
 
 
+		add_settings_field(
+			'emp_new_reg_skills', // id
+			'New Register User Skills', // title
+			array( $this, 'emp_new_reg_skills_callback' ), // callback
+			'empfohlen-setting-admin', // page
+			'empfohlen_setting_setting_section' // section
+		);
+
+
 	}
 
 	public function empfohlen_setting_sanitize($input) {
+
+		// echo "<pre> empfohlen_setting_sanitizeinput "; print_r( $input ); echo "</pre> ";  
+
 		$sanitary_values = array();
 		if ( isset( $input['auto_mail_0'] ) ) {
 			$sanitary_values['auto_mail_0'] = $input['auto_mail_0'];
@@ -188,8 +209,18 @@ class EmpfohlenSetting {
 			$sanitary_values['emp_register_page'] = sanitize_text_field( $input['emp_register_page'] );
 		}
 
+		if ( isset( $input['emp_forex_api'] ) ) {
+			$sanitary_values['emp_forex_api'] = sanitize_text_field( $input['emp_forex_api'] );
+		}
+
 		if ( isset( $input['emp_forex'] ) ) {
 			$sanitary_values['emp_forex'] = $input['emp_forex'];
+		}
+
+
+
+		if ( isset( $input['emp_new_register_skill'] ) ) {
+			$sanitary_values['emp_new_register_skill'] = $input['emp_new_register_skill'];
 		}
 
 
@@ -265,6 +296,29 @@ class EmpfohlenSetting {
 			}
 	}
 
+	public function emp_currency_forex_api_callback() {  
+		printf(
+			'<input class="regular-text" type="text" name="emp_setting[emp_forex_api]" id="emp_forex_api" value="%s">',
+			isset( $this->empfohlen_setting_options['emp_forex_api'] ) ? esc_attr( $this->empfohlen_setting_options['emp_forex_api']) : ''
+		);
+	}
+
+
+	public function emp_new_reg_skills_callback() {
+		 	$all_skills = get_terms(array('taxonomy' => 'skill','hide_empty' => false));
+		 	// echo "<pre> all_skills "; print_r( $this->empfohlen_setting_options ); echo "</pre> ";  
+		 	$selected_skills = $this->empfohlen_setting_options['emp_new_register_skill'];
+			if (!empty($all_skills)){
+				printf('<select class="select2" name="emp_setting[emp_new_register_skill][]" id="emp_new_register_skill" multiple style="min-width: 300px;">');
+				foreach ($all_skills as $skill) {
+					$page_selected = '';
+					$page_selected = in_array($skill->term_id,$selected_skills)? 'selected="selected"' : '';
+					printf('<option value="%s" %s >%s</option>',$skill->term_id,$page_selected,$skill->name);
+				}
+				printf('</select>');
+			}
+	} 
+
 	public function emp_currency_forex_page_callback() {
 			 	// echo "<pre> empfohlen_setting_options "; print_r( $this->empfohlen_setting_options ); echo "</pre> "; 
 
@@ -299,7 +353,10 @@ class EmpfohlenSetting {
 				?>
 				<div class="emp_forex"> 
 				<h4>Forex Rates </h4>
+				
+				<p>Forex Rates https://currencylayer.com/dashboard </p>
 				<p>API used http://apilayer.net/api </p>
+
 				<p><strong>Base Currency</strong> USD </p>
 				<table>
 					<thead>

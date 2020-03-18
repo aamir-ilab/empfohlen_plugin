@@ -196,6 +196,7 @@ function generate_task() {
             ));
 
             $member_id = (int) get_field('member_id', $request_id);
+            $select_project_id = (int) get_field('select_project_id', $request_id);
 
             $task_id_code = 'T'.$task_id.'_R'.$request_id;
             if ($task_id) {
@@ -203,6 +204,8 @@ function generate_task() {
                update_post_meta($task_id, 'task_status', 'pending');
                update_post_meta($task_id, 'task_id', $task_id_code);
                update_post_meta($task_id, 'member_id', $member_id);
+               update_post_meta($task_id, 'task_type_request', true);
+               update_post_meta($task_id, 'project_id', $select_project_id);
             }
 
             $return['status'] = 'success';

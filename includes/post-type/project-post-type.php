@@ -355,3 +355,135 @@ function save_post_project_baseprice( $post_id ) {
 
 
 
+
+
+
+ /*================  Filter the single_template with our custom function ================*/
+add_filter('single_template', 'my_project_template', 99 );
+function my_project_template($single) {
+  global $post;
+  if ( $post->post_type == 'project' ) { return EMPFOHLEN_DIR . 'public/partials/project/project.php'; }
+    return $single;
+}
+
+
+
+
+
+
+
+
+/*================  Create Project Task  ================*/
+// complete task and generate invoice. 
+add_action( 'wp_ajax_nopriv_project_start_create_task', 'project_start_create_task' );
+add_action( 'wp_ajax_project_start_create_task', 'project_start_create_task' );
+function project_start_create_task() {
+    
+    // wp_send_json( $return); 
+    if (!is_admin() || !defined( 'DOING_AJAX' ) || !DOING_AJAX ){
+        // wp_send_json_success( 'admin is login and its ajax' ); 
+        die();
+    }// is_admin
+    
+
+    check_ajax_referer( 'project-start-nonce', 'security' );
+    $return = array();
+    $project_id = (int) $_POST['pid'];
+
+    $current_user = wp_get_current_user();
+    $userData = $current_user->data;
+    $user_id = (int) $userData->ID;
+
+
+    if ( $project_id ){
+        $project = get_post($project_id);
+
+        // check if project exist.
+        if(empty($project)){
+           $return['status']   = __('Error','emp');
+           $return['message']  = __('Error creating task for this project','emp');
+           wp_send_json( $return ); 
+        }
+
+        // check if project already expired or not. 
+        $expiration_date      =   get_field( "expiration_date", $project_id );
+        $isExpired            = EmpHelper::isExpired($expiration_date);
+        if($isExpired ){
+            $return['status']   = __('Error','emp');
+            $return['message']  = __('Project Expired Date passed away.','emp');
+            wp_send_json( $return ); 
+        }
+
+
+        // check if project has request disabled. 
+        $request_enable = get_field( "request_enable", $project_id);
+        if($request_enable){
+            $return['status']   = __('Error','emp');
+            $return['message']  = __('Need to submit a request to start work on this project.','emp');
+            wp_send_json( $return ); 
+        }
+
+
+        // check if task already exist for this project 
+        $args = array(
+            'post_type'       => array( 'task' ),
+            'meta_query'      => array(
+                array(
+                    'key'     => 'project_id',
+                    'value'   => $project_id,
+                ),
+                array(
+                    'key'     => 'member_id',
+                    'value'   => $user_id,
+                ),
+                array(
+                    'key'     => 'task_type_request',
+                    'value'   => false,
+                ),
+            ),
+        );
+
+        $task_query = new WP_Query( $args );
+        $task_exist = $task_query->posts;
+
+         // echo "<pre> task_exist "; print_r(  $task_exist  ); echo "</pre> ";  
+
+        if($task_exist){
+            $return['status']   = __('Error','emp');
+            $return['message']  = __('Task Already Exist.','emp');
+            $task = $task_exist[0];
+            $task_status = get_post_meta($task->ID,'task_status',true); 
+            $return['data'] = '<a class="button button-success button-large  task_detail_btn" href="'.get_permalink($task->ID).'">'.__('Task Detail','emp').' ('.$task_status.')</a>';
+            wp_send_json($return); 
+         }else{
+
+           // create task for this request 
+            $task_id = wp_insert_post(array(
+               'post_type'      => 'task',
+               'post_title'     => 'Task for Project '.$project_id,
+               'post_status'    => 'publish',
+            ));
+
+
+            $task_id_code = 'T'.$task_id.'_P'.$project_id;
+            if ($task_id) {
+               update_post_meta($task_id, 'task_status', 'pending');
+               update_post_meta($task_id, 'task_id', $task_id_code);
+               update_post_meta($task_id, 'member_id', $user_id);
+               update_post_meta($task_id, 'task_type_request', false);
+               update_post_meta($task_id, 'project_id', $project_id);
+              
+              $return['status']  = __('success');
+              $return['message'] = __('Task Created succesfully.','emp');
+              $task_status       = get_post_meta($task_id,'task_status',true); 
+              $return['data'] = '<a class="button button-success button-large" href="'.get_permalink($task_id).'">'.__('Task Detail','emp').' ('.$task_status.')</a>';
+              wp_send_json($return); 
+
+            }
+         }
+    } 
+    $return['status']   = 'error';
+    $return['message']  = 'Error creating task for this project.';
+    wp_send_json( $return ); 
+   
+}

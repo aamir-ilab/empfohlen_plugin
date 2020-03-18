@@ -44,10 +44,7 @@ class Empfohlen_Activator {
 		// publish_projects
 
 		// manage_emp_menu_member_listing
-
-		
-
+ 
 
 	}
-
 }

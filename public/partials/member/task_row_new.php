@@ -7,7 +7,7 @@ $userData = $current_user->data;
 $task_status		= get_field( "task_status", $post->ID  );
 
 $request_id  	= (int)  get_field( "request_id", $post->ID );
-$project_id 	= (int)  get_field( "select_project_id", $request_id );
+$project_id 	= (int)  get_field( "project_id",  $post->ID );
 $project 				= get_post( $project_id );
  
 $pay 									=   get_field( "pay", $project_id );

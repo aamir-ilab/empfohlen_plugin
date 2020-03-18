@@ -125,7 +125,11 @@
 					        		 }else{
 					        		 		alert('Error Creating Task');
 					        		 }
-					        		 $('.emp_reg_message').html('<p>'+response.message+'</p>');
+
+					        		 if(response.message){
+					        		 	jQuery('.emp_reg_message').html('<p>'+response.message+'</p>');
+					        		 }
+					        		 
 						        },
 						        error: function(jqXHR, textStatus, errorThrown) {
 						        	 console.log('error jqXHR ');
@@ -149,6 +153,59 @@
 
 
 
+
+		// withdrawl_complete
+		jQuery('.withdrawl_complete').on('click',function(event){
+			event.preventDefault();
+			var wid = jQuery(this).attr('data-wid');
+			console.log(' withdrawl_complete wid = ', wid);
+			var current_button = jQuery(this); 
+
+			jQuery.confirm({
+						boxWidth: '30%',
+				    title: 'Confirmation?',
+				    content: 'Are you sure to Complete Withdrawl and deduct amount from user earning',
+				    type: 'green',
+				    buttons: {  
+				        ok: function(){
+				        	jQuery('.withdrawl_complete').attr("disabled", true);
+				    			jQuery('.withdrawl_message').html('Processing your request please wait...');
+				        	var data = { 
+							 			action: 'withdrawl_complete_deduct_amount',
+							 			wid: wid,
+							 			security: jQuery('#withdrawl_complete_nonce').val()
+							 		}
+								 	jQuery.ajax({
+						        url: ajaxurl,
+						       	type: 'POST',
+						        dataType: 'json',
+						        data: data,
+						        success: function (response) {
+				        		 		console.log('success response = ', response);
+					        		 if( response && response.status == 'success') {
+					        		 		console.log('response.status = ', response.status);
+					        		 		if(response.data){ jQuery(current_button).replaceWith(response.data);	 }
+					        		 		location.reload();
+					        		 }else if(response && response.status == 'error'){
+					        		 		jQuery('.withdrawl_message').html('<p>'+response.message+'</p>');
+					        		 }
+						        },
+						        error: function(jqXHR, textStatus, errorThrown) {
+						        	 console.log('error jqXHR ');
+						           console.log(textStatus, errorThrown);
+						        }
+						    });
+
+				        },
+				        cancel: function(){
+				                console.log('the user clicked cancel');
+				        }
+				    }
+			}); // confirm end here
+
+			
+
+		});
 
 
 	 }); // doc ready 

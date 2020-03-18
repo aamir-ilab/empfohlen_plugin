@@ -6,29 +6,30 @@
 $current_user = wp_get_current_user();
 $userData = $current_user->data; 
 $balances = get_field('balance',  'user_'.$userData->ID );
-echo "<pre> balances "; print_r( $balances ); echo "</pre> ";  	
+// echo "<pre> balances "; print_r( $balances ); echo "</pre> ";  	
 $user_currency = EmpHelper::getUserCurrency($current_user->ID);
 $total_base_price = 0; 
-$total_user_price = 0; 
+$total_user_price =  get_field('balance_amount',  'user_'.$userData->ID ); 
 
-if( !empty($balances) ){
-  foreach ($balances as $bk => $balance) {
-    $base_price     =  EmpHelper::cc_tobase($balance['balance_currency'],$balance['balance_value']);
-    $balances[$bk]['base_price'] =  $base_price;
-    $total_base_price +=  $base_price;
-  }
-}
+$total_user_price =  empty($total_user_price) ? 0 : $total_user_price; 
 
-if(!empty($total_base_price)){
-  
-  $total_user_price = EmpHelper::cc_base_to_currency($user_currency,$total_base_price);
-}
+// if( !empty($balances) ){
+//   foreach ($balances as $bk => $balance) {
+//     $base_price     =  EmpHelper::cc_tobase($balance['balance_currency'],$balance['balance_value']);
+//     $balances[$bk]['base_price'] =  $base_price;
+//     $total_base_price +=  $base_price;
+//   }
+// }
+
+// if(!empty($total_base_price)){ 
+//   $total_user_price = EmpHelper::cc_base_to_currency($user_currency,$total_base_price);
+// }
 
 
-echo "<pre> user_currency "; print_r( $user_currency ); echo "</pre> ";   
-echo "<pre> total_user_price "; print_r( $total_user_price ); echo "</pre> ";   
-echo "<pre> total_base_price "; print_r( $total_base_price ); echo "</pre> ";   
-echo "<pre> balances "; print_r( $balances ); echo "</pre> ";   
+// echo "<pre> user_currency "; print_r( $user_currency ); echo "</pre> ";   
+// echo "<pre> total_user_price "; print_r( $total_user_price ); echo "</pre> ";   
+// echo "<pre> total_base_price "; print_r( $total_base_price ); echo "</pre> ";   
+// echo "<pre> balances "; print_r( $balances ); echo "</pre> ";   
 
 
  $args = array(
@@ -76,14 +77,17 @@ echo'<div class="fusion-builder-row fusion-row ">
                         <div class="text">This is the total of your earnings already checked:</div>
                     </div>
                     <div class="value">
-                        <div class="defaultContent">0,00 €</div>
+                        <div class="defaultContent">'.EmpHelper::currency_to_code($user_currency).' '.number_format($total_user_price,2).' </div>
                         <div class="animation square-spin">
                             <div class="innerAnimation"></div>
                         </div>
                     </div>
                 </div>
-                <div class="buttonBar">
-                    <a class="button" data-toggle="modal" data-target="#payout_modal">Request a withdrawal</a>
+                <div class="buttonBar">'; 
+                if (!empty($total_user_price)){ 
+                    echo '<a class="button show_widthdrawl" data-toggle="modal" data-target="#withdrawal_modal">Request a withdrawal</a>'; 
+                }
+                echo '
                 </div>
             </div>
         </div>
@@ -170,53 +174,47 @@ echo '</div> <!-- fusion-row end -->';
 
  
 
-<!-- Modal for payout  -->
-<div class="modal fade" id="payout_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal for withdrawal_modal  -->
+<div class="modal fade" id="withdrawal_modal" tabindex="-1" role="dialog"  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="payOutModalLabel">Pay out list</h5>
+        <h5 class="modal-title" id="payOutModalLabel">Pay out form</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
-      <div class="modal-body payout_body">
+      <div class="modal-body payout_withdrawl_body empfohlen_form_payout">
       <?php
-      if (!empty($balances)){ ?>
-
+      if (!empty($total_user_price)){ ?>
       	<input type="hidden" id="payout_nonce" name="payout_nonce" value="<?= wp_create_nonce('withdrawl-payout-nonce'); ?>"/>
-      	<div class="row">
-      		<div class="col-md-12 dtable">
-      			<div class="payout_currency payout_currency_header dtable_row">
-      					<span class="dt_cell bold">Currency</span>
-      					<span class="dt_cell bold">Amount</span>
-      					<span class="dt_cell bold">Action</span>
-      			</div>
-      		</div>
+        <input type="hidden" id="total_user_price" name="total_user_price" value="<?= $total_user_price; ?>"/>
+      	 
+        <div class="row">
+          <div class="col-md-12">
+            <div class="info_box"></div>
+          </div>
+        </div>
+
+        <div class="row payment_info">
+               
+             <div class="field-wrapper">
+                <label for="rf_title">Amount </label>
+                <div class="amount_field_box">
+                  <span><?php echo $user_currency; ?></span>
+                  <input id="payout_amount" class="payout_amount" type="text" name="payout_amount">
+                </div>
+             </div>
+
+             <div class="field-wrapper">
+                <label for="rf_title">Description</label>
+                <textarea class="wdr_infobox" id="payout_description" name="payout_description" rows="6" cols="50"></textarea>
+             </div>
+
+             <div class="field-wrapper">
+                <button type="button" class="payout_btn btn-primary withdrawl_btn">Withdrawl</button>
+             </div>
+
 	      </div>
-
       	<?php
-      	foreach ($balances as $balance) {
-      		// echo "<pre> balance  "; print_r( $balance ); echo "</pre> ";  
-
-
-      		?>
-      		<div class="row">
-      				<div class="col-md-12 dtable">
-	      				 	<div class="payout_currency dtable_row">
-	      				 		<!-- <span class="dt_cell bold">Currency</span>
-		      					<span class="dt_cell bold">Amount</span>
-		      					<span class="dt_cell bold">Action</span> -->
-
-	      				 		<span class="dt_cell bold"><?php echo $balance['balance_currency'];?></span>
-	      						<span class="dt_cell bold"><?php echo $balance['balance_value'];?></span>
-	      						<span class="dt_cell bold">
-	      								<button type="button" data-currency="<?php echo $balance['balance_currency'];?>" class="payout_btn btn-primary">Payout</button>
-	      								<!-- <span class="processing"></span> -->
-	      						</span>
-	      				 	</div>
-      		 		</div>
-      		</div>
-      	<?php
-      	}
       }
       ?>
       </div>
@@ -228,6 +226,61 @@ echo '</div> <!-- fusion-row end -->';
 
 
 
+
+
+
+<!-- Modal for payout  -->
+<div class="modal fade" id="payout_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="payOutModalLabel">Pay out list</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body payout_body">
+      <?php
+      if (!empty($balances)){ ?>
+        <div class="row">
+          <div class="col-md-12 dtable">
+            <div class="payout_currency payout_currency_header dtable_row">
+                <span class="dt_cell bold">Currency</span>
+                <span class="dt_cell bold">Amount</span>
+                <span class="dt_cell bold">Action</span>
+            </div>
+          </div>
+        </div>
+
+        <?php
+        foreach ($balances as $balance) {
+          // echo "<pre> balance  "; print_r( $balance ); echo "</pre> ";  
+
+
+          ?>
+          <div class="row">
+              <div class="col-md-12 dtable">
+                  <div class="payout_currency dtable_row">
+                    <!-- <span class="dt_cell bold">Currency</span>
+                    <span class="dt_cell bold">Amount</span>
+                    <span class="dt_cell bold">Action</span> -->
+
+                    <span class="dt_cell bold"><?php echo $balance['balance_currency'];?></span>
+                    <span class="dt_cell bold"><?php echo $balance['balance_value'];?></span>
+                    <span class="dt_cell bold">
+                        <button type="button" data-currency="<?php echo $balance['balance_currency'];?>" class="payout_btn btn-primary">Payout</button>
+                        <!-- <span class="processing"></span> -->
+                    </span>
+                  </div>
+              </div>
+          </div>
+        <?php
+        }
+      }
+      ?>
+      </div>
+       
+    </div>
+  </div>
+</div>
 
 
 <style type="text/css">
@@ -302,6 +355,30 @@ echo '</div> <!-- fusion-row end -->';
     background: #509753;
 }
 
+.defaultContent{
+      font-size: 20px;
+    font-weight: bolder;
+}
+
+main.pay .content-area.memberDashboard .content .credit .innerBox .value{
+  width: auto !important; 
+}
+
+.empfohlen_form_payout .wdr_infobox,
+.empfohlen_form_payout input{ color: black !important;   }
+
+.empfohlen_form_payout label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+.empfohlen_form_payout  .field-wrapper {
+    margin: 20px 10px;
+}
+.empfohlen_form_payout .amount_field_box .wdr_infobox{ width: 80%;  }
+.empfohlen_form_payout .amount_field_box input {
+    width: auto;
+}
 </style>
 
 

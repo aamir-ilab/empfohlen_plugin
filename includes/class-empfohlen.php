@@ -238,6 +238,10 @@ class Empfohlen {
 	// include all required files for the plugin.
 	public function load_empfohlen_files(){	
 
+		// cron job 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/empcronjob.php';
+		  
+
 		// custom post type 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post-type/project-post-type.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/post-type/ticket-post-type.php';
@@ -258,7 +262,8 @@ class Empfohlen {
 
 		// memeber page template 
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/member/pagetemplater.php';
-		  
+
+
 
 		
 

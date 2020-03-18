@@ -30,7 +30,7 @@ $user_price   	=  EmpHelper::cc_base_to_currency($user_currency,$price);
 
 
 
-$isExpired 						= EmpHelper::isExpired($expiration_date );
+$isExpired 						= EmpHelper::isExpired($expiration_date);
 
 // echo "<pre> timer_enable "; print_r( $timer_enable ); echo "</pre> "; 
 // echo "<pre> duration "; print_r( $duration ); echo "</pre> "; 
@@ -38,73 +38,95 @@ $isExpired 						= EmpHelper::isExpired($expiration_date );
 
 
 
+$request_enable = get_field( "request_enable", $post->ID );
 
+// if project has enabled the request
+if($request_enable){
 
-// get request for this project 
-$user_request = array();
-$args = array(
-	'post_type'              => array( 'request' ),
-	'meta_query'             => array(
-		array(
-			'key'     => 'select_project_id',
-			'value'   => $post->ID,
-		),
-		array(
-			'key'     => 'member_id',
-			'value'   => $userData->ID,
-		),
-	),
-);
-$req_query = new WP_Query( $args );
-$request_exist = $req_query->posts;
-if(!empty($request_exist)){
-	 $user_request = $request_exist[0];  
-	 $user_request->request_status =  get_field( "request_status", $user_request->ID );  //'initial';
-
-
-
-	 	// get task for this request
-		$user_task = array();
-		if(!empty($user_request)){
-			$args = array(
-				'post_type'              => array( 'task' ),
-				'meta_query'             => array(
-					// array(
-					// 	'key'     => 'project_id',
-					// 	'value'   => $post->ID,
-					// ),
-					// array(
-					// 	'key'     => 'member_id',
-					// 	'value'   => $userData->ID,
-					// ),
-					array(
-						'key'     => 'request_id',
-						'value'   => $user_request->ID,
-					),
+		// get request for this project 
+		$user_request = array();
+		$args = array(
+			'post_type'              => array( 'request' ),
+			'meta_query'             => array(
+				array(
+					'key'     => 'select_project_id',
+					'value'   => $post->ID,
 				),
-			);
-			$task_query = new WP_Query( $args );
-			$task_exist = $task_query->posts;
-			if(!empty($task_exist)){
-				 $user_task = $task_exist[0];  
-				 $user_task->task_status =  get_field( "task_status", $user_task->ID );  //'initial';
-				 $user_request->task = $user_task; 
-			}
+				array(
+					'key'     => 'member_id',
+					'value'   => $userData->ID,
+				),
+			),
+		);
+		$req_query = new WP_Query( $args );
+		$request_exist = $req_query->posts;
+		if(!empty($request_exist)){ 
+			 $user_request = $request_exist[0];  
+			 $user_request->request_status =  get_field( "request_status", $user_request->ID ); 
+
+			 	// get task for this request
+				$user_task = array();
+				if(!empty($user_request)){ 
+					$args = array(
+						'post_type'              => array( 'task' ),
+						'meta_query'             => array(
+							array(
+								'key'     => 'request_id',
+								'value'   => $user_request->ID,
+							),
+						),
+					);
+					$task_query = new WP_Query( $args );
+					$task_exist = $task_query->posts;
+					if(!empty($task_exist)){
+						 $user_task = $task_exist[0];  
+						 $user_task->task_status =  get_field( "task_status", $user_task->ID );  //'initial';
+						 $user_request->task = $user_task; 
+					}
+			 	}
+		}
+}else{
+// else if project not need to have request and member can start work on it without admin approval. 
+		$task = array();
+	 // check if task already exist for this project 
+    $args = array(
+        'post_type'       => array( 'task' ),
+        'meta_query'      => array(
+            array(
+                'key'     => 'project_id',
+                'value'   => $post->ID,
+            ),
+            array(
+                'key'     => 'member_id',
+                'value'   => $userData->ID,
+            ),
+            // array(
+            //     'key'     => 'task_type_request',
+            //     'value'   => false,
+            // ),
+        ),
+    );
+
+    $task_query = new WP_Query( $args );
+    $task_exist = $task_query->posts;
+
+    // echo "<pre> task_exist "; print_r( $task_exist ); echo "</pre> ";  
+
+    if(!empty($task_exist)){
+			 $task = $task_exist[0];  
+			 $task_status =  get_field( "task_status", $task->ID );   
 		}
 
-
 }
+
+
 
 
  
 $is_premium = false; 
 
 
-// echo "<pre> members "; print_r( $members ); echo "</pre> ";  
-// echo "<pre>  request_exist "; print_r( $request_exist ); echo "</pre> ";  
-// echo "<pre>  user_request "; print_r( $user_request ); echo "</pre> ";  
-// echo "<pre>  args "; print_r( $args ); echo "</pre> ";  
-
+ 
 ?>
 
  
@@ -114,20 +136,16 @@ $is_premium = false;
  			
  			<div class="col p_pay">
  				<span><?php echo EmpHelper::currency_to_code($user_currency).' '. number_format($user_price,2); ?></span>
- 				<!-- 
- 				<span>price : <?php echo $price ?></span>
- 				<span><?php // echo EmpHelper::currency_to_code($select_currency).' '. number_format($pay,2); ?></span> 
- 				-->
  			</div>
 
  			<div class="col p_infoButton">
       	<span class="expand" data-pid="<?php echo $post->ID; ?>">Info</span>
       	<span class="collapse" data-pid="<?php echo $post->ID; ?>">Info</span>
-       </div>
-
+      </div>
 
  			<div class="col p_title p_title_expandable" data-pid="<?php echo $post->ID; ?>">
- 				<span class="p_name"><?php echo $post->post_title; ?></span>
+ 				<span class="p_name"> <?php //  echo $expiration_date; ?>
+ 					<?php echo $post->post_title; ?></span>
  				<span class="p_labels">
  					<?php 
 					if(!empty($keyword)){
@@ -138,38 +156,90 @@ $is_premium = false;
 						}
 					}		 
 					?>
- 					<!-- <span class="p_label">Premium</span>
- 					<span class="p_label">promotion</span> -->
+ 					<!-- 
+ 						<span class="p_label">Premium</span>
+ 						<span class="p_label">promotion</span> 
+ 					-->
  				</span>
  				<!-- <span class="p_duration">Duration: 5 minutes</span> -->
  			</div>
 
- 			<div class="col p_action">
- 					
- 					<?php if(!$isExpired ){ ?>
-					<?php if(empty($user_request)): ?>
-						<button class="btn btn-sm p_request_btn" data-pid="<?php echo $post->ID; ?>">Send Request</button>
-					<?php else: ?>
-					<?php if (!empty($staff)): ?>
-							<button class="btn btn-sm p_request_chat_btn" data-pid="<?php echo $post->ID; ?>" data-staff="<?=  implode($staff,',') ?>" data-user="<?= $userData->ID ?>" data-room="">Chat</button>
-							<input type="hidden" value="<?php echo implode($staff,',')?>" name="project_staff">
-						<?php endif; ?>
+ 		<div class="col p_action">
+ 	 	
+
+ 	 	<?php 
+ 	 	/* */
+ 	 	if(!$isExpired){
+ 	 		// project has user request enabled, project type user request 
+ 	 		if($request_enable){
+ 	 			if(empty($user_request)){
+ 	 				echo '<button class="btn btn-sm p_request_btn" data-pid="'.$post->ID.'">'.__('Send Request','emp').'</button>';
+ 	 			}else{
+ 	 				if(!empty($staff)){
+ 	 					echo '<button class="btn btn-sm p_request_chat_btn" data-pid="'.$post->ID.'" data-staff="'.implode($staff,',').'" data-user="'.$userData->ID.'" data-room="">'; 
+ 	 					echo __('Chat', 'emp').'</button>'; 
+ 	 					echo '<input type="hidden" value="'.implode($staff,',').'" name="project_staff">';
+ 	 				}
+ 	 				if(isset($user_request->task) && !empty($user_request->task)){
+ 	 					echo '<a class="btn btn-sm p_task_btn dinline" href="'.get_the_permalink($user_request->task->ID).'">'; 
+ 	 					echo __('Task','emp').' ('.get_field( "task_status",$user_request->task->ID).')</a>';
+ 	 				}
+ 	 				echo '<p class="counter_messages hidden">0</p><p class="is_typing"></p>';
+ 	 			}
+ 	 		}else{
+ 	 			// if user request is not enabled then user can start work on it without admin approval. 
+ 	 			 // echo "<pre> task "; print_r( $task ); echo "</pre> ";  
+ 	 			if(empty($task)){
+ 	 				echo '<button class="btn btn-sm p_start_project" data-pid="'.$post->ID.'"><a href="'.get_the_permalink($post->ID).'">'.__('Start Task','emp').'</a></button>';
+ 	 			}else{
+ 	 				echo '<button class="btn btn-sm p_continue_project"><a class="color_white" href="'.get_the_permalink($task->ID).'">'.__('Continue Task','emp').' ('.$task_status.')</a></button>';
+ 	 			}
+
+ 	 		}
+ 	 	}else{
+ 	 		echo '<p class="p_expired">'.__('Expired','emp').'</p>';
+ 	 	}
+ 	 	/* */
+ 	 	?>
+
+
+
+ 	 		<?php /*   ?>
+			<?php if(!$isExpired ){ ?>
+				<?php if(empty($user_request)): ?>
+
+					<?php 
+					if($request_enable){
+						echo '<button class="btn btn-sm p_request_btn" data-pid="'.$post->ID.'">Send Request</button>';
+					}else{
+
+						echo '<button class="btn btn-sm p_start_project" data-pid="'.$post->ID.'"><a href="'.get_the_permalink($post->ID).'">'.__('Start Task','emp').'</a></button>';
+					}
+					?>
 					
-						<?php if(isset($user_request->task) && !empty($user_request->task)): ?>
-							<a class="btn btn-sm p_task_btn dinline" href="<?php echo get_the_permalink($user_request->task->ID); ?>">Task: (<?php echo get_field( "task_status",$user_request->task->ID);?>)</a>
-						<?php endif; // user_request->task end here  ?>
+				<?php else: ?>
+				<?php if (!empty($staff)): ?>
+						<button class="btn btn-sm p_request_chat_btn" data-pid="<?php echo $post->ID; ?>" data-staff="<?=  implode($staff,',') ?>" data-user="<?= $userData->ID ?>" data-room="">Chat</button>
+						<input type="hidden" value="<?php echo implode($staff,',')?>" name="project_staff">
+					<?php endif; ?>
+				
+					<?php if(isset($user_request->task) && !empty($user_request->task)): ?>
+						<a class="btn btn-sm p_task_btn dinline" href="<?php echo get_the_permalink($user_request->task->ID); ?>">Task: (<?php echo get_field( "task_status",$user_request->task->ID);?>)</a>
+					<?php endif; // user_request->task end here  ?>
 
-						<p class="counter_messages hidden">0</p>
-						<p class="is_typing"></p>
-				<?php endif; // user_request end  ?>
-				<?php
-				}else{ ?>
-					<p>Expired</p>
-				<?php
-				}
-				?>
+					<p class="counter_messages hidden">0</p>
+					<p class="is_typing"></p>
+			<?php endif; // user_request end  ?>
+			<?php
+			}else{ ?>
+				<p class="p_expired">Expired</p>
+			<?php
+			}
+			?>
+		<?php  */ ?>
+	 
 
- 			</div>
+ 		</div>
 
  		</div>
  		<!-- jhead -->

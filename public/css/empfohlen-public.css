@@ -3,6 +3,9 @@
  * included in this file.
  */
 
+body #main .fusion-row {
+    max-width: 1232px;
+}
 
 .content-area.memberDashboard .tabs{
     text-align:center;
@@ -90,7 +93,9 @@
 body.page-template-member-template .fusion-header .fusion-logo {
     margin: 10px 0px 10px 0px;
 }
+
 body.page-template-member-template #main,
+body.single.single-project #main,
 body.single.single-task #main{
     background: url(./../../images/dashboard.jpg) top center no-repeat;
     background-size: 100% 100%;
@@ -892,8 +897,6 @@ select.reg_currency_dropdown {
 .w100{ width: 100%;  }
 .wauto{ width: auto; }
 .dinline{ display: inline-block;  }
-.dinline{ display: inline-block;  }
-.dinline{ display: inline-block;  }
 .dblock{ display: block; }
 .dtable { display: table; }
 .dtable_row { display: table-row; }
@@ -904,6 +907,7 @@ select.reg_currency_dropdown {
 .capitalize{ text-transform: capitalize;  }
 .p_0{ padding: 0px !important; }
 .m_0{ margin: 0px !important; }
+.p_10{ padding: 10px;   } 
 .p_20{ padding: 20px;   } 
 .m_20{ margin: 20px;   } 
 .mt_20{ margin-top: 20px;  }
@@ -917,7 +921,7 @@ select.reg_currency_dropdown {
     color: white;
 }
 
-
+.italic{ font-style: italic; }
 
 /*============================= General Css end ==================================*/
 
@@ -1017,15 +1021,30 @@ a.add_review_file {
     line-height: 23px;
     text-align: center;
 }
-
+p.p_expired {
+    font-size: .8em;
+    color: #dd1005 !important;
+    border: 1px solid #dd1005;
+    padding: 0 3px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+}
  
+button.btn.p_start_project { padding: 5px 10px; }
+button.btn.p_start_project a{ color: white; }
+
 
 /*============================= Project listing Jobs Tab Css end ==================================*/
 
 
 
 /*============================= Task Css =====================================*/
-body.single.single-task .avada-page-titlebar-wrapper{ display: none;  }
+body.single.single-task .avada-page-titlebar-wrapper,
+body.single.single-project .avada-page-titlebar-wrapper{ display: none; } 
 /*============================= Task Css end ==================================*/
 
 

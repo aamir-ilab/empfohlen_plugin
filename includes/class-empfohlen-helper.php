@@ -336,6 +336,24 @@ static function getUserCurrency($user_id) {
 }
 
 
+static function add_log_activity($user_id, $title, $log){ 
+	global $wpdb;
+	$wpdb->insert( 
+	    $wpdb->prefix.'log_activity', 
+	    array( 
+	        'user_id'    => (int) $user_id,
+	        'title'    	 => $title,
+	        'log' 			=>  $log,
+	        'date'      => date()
+	    )
+	);
+	 
+	 // echo "<pre>  "; print_r( $wpdb->insert_id ); echo "</pre> ";  
+	 // echo "<pre>  "; print_r( $wpdb ); echo "</pre> "; exit;  
+
+	// $record_id = $wpdb->insert_id;
+}
+
 
 
 static function successBannerHtml($message){
@@ -345,7 +363,7 @@ static function successBannerHtml($message){
       <div class="close_nofi">
       	<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
       </div>
-      <strong>Success!</strong> '.$message.'   
+      <strong>Success ! </strong> '.$message.'   
   </div>'; 
 
   return $b_html;
@@ -356,14 +374,56 @@ static function successBannerHtml($message){
 static function errorBannerHtml($message){
 
 	$b_html = '
-	<div id="top-alert" class="alert alert-danger" role="alert">
+	<div id="top-alert" class="cmodal relative alert alert-danger alert-dismissible mt_20" role="alert">
     <div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>
-    <strong>Error!</strong>'.$message.'
+    <strong>Error ! </strong>'.$message.'
    </div>'; 
 
   return $b_html;
 
 }
 
+
+// function to check if user can access project info or not. 
+// check if user skills match with at least on skill of project. 
+// check if user is directly selected to this project.  
+static function userCanAccessProject($user_id, $porject_id){
+		
+		// check if user is directly selected to this project. 
+		$project_members = get_field('members', $porject_id);
+		$user_select_as_member = false; 
+
+		if(!empty($project_members)){
+			$user_select_as_member = (in_array($user_id, $project_members)) ? true : false;
+			if($user_select_as_member){
+				return true; 
+			}
+		}
+
+		// check if project at least one skills match with at least on skill of user. 
+		$user_skills 		= get_user_meta($user_id, 'user_skill', true);
+		$project_skills = get_the_terms( $porject_id, 'skill' );
+		$project_skills = wp_list_pluck($project_skills, 'term_id');
+
+		if(!empty($user_skills) && !empty($project_skills)){
+			return array_intersect($project_skills, $user_skills);
+		}
+
+		return false; 
+}
+
+
+ static function getNewRegisterUserSkills(){
+ 	$empfohlen_setting_options = get_option( 'emp_setting' );
+  $emp_new_register_skill = (array) $empfohlen_setting_options['emp_new_register_skill'];
+  return $emp_new_register_skill;
+ }
+
+
+
+
+ static function getTaskProjectIDs($user_id){
+
+ }
 
 }

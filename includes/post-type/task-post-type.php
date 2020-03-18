@@ -178,11 +178,13 @@ function emp_submit_task_post(){
         }
 
         // check if this task is assign to this user. 
-        $task_request_id = (int) get_field('request_id', $task->ID);
-        $request = get_post($task_request_id);
-        $req_member_id = (int) get_field('member_id', $request->ID);
+        // $task_request_id = (int) get_field('request_id', $task->ID);
+        // $request = get_post($task_request_id);
+        // $req_member_id = (int) get_field('member_id', $request->ID);
+        $task_member_id = (int) get_field('member_id', $task->ID);
+
         
-        if ( $user_id !== $req_member_id ){
+        if ( $user_id !== $task_member_id ){
             $_SESSION['task_error'][] =  'You are not allowed to submit this task';
             wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
             return false; 
@@ -446,7 +448,7 @@ function task_complete_generate_invoice() {
          $invoice_exist = $invoice_query->posts;
 
          // check if invoice already exist for this task 
-         if($invoice_exist){
+         if($invoice_exist){ 
             $return['status'] = 'error';
             $return['message'] = 'Invoice already exist';
              // echo "<pre>  "; print_r( $task_exist ); echo "</pre> ";  
@@ -472,80 +474,45 @@ function task_complete_generate_invoice() {
             // get request of this task 
             $request_id = (int) get_field('request_id', $task_id);
             if (!empty($request_id)){
-
               // add request id to invoice 
               update_post_meta($invoice_id, 'invoice_request_id', $request_id);
-
-              // if request exist then get project of this request 
-              $project_id = (int) get_field('select_project_id', $request_id);
-
-              // get project amount and currency. 
-              if (!empty($project_id)){
-                $project_id = (int) get_field('select_project_id', $request_id);
-                if ( $project_id > 0 ){
-                  
-                  $project_pay =   get_field('pay', $project_id);
-                  $project_currency =   get_field('select_currency', $project_id);
-
-                  update_post_meta($invoice_id, 'invoice_amount', $project_pay);
-                  update_post_meta($invoice_id, 'invoice_currency', $project_currency);
-                  update_post_meta($invoice_id, 'invoice_project_id', $project_id); 
-                 
-
-                  // get task member_id  
-                  $member_id = (int) get_field('member_id', $request_id);
-                  update_post_meta($invoice_id, 'invoice_member_id', $member_id); 
-
-
-                  // $user_currency  = EmpHelper::getUserCurrency($member_id);
-                  // $price          = get_post_meta($post->ID, 'price', true); //get_post_meta($post->ID, 'price', true);
-                  // $user_price     =  EmpHelper::cc_base_to_currency($user_currency,$price);
-
-
-                   // get member balance
-                   $member_balance = get_field('balance', 'user_'.$member_id );
-
-                    // echo "<pre> member_id "; print_r( $member_id ); echo "</pre> ";  
-                    // echo "<pre> member_balance "; print_r( $member_balance ); echo "</pre> ";  
-
-                   $balance_currency_exist = false;
-                   if (!empty($member_balance)){
-                    foreach ($member_balance as $mb_key => $mb_value) {
-                        if ( $mb_value['balance_currency'] ==  $project_currency){
-                          $member_balance[$mb_key]['balance_value'] = ((int) $mb_value['balance_value']) + ((int) $project_pay);
-                          $balance_currency_exist = true;
-                        }
-                    }
-
-                    if (!$balance_currency_exist){
-                      $new_row = array(
-                        'balance_currency' => $project_currency,
-                        'balance_value' => (int) $project_pay
-                      );
-                      array_unshift($member_balance, $new_row);
-                    }
-
-                    update_field('balance', $member_balance,'user_'.$member_id );
-                   
-                   // not empty member_balance
-                   }else{
-                      $member_balance = array();
-                      $new_row = array(
-                          'balance_currency' => $project_currency ,
-                          'balance_value' => (int) $project_pay
-                        );
-                      array_unshift($member_balance, $new_row);
-                      update_field('balance', $member_balance,'user_'.$member_id );
-
-                      // echo "<pre> member_balance after else "; print_r( $member_balance ); echo "</pre> ";  
-                      // $member_balance2 = get_field('balance', 'user_'.$member_id );
-                      // echo "<pre> member_balance2 "; print_r( $member_balance2 ); echo "</pre> ";  
-                      // exit; 
-
-                   }
-                }
-              }
             }
+
+
+            // get project of this task 
+            $project_id = (int) get_field('project_id', $task_id);
+            // get project amount and currency. 
+            if (!empty($project_id) && ($project_id > 0)){
+                $project_pay =   get_field('pay', $project_id);
+                $project_currency =   get_field('select_currency', $project_id);
+
+                update_post_meta($invoice_id, 'invoice_amount', $project_pay);
+                update_post_meta($invoice_id, 'invoice_currency', $project_currency);
+                update_post_meta($invoice_id, 'invoice_project_id', $project_id); 
+               
+
+                // get task member_id  
+                $member_id = (int) get_field('member_id', $task_id);
+                update_post_meta($invoice_id, 'invoice_member_id', $member_id); 
+
+
+                $user_currency  = EmpHelper::getUserCurrency($member_id);
+                $project_price  = get_post_meta($project_id, 'price', true);
+                $user_earning   = (int) EmpHelper::cc_base_to_currency($user_currency,$project_price);
+
+                update_post_meta($invoice_id, 'invoice_user_price', $user_earning); 
+                
+                 // get member balance
+                 // $member_balance = get_field('balance', 'user_'.$member_id );
+                 $member_balance = (int) get_field('balance_amount', 'user_'.$member_id );
+
+                 $member_total_amount = $member_balance + $user_earning;
+
+                 update_field('balance_amount', $member_total_amount,'user_'.$member_id );
+            }
+
+
+
             
             // make the invoice status complete. 
             update_post_meta($task_id, 'task_status', 'completed');

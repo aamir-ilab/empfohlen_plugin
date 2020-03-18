@@ -1,22 +1,45 @@
 <?php if ( ! defined( 'ABSPATH' ) ) exit; 
 
-
 $empfohlen_setting_options = get_option( 'emp_setting' );
 $emp_currency = $empfohlen_setting_options['emp_currency']; // Currency
 $current_user = wp_get_current_user();
 $userData = $current_user->data;
- 
 
- // $test =  get_term_by('id', 8);
- // echo "<pre> get_current_user_id "; print_r( get_current_user_id() ); echo "</pre> ";  
- // echo "<pre> userData  "; print_r($userData  ); echo "</pre> ";  
+// $test =  get_term_by('id', 8);
+// echo "<pre> get_current_user_id "; print_r( get_current_user_id() ); echo "</pre> ";  
+// echo "<pre> userData  "; print_r($userData  ); echo "</pre> ";  
 // echo '<p> Overview </p>';
 $user_groups = get_the_terms( (int) $userData->ID, 'user-group');
 // echo "<pre> user_groups "; print_r( $user_groups ); echo "</pre> ";  
 
 
+$args = array(
+  'post_type'              => array( 'task' ),
+  'meta_query'             => array(
+    array(
+      'key'     => 'member_id',
+      'value'   => $userData->ID,
+    ),
+  ),
+);
+$my_tasks = new WP_Query( $args );
 
- $member_project = new WP_Query( 
+$task_project_ids = array(0);
+if(!empty($my_tasks)){
+    $task_ids = wp_list_pluck( $my_tasks->posts,'ID');
+    if(!empty($task_ids)){
+     $sql_query =  "SELECT meta_value FROM wp_postmeta WHERE wp_postmeta.meta_key = 'project_id' AND wp_postmeta.post_id IN (".implode(',',$task_ids).")";
+     $results = $wpdb->get_results($sql_query);  
+     $task_project_ids = wp_list_pluck( $results, 'meta_value' );
+    }
+   // echo "<pre>  task_project_ids "; print_r(  $task_project_ids ); echo "</pre> ";  
+}
+
+// $task_exist = $task_query->posts;
+// echo "<pre> task_exist "; print_r( $task_exist ); echo "</pre> ";  exit;
+
+
+$member_project = new WP_Query( 
       array( 
         'post_type' => 'project', 
         'posts_per_page' => 10 ,
@@ -26,13 +49,13 @@ $user_groups = get_the_terms( (int) $userData->ID, 'user-group');
             'value' => '"' . get_current_user_id() . '"',  
             'compare' => 'LIKE'
           ),
+         'post__not_in' =>  $task_project_ids,
         ),
       ) 
-  );
+);
 
 
- // echo "<pre> user_groups "; print_r( $user_groups ); echo "</pre> ";  
-
+// echo "<pre> user_groups "; print_r( $user_groups ); echo "</pre> ";  
 $user_skill       =   get_user_meta($userData->ID, 'user_skill', true);
 // echo "<pre> user_skill "; print_r( $user_skill ); echo "</pre> ";  
 
@@ -43,6 +66,7 @@ if(!empty($user_skill)){
   // WP_Query arguments
   $args = array(
     'post_type'              => 'project',
+    'post__not_in'          =>  $task_project_ids,
     'tax_query'              => array(
       'relation' => 'OR',
     ),
@@ -54,7 +78,14 @@ if(!empty($user_skill)){
         'compare' => 'NOT LIKE',
       ),
     ),
-  );
+
+    'orderby'   => 'meta_value',
+    'meta_type'   => 'DATETIME',
+    'meta_key'  => 'expiration_date',
+
+    // 'orderby' =>  'expiration_date',
+    'order'   => 'DESC',
+  ); 
   // foreach ($user_groups as $ug_key => $user_group) {
   //    $args['tax_query'][] =  array(
   //       'taxonomy'         => 'user-group',
@@ -75,22 +106,33 @@ if(!empty($user_skill)){
 }
 
 
+// SELECT SQL_CALC_FOUND_ROWS wp_posts.ID 
+// FROM wp_posts 
+// LEFT JOIN wp_term_relationships ON (wp_posts.ID = wp_term_relationships.object_id) 
+// INNER JOIN wp_postmeta ON ( wp_posts.ID = wp_postmeta.post_id ) 
+// WHERE 1=1 
+// AND wp_posts.ID NOT IN (462) 
+// AND ( 
+//     wp_term_relationships.term_taxonomy_id IN (27) OR 
+//     wp_term_relationships.term_taxonomy_id IN (25) OR 
+//     wp_term_relationships.term_taxonomy_id IN (28) OR 
+//     wp_term_relationships.term_taxonomy_id IN (22) OR 
+//     wp_term_relationships.term_taxonomy_id IN (26) OR 
+//     wp_term_relationships.term_taxonomy_id IN (30) 
+//   ) 
+// AND ( 
+//   ( wp_postmeta.meta_key = 'members' 
+//     AND wp_postmeta.meta_value NOT LIKE '{13da253306bcb75251c19f411778febcaaef954696af04370509b59cd39a1cae}\"32\"{13da253306bcb75251c19f411778febcaaef954696af04370509b59cd39a1cae}' 
+//     ) 
+// ) 
+// AND wp_posts.post_type = 'project' 
+// AND (wp_posts.post_status = 'publish' OR wp_posts.post_status = 'acf-disabled' OR wp_posts.post_author = 32 AND wp_posts.post_status = 'private') 
 
+// GROUP BY wp_posts.ID ORDER BY wp_posts.post_date DESC LIMIT 0, 10
  
+// echo "Last SQL-Query: {$project->request}";
 
- 
-  $args = array(
-    'post_type'              => array( 'task' ),
-    'meta_query'             => array(
-      array(
-        'key'     => 'member_id',
-        'value'   => $userData->ID,
-      ),
-    ),
-  );
-  $my_tasks = new WP_Query( $args );
-  // $task_exist = $task_query->posts;
-  // echo "<pre> task_exist "; print_r( $task_exist ); echo "</pre> ";  exit;
+
 
 
    // $the_query = new WP_Query( 
@@ -104,17 +146,8 @@ if(!empty($user_skill)){
 
 <div class="projectList content_bg">
     <h3 class="dinline p_task_heading"><?php _e('Available tasks','emp');?></h3>
-   <!--  <div class="row project_header project_item">
-        <div class="p_pay">Pay</div>
-        <div class="p_pay">Info</div>
-        <div class="p_title">Title</div>
-        <div class="p_keyword">keyword</div>
-        <div class="p_request">Request</div>
-    </div> -->
-    
     <div class="task_list">  
       <?php
-
         while ( $member_project->have_posts() ) : $member_project->the_post();  
            include(EMPFOHLEN_DIR.'public/partials/member/project_row_new.php');
            // include(EMPFOHLEN_DIR.'public/partials/member/project_row.php');
@@ -128,9 +161,6 @@ if(!empty($user_skill)){
        
       ?>
     </div>
- 
-
-
 </div><!-- projectList -->
 
 
@@ -367,4 +397,10 @@ if(!empty($user_skill)){
     display: inline-block;
 }
 .is_typing{ margin: 0px !important;   }
+button.btn.p_start_project,
+button.btn.p_continue_project {
+    padding: 5px 10px;
+    width: auto;
+    border: none;
+}
 </style>

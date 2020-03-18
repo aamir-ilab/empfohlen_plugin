@@ -113,3 +113,8 @@ a.btn.generate_task {
     border-radius: 3px;
 }
 
+.withdrawl_action_btn {
+    color: white !important;
+    background: #FF9800 !important;
+    border-color: #FF9800 !important;
+}

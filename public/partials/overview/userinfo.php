@@ -34,8 +34,8 @@ $profile_img  = !$profile_img ? (EMPFOHLEN_URI.'/images/avatar.svg') : $profile_
       ?>
     </div>
     <div class="uinfo_text">
-        <h4 class="m_0">Hello <?php echo $display_name; ?>!</h4>
-        <p class="italic m_0">Welcom to empfohlen</p>
+        <h4 class="m_0"><?php echo __('Hello','empfohlen')?> <?php echo $display_name; ?>!</h4>
+        <p class="italic m_0"><?php echo __('Welcom to empfohlen','empfohlen')?></p>
         <p class="italic m_0">Available task <?php echo $available;?></p>
         <!-- <p class="italic m_0">Pending task 0</p> -->
         <p class="italic m_0">Task done <?php echo $done;?></p>

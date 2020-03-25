@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <div class="hidden sp_processing">
         <div class="sp_loading">
-            <p><?php _e('Creating task please wait...','emp') ?></p>
+            <p><?php _e('Creating task please wait...','empfohlen') ?></p>
             <div class="sp_loading_animation">
                 <div class="sp_square_box"></div>
             </div>
@@ -28,22 +28,22 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
     <div class="sp_content">     
         <div class="sp_pintro sp_padd">
-            <div class="sp_title"><?php _e('Project Intro'); ?></div>
+            <div class="sp_title"><?php _e('Project Intro','empfohlen'); ?></div>
             <?php echo $project_intro; ?>        
         </div>
      
         <div class="sp_description sp_padd">
-            <div class="sp_title"><?php _e('Project Description'); ?></div>
+            <div class="sp_title"><?php _e('Project Description','empfohlen'); ?></div>
             <?php echo $description; ?>         
         </div>
 
         <div class="sp_add_info sp_padd">
-            <div class="sp_title"><?php _e('Project Additional Information'); ?></div>
+            <div class="sp_title"><?php _e('Project Additional Information','empfohlen'); ?></div>
             <p><?php echo $additional_information; ?></p>         
         </div>
 
         <div class="sp_footer_action">
-            <a class="btn btn-sm sp_start_btn "><?php _e('Start Project','emp');?></a>
+            <a class="btn btn-sm sp_start_btn "><?php _e('Start Project','empfohlen');?></a>
         </div>
 
         <input type="hidden" id="project_start_nonce" name="project_start_nonce" value="<?= wp_create_nonce('project-start-nonce'); ?>"/>
@@ -90,8 +90,8 @@ jQuery(document).ready(function(){
         error: function(jqXHR, textStatus, errorThrown) {
             console.log('error jqXHR ');
             console.log(textStatus, errorThrown);
-            jQuery('.sp_message .message').html('<?php _e('Error','emp');?>');   
-            jQuery('.sp_message .message_data').html('<?php _e('Error Creating Task','emp');?>'); 
+            jQuery('.sp_message .message').html('<?php _e('Error','empfohlen');?>');   
+            jQuery('.sp_message .message_data').html('<?php _e('Error Creating Task','empfohlen');?>'); 
         }
     });
 

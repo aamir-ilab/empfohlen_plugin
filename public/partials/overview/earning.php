@@ -12,7 +12,6 @@ $empfohlen_setting_options = get_option('emp_setting');
 $emp_member_dashboard = (int) $empfohlen_setting_options['emp_member_dashboard'];  
 $payout_url = get_permalink($emp_member_dashboard).'?tmpl=pay';
 
-
 ?>
 
 
@@ -25,7 +24,7 @@ $payout_url = get_permalink($emp_member_dashboard).'?tmpl=pay';
     <div class="earning_text mt_20">
       <?php echo EmpHelper::currency_to_code($user_currency).' '.number_format($total_user_price,2)?>
     </div>
-    <div class="earning_payout mt_20"><a class="earning_payout_link" href="<?php echo $payout_url; ?>"><?php _e('Pay out credit','emp') ?></a></div>
+    <div class="earning_payout mt_20"><a class="earning_payout_link" href="<?php echo $payout_url; ?>"><?php _e('Pay out credit','empfohlen') ?></a></div>
   </div>
 </div>
 

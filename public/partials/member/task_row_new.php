@@ -72,8 +72,8 @@ if ($task_status == 'completed'){
  			</div>
 
  			<div class="col p_infoButton">
-      	<span class="expand" data-pid="<?php echo $post->ID; ?>">Info</span>
-      	<span class="collapse" data-pid="<?php echo $post->ID; ?>">Info</span>
+      	<span class="expand" data-pid="<?php echo $post->ID; ?>"><?php echo __('Info','empfohlen')?></span>
+      	<span class="collapse" data-pid="<?php echo $post->ID; ?>"><?php echo __('Info','empfohlen')?></span>
        </div>
 
 
@@ -94,7 +94,7 @@ if ($task_status == 'completed'){
 
  			<div class="col p_action">
  					<?php if($can_review){ ?>
- 						<a class="btn btn-sm p_add_review add_review_btn capitalize"><?php _e('Add Review', 'emp');?></a>
+ 						<a class="btn btn-sm p_add_review add_review_btn capitalize"><?php _e('Add Review', 'empfohlen');?></a>
  					<?php
  					}else{ ?>
  						<a class="btn btn-sm p_task_btn capitalize"><?php echo $task_status;?></a>
@@ -129,14 +129,13 @@ if ($task_status == 'completed'){
 
 						   <div class="field-wrapper">
 						   	<div class="review_files_upload_cont">
-						   		<a class="add_review_file">+ Add File</a>
+						   		<a class="add_review_file">+ <?php echo __('Add File','empfohlen')?></a>
                 </div>
-
 						   </div>
 
 
 						   <div class="field-wrapper text_right">
-						     <button class="btn btn-sm btn_small ticket_form_submit wauto capitalize">Submit</button>
+						     <button class="btn btn-sm btn_small ticket_form_submit wauto capitalize"><?php echo __('Submit','empfohlen')?></button>
 						   </div>
 						   <input type="hidden" name="emp_submit_review_nonce" value="<?php echo wp_create_nonce('emp-submit-review-nonce'); ?>"/>
 						   <input type="hidden" name="task_id" value="<?php echo $post->ID;?>"/>
@@ -150,7 +149,7 @@ if ($task_status == 'completed'){
 
  		<div class="jbody">
  			<div class="jbody_info">
- 					<div class="category"><?php _e('This is an order of the category', 'emp');?><br><br>
+ 					<div class="category"><?php _e('This is an order of the category', 'empfohlen');?><br><br>
 				    <img style="width: 60px;" src="<?php echo EMPFOHLEN_URI; ?>images/p_standard_order.svg" alt="Standard orders"><br>
 				    <strong>Standard orders</strong><br>
 				    <br>
@@ -159,7 +158,7 @@ if ($task_status == 'completed'){
 					<div class="benefits m_20">
 						<div class="benefit reward">
 						<div class="benefitInner">
-						    <div class="label"><?php _e('earnings','emp'); ?></div>
+						    <div class="label"><?php _e('earnings','empfohlen'); ?></div>
 						    <div class="value">+ <?php echo EmpHelper::currency_to_code($select_currency).' '. $pay; ?></div>
 						    <div class="clearFix"></div>
 						</div>
@@ -168,7 +167,7 @@ if ($task_status == 'completed'){
 						
 						<div class="benefit praemien">
 						<div class="benefitInner">
-						    <div class="label">premiums</div>
+						    <div class="label"><?php echo __('premiums','empfohlen')?></div>
 						    <div class="value"></div>
 						    <div class="clearFix"></div>
 						</div>
@@ -177,7 +176,7 @@ if ($task_status == 'completed'){
 						
 						<div class="benefit moreJobs">
 						<div class="benefitInner">
-						    <div class="label">Get more orders</div>
+						    <div class="label"><?php echo __('Get more orders','empfohlen')?></div>
 						    <div class="value"></div>
 						    <div class="clearFix"></div>
 						</div>
@@ -185,7 +184,7 @@ if ($task_status == 'completed'){
 						
 						<div class="benefit higherRewards">
 						<div class="benefitInner">
-						    <div class="label">Better paid orders</div>
+						    <div class="label"><?php echo __('Better paid orders','empfohlen')?></div>
 						    <div class="value"></div>
 						    <div class="clearFix"></div>
 						</div>
@@ -194,7 +193,7 @@ if ($task_status == 'completed'){
 						<?php if($is_premium): ?>
 						<div class="benefit premium ">
 						<div class="benefitInner">
-						    <div class="label">Premium job</div>
+						    <div class="label"><?php echo __('Premium job','empfohlen')?></div>
 						    <div class="value"></div>
 						    <div class="clearFix"></div>
 						</div>

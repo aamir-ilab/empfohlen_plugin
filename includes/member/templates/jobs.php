@@ -145,7 +145,7 @@ if(!empty($user_skill)){
 
 
 <div class="projectList content_bg">
-    <h3 class="dinline p_task_heading"><?php _e('Available tasks','emp');?></h3>
+    <h3 class="dinline p_task_heading"><?php esc_html_e('Available tasks','empfohlen');?></h3>
     <div class="task_list">  
       <?php
         while ( $member_project->have_posts() ) : $member_project->the_post();  
@@ -170,7 +170,7 @@ if(!empty($user_skill)){
 
 
 <div class="my_projectList content_bg">
-    <h3 class="dinline p_task_heading"><?php _e('Task Already done');?></h3>
+    <h3 class="dinline p_task_heading"><?php _e('Task Already done','empfohlen');?></h3>
   <?php
     while ( $my_tasks->have_posts() ) : $my_tasks->the_post();  
        include(EMPFOHLEN_DIR.'public/partials/member/task_row_new.php');

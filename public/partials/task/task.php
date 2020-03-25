@@ -138,13 +138,13 @@ if ($post->status == 'pending'){
            <?php 
             if ($post->status == 'pending'){  
                 if(!$can_submit){ 
-                     echo '<h3>This task can not be submitted</h3>'; 
-                     if (isset($isExpired) && ($isExpired)){ echo '<p>Task Expiration date pass away </p>'; }   
-                     if (isset($is_duration_expired) && ($is_duration_expired)){ echo '<p>Task Duration time pass away </p>'; }   
+                     echo '<h3>'.__('This task can not be submitted','empfohlen').'</h3>'; 
+                     if (isset($isExpired) && ($isExpired)){ echo '<p>'.__('Task Expiration date pass away ','empfohlen').'</p>'; }   
+                     if (isset($is_duration_expired) && ($is_duration_expired)){ echo '<p>'.__('Task Duration time pass away','empfohlen').'</p>'; }   
                 
                 } // can_submit == can_submit  
             } else if( $post->status == 'submitted' ) {
-                echo '<h3>Task already submitted</h3>';
+                echo '<h3>'.__('Task already submitted','empfohlen').'</h3>';
             } // status == pending 
             ?>
         </div>
@@ -307,7 +307,7 @@ if ($post->status == 'pending'){
                                                 <img src="<?php echo get_site_url(); ?>/wp-includes/images/media/default.png">
                                             </div>
                                             <span class="file_title"><?php echo $tdf; ?></span>
-                                            <span class="file_button"><a href="<?php echo $post->download_dir.'/'.$tdf;?>">Download</a></span>
+                                            <span class="file_button"><a href="<?php echo $post->download_dir.'/'.$tdf;?>"><?php echo __('Download','empfohlen')?></a></span>
 
                                         </div>
                                         <?php
@@ -333,7 +333,7 @@ if ($post->status == 'pending'){
                                 <input type="hidden" name="emp_submit_task_nonce" value="<?php echo wp_create_nonce('emp-submit-task-nonce'); ?>"/>
                                 <input type="hidden" name="action" value="submit_task" />
                                 <input type="hidden" name="task_id" value="<?php echo $post->ID; ?>" />
-                                <input class="submit_task" type="submit" value="Submit Task">
+                                <input class="submit_task" type="submit" value="<?php echo __('Submit Task','empfohlen')?>">
                             </div>
                     </div>
                 </div>

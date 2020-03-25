@@ -23,10 +23,6 @@ function empfohlen_form_profile_shortcode ($atts,$content=false) {
 }
   
 
-
-
-
-
 add_action( 'parse_request', 'emp_profile_save' );
 function emp_profile_save(){
   if( isset( $_POST['action'] ) && $_POST['action'] == 'edit_profile' ){
@@ -42,7 +38,6 @@ function emp_profile_save(){
       $postData = $_POST;
 
       // echo "<pre> postData "; print_r( $postData ); echo "</pre> ";  exit; 
-
       $current_user = wp_get_current_user();
       $userData = $current_user->data;
        // echo "<pre> userData "; print_r( $userData ); echo "</pre> ";  exit; 
@@ -164,21 +159,21 @@ function emp_profile_save(){
   
     if (!empty($emp_user_current_password) && !empty($emp_user_new_password) && !empty($emp_user_new_password_conf)){
       if( $emp_user_new_password !== $emp_user_new_password_conf ){
-         $_SESSION['prof_error'] = 'Confirm password does not match with new password';
+         $_SESSION['prof_error'] = __('Confirm password does not match with new password','empfohlen');
       }else{
         // check if password correct. 
         if (wp_check_password( $emp_user_current_password, $current_user->user_pass, $current_user->data->ID )) {
             $udata['ID'] = $current_user->data->ID;
             $udata['user_pass'] =  $emp_user_new_password;
             $uid = wp_update_user( $udata );
-            if(!$uid) { $_SESSION['prof_error'] = 'Sorry! Failed to update your account password details.';  } 
+            if(!$uid) { $_SESSION['prof_error'] = __('Sorry! Failed to update your account password details.','empfohlen');  } 
         }else{
-          $_SESSION['prof_error'] = 'Current Password does not match the existing password';
+          $_SESSION['prof_error'] = __('Current Password does not match the existing password','empfohlen');
         }
       }
     }
 
-    $_SESSION['prof_success'] = 'Profile saved succesfully';
+    $_SESSION['prof_success'] = __('Profile saved succesfully','empfohlen');
     wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
     exit();
 

@@ -33,37 +33,37 @@ function empfohlen_get_ticket_capabilities() {
 if( !function_exists( 'empfohlen_ticket_post_type' ) ){
     function empfohlen_ticket_post_type(){
          $labels = array(
-		'name'                  => _x( 'Tickets', 'Post Type General Name', 'emp' ),
-		'singular_name'         => _x( 'Ticket', 'Post Type Singular Name', 'emp' ),
-		'menu_name'             => __( 'Ticket', 'emp' ),
-		'name_admin_bar'        => __( 'Ticket', 'emp' ),
-		'archives'              => __( 'Ticket Archives', 'emp' ),
-		'attributes'            => __( 'Ticket Attributes', 'emp' ),
-		'parent_item_colon'     => __( 'Parent Ticket:', 'emp' ),
-		'all_items'             => __( 'All Tickets', 'emp' ),
-		'add_new_item'          => __( 'Add New Ticket', 'emp' ),
-		'add_new'               => __( 'Add New Ticket', 'emp' ),
-		'new_item'              => __( 'New Ticket', 'emp' ),
-		'edit_item'             => __( 'Edit Ticket', 'emp' ),
-		'update_item'           => __( 'Update Ticket', 'emp' ),
-		'view_item'             => __( 'View Ticket', 'emp' ),
-		'view_items'            => __( 'View Tickets', 'emp' ),
-		'search_items'          => __( 'Search Tickets', 'emp' ),
-		'not_found'             => __( 'Ticket Not found', 'emp' ),
-		'not_found_in_trash'    => __( 'Ticket Not found in Trash', 'emp' ),
-		'featured_image'        => __( 'Featured Image', 'emp' ),
-		'set_featured_image'    => __( 'Set featured image', 'emp' ),
-		'remove_featured_image' => __( 'Remove featured image', 'emp' ),
-		'use_featured_image'    => __( 'Use as featured image', 'emp' ),
-		'insert_into_item'      => __( 'Insert into item', 'emp' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'emp' ),
-		'items_list'            => __( 'tickets list', 'emp' ),
-		'items_list_navigation' => __( 'tickets list navigation', 'emp' ),
-		'filter_items_list'     => __( 'Filter tickets list', 'emp' ),
+		'name'                  => _x( 'Tickets', 'Post Type General Name', 'empfohlen' ),
+		'singular_name'         => _x( 'Ticket', 'Post Type Singular Name', 'empfohlen' ),
+		'menu_name'             => __( 'Ticket', 'empfohlen' ),
+		'name_admin_bar'        => __( 'Ticket', 'empfohlen' ),
+		'archives'              => __( 'Ticket Archives', 'empfohlen' ),
+		'attributes'            => __( 'Ticket Attributes', 'empfohlen' ),
+		'parent_item_colon'     => __( 'Parent Ticket:', 'empfohlen' ),
+		'all_items'             => __( 'All Tickets', 'empfohlen' ),
+		'add_new_item'          => __( 'Add New Ticket', 'empfohlen' ),
+		'add_new'               => __( 'Add New Ticket', 'empfohlen' ),
+		'new_item'              => __( 'New Ticket', 'empfohlen' ),
+		'edit_item'             => __( 'Edit Ticket', 'empfohlen' ),
+		'update_item'           => __( 'Update Ticket', 'empfohlen' ),
+		'view_item'             => __( 'View Ticket', 'empfohlen' ),
+		'view_items'            => __( 'View Tickets', 'empfohlen' ),
+		'search_items'          => __( 'Search Tickets', 'empfohlen' ),
+		'not_found'             => __( 'Ticket Not found', 'empfohlen' ),
+		'not_found_in_trash'    => __( 'Ticket Not found in Trash', 'empfohlen' ),
+		'featured_image'        => __( 'Featured Image', 'empfohlen' ),
+		'set_featured_image'    => __( 'Set featured image', 'empfohlen' ),
+		'remove_featured_image' => __( 'Remove featured image', 'empfohlen' ),
+		'use_featured_image'    => __( 'Use as featured image', 'empfohlen' ),
+		'insert_into_item'      => __( 'Insert into item', 'empfohlen' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'empfohlen' ),
+		'items_list'            => __( 'tickets list', 'empfohlen' ),
+		'items_list_navigation' => __( 'tickets list navigation', 'empfohlen' ),
+		'filter_items_list'     => __( 'Filter tickets list', 'empfohlen' ),
 	);
 	 
 	 $args = array(
-            'label'                 => __( 'Ticket', 'emp' ),
+            'label'                 => __( 'Ticket', 'empfohlen' ),
             'public' => true,
             'exclude_from_search' => true,
             'publicly_queryable' => true,
@@ -150,8 +150,8 @@ function emp_submit_ticket_post(){
 
 
         if ( empty($tf_title) || empty($tf_content) ){
-            if ( empty($tf_title) ){ $_SESSION['error'][] = 'Title can not be empty'; }
-            if ( empty($tf_content) ){ $_SESSION['error'][] = 'Content can not be empty'; }    
+            if ( empty($tf_title) ){ $_SESSION['error'][] = __('Title can not be empty','empfohlen'); }
+            if ( empty($tf_content) ){ $_SESSION['error'][] = __('Content can not be empty','empfohlen'); }    
         }else{
           // create ticket post type post. 
           $ticket_id = (int) wp_insert_post(array(
@@ -166,9 +166,9 @@ function emp_submit_ticket_post(){
             update_post_meta( $ticket_id, 'description', $tf_content ); 
             update_post_meta( $ticket_id, 'member_id', $user_id ); 
             update_post_meta( $ticket_id, 'ticket_status', 'pending' ); 
-            $_SESSION['success'] = 'Ticket succesfully saved';
+            $_SESSION['success'] = __('Ticket succesfully saved','empfohlen');
          } else {
-             $_SESSION['error'][] = 'Error Adding Ticket';
+             $_SESSION['error'][] = __('Error Adding Ticket','empfohlen');
          }
         } // else create ticket 
        
@@ -234,7 +234,7 @@ function save_post_callback($post_id){
             $ehtml .= '</div>';
 
             $headers = array( 'Content-type: text/html' );
-            $emil_status = wp_mail( $user_info->user_email, __('Ticket ('.$ticket_id .') Updated','emp') , $ehtml, $headers);
+            $emil_status = wp_mail( $user_info->user_email, __('Ticket ('.$ticket_id .') Updated','empfohlen') , $ehtml, $headers);
 
 
           }

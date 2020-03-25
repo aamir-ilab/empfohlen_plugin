@@ -173,16 +173,16 @@ $is_premium = false;
  	 		// project has user request enabled, project type user request 
  	 		if($request_enable){
  	 			if(empty($user_request)){
- 	 				echo '<button class="btn btn-sm p_request_btn" data-pid="'.$post->ID.'">'.__('Send Request','emp').'</button>';
+ 	 				echo '<button class="btn btn-sm p_request_btn" data-pid="'.$post->ID.'">'.__('Send Request','empfohlen').'</button>';
  	 			}else{
  	 				if(!empty($staff)){
  	 					echo '<button class="btn btn-sm p_request_chat_btn" data-pid="'.$post->ID.'" data-staff="'.implode($staff,',').'" data-user="'.$userData->ID.'" data-room="">'; 
- 	 					echo __('Chat', 'emp').'</button>'; 
+ 	 					echo __('Chat', 'empfohlen').'</button>'; 
  	 					echo '<input type="hidden" value="'.implode($staff,',').'" name="project_staff">';
  	 				}
  	 				if(isset($user_request->task) && !empty($user_request->task)){
  	 					echo '<a class="btn btn-sm p_task_btn dinline" href="'.get_the_permalink($user_request->task->ID).'">'; 
- 	 					echo __('Task','emp').' ('.get_field( "task_status",$user_request->task->ID).')</a>';
+ 	 					echo __('Task','empfohlen').' ('.get_field( "task_status",$user_request->task->ID).')</a>';
  	 				}
  	 				echo '<p class="counter_messages hidden">0</p><p class="is_typing"></p>';
  	 			}
@@ -190,14 +190,14 @@ $is_premium = false;
  	 			// if user request is not enabled then user can start work on it without admin approval. 
  	 			 // echo "<pre> task "; print_r( $task ); echo "</pre> ";  
  	 			if(empty($task)){
- 	 				echo '<button class="btn btn-sm p_start_project" data-pid="'.$post->ID.'"><a href="'.get_the_permalink($post->ID).'">'.__('Start Task','emp').'</a></button>';
+ 	 				echo '<button class="btn btn-sm p_start_project" data-pid="'.$post->ID.'"><a href="'.get_the_permalink($post->ID).'">'.__('Start Task','empfohlen').'</a></button>';
  	 			}else{
- 	 				echo '<button class="btn btn-sm p_continue_project"><a class="color_white" href="'.get_the_permalink($task->ID).'">'.__('Continue Task','emp').' ('.$task_status.')</a></button>';
+ 	 				echo '<button class="btn btn-sm p_continue_project"><a class="color_white" href="'.get_the_permalink($task->ID).'">'.__('Continue Task','empfohlen').' ('.$task_status.')</a></button>';
  	 			}
 
  	 		}
  	 	}else{
- 	 		echo '<p class="p_expired">'.__('Expired','emp').'</p>';
+ 	 		echo '<p class="p_expired">'.__('Expired','empfohlen').'</p>';
  	 	}
  	 	/* */
  	 	?>
@@ -213,7 +213,7 @@ $is_premium = false;
 						echo '<button class="btn btn-sm p_request_btn" data-pid="'.$post->ID.'">Send Request</button>';
 					}else{
 
-						echo '<button class="btn btn-sm p_start_project" data-pid="'.$post->ID.'"><a href="'.get_the_permalink($post->ID).'">'.__('Start Task','emp').'</a></button>';
+						echo '<button class="btn btn-sm p_start_project" data-pid="'.$post->ID.'"><a href="'.get_the_permalink($post->ID).'">'.__('Start Task','empfohlen').'</a></button>';
 					}
 					?>
 					
@@ -246,16 +246,16 @@ $is_premium = false;
 
  		<div class="jbody">
 
- 			<div class="category"><?php _e('This is an order of the category', 'emp');?><br><br>
+ 			<div class="category"><?php _e('This is an order of the category', 'empfohlen');?><br><br>
         <img style="width: 60px;" src="<?php echo EMPFOHLEN_URI; ?>images/p_standard_order.svg" alt="Standard orders"><br>
-        <strong>Standard orders</strong><br>
+        <strong><?php echo __('Standard orders','empfohlen')?></strong><br>
         <br>
     	</div>
 
     	<div class="benefits m_20">
 				<div class="benefit reward">
 				<div class="benefitInner">
-				    <div class="label"><?php _e('earnings','emp'); ?></div>
+				    <div class="label"><?php _e('earnings','empfohlen'); ?></div>
 				    <div class="value">+ <?php echo EmpHelper::currency_to_code($select_currency).' '. $pay; ?></div>
 				    <div class="clearFix"></div>
 				</div>
@@ -264,7 +264,7 @@ $is_premium = false;
 				
 				<div class="benefit praemien">
 				<div class="benefitInner">
-				    <div class="label">premiums</div>
+				    <div class="label"><?php echo __('premiums','empfohlen')?></div>
 				    <div class="value"></div>
 				    <div class="clearFix"></div>
 				</div>
@@ -273,7 +273,7 @@ $is_premium = false;
 				
 				<div class="benefit moreJobs">
 				<div class="benefitInner">
-				    <div class="label">Get more orders</div>
+				    <div class="label"><?php echo __('Get more orders','empfohlen')?></div>
 				    <div class="value"></div>
 				    <div class="clearFix"></div>
 				</div>
@@ -281,7 +281,7 @@ $is_premium = false;
 				
 				<div class="benefit higherRewards">
 				<div class="benefitInner">
-				    <div class="label">Better paid orders</div>
+				    <div class="label"><?php echo __('Better paid orders','empfohlen')?></div>
 				    <div class="value"></div>
 				    <div class="clearFix"></div>
 				</div>
@@ -290,7 +290,7 @@ $is_premium = false;
 				<?php if($is_premium): ?>
 				<div class="benefit premium ">
 				<div class="benefitInner">
-				    <div class="label">Premium job</div>
+				    <div class="label"><?php echo __('Premium job','empfohlen')?></div>
 				    <div class="value"></div>
 				    <div class="clearFix"></div>
 				</div>

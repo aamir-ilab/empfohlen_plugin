@@ -104,7 +104,7 @@ if(isset($_SESSION['error'])){ unset($_SESSION['error']); }
 
 
 <div class="ticketList content_bg">
-  <h3 class="dinline p_task_heading"><?php _e('My Tickets','emp');?></h3>
+  <h3 class="dinline p_task_heading"><?php _e('My Tickets','empfohlen');?></h3>
    <div class="ticket_list">
        <?php
         while ( $tickets->have_posts() ) : $tickets->the_post();     

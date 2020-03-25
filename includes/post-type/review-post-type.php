@@ -33,37 +33,37 @@ function empfohlen_get_review_capabilities() {
 if( !function_exists( 'empfohlen_review_post_type' ) ){
     function empfohlen_review_post_type(){
          $labels = array(
-        'name'                  => _x( 'Reviews', 'Post Type General Name', 'emp' ),
-        'singular_name'         => _x( 'Review', 'Post Type Singular Name', 'emp' ),
-        'menu_name'             => __( 'Review', 'emp' ),
-        'name_admin_bar'        => __( 'Review', 'emp' ),
-        'archives'              => __( 'Review Archives', 'emp' ),
-        'attributes'            => __( 'Review Attributes', 'emp' ),
-        'parent_item_colon'     => __( 'Parent Review:', 'emp' ),
-        'all_items'             => __( 'All Reviews', 'emp' ),
-        'add_new_item'          => __( 'Add New Review', 'emp' ),
-        'add_new'               => __( 'Add New Review', 'emp' ),
-        'new_item'              => __( 'New Review', 'emp' ),
-        'edit_item'             => __( 'Edit Review', 'emp' ),
-        'update_item'           => __( 'Update Review', 'emp' ),
-        'view_item'             => __( 'View Review', 'emp' ),
-        'view_items'            => __( 'View Reviews', 'emp' ),
-        'search_items'          => __( 'Search Reviews', 'emp' ),
-        'not_found'             => __( 'Review Not found', 'emp' ),
-        'not_found_in_trash'    => __( 'Review Not found in Trash', 'emp' ),
-        'featured_image'        => __( 'Featured Image', 'emp' ),
-        'set_featured_image'    => __( 'Set featured image', 'emp' ),
-        'remove_featured_image' => __( 'Remove featured image', 'emp' ),
-        'use_featured_image'    => __( 'Use as featured image', 'emp' ),
-        'insert_into_item'      => __( 'Insert into item', 'emp' ),
-        'uploaded_to_this_item' => __( 'Uploaded to this item', 'emp' ),
-        'items_list'            => __( 'reviews list', 'emp' ),
-        'items_list_navigation' => __( 'reviews list navigation', 'emp' ),
-        'filter_items_list'     => __( 'Filter reviews list', 'emp' ),
+        'name'                  => _x( 'Reviews', 'Post Type General Name', 'empfohlen' ),
+        'singular_name'         => _x( 'Review', 'Post Type Singular Name', 'empfohlen' ),
+        'menu_name'             => __( 'Review', 'empfohlen' ),
+        'name_admin_bar'        => __( 'Review', 'empfohlen' ),
+        'archives'              => __( 'Review Archives', 'empfohlen' ),
+        'attributes'            => __( 'Review Attributes', 'empfohlen' ),
+        'parent_item_colon'     => __( 'Parent Review:', 'empfohlen' ),
+        'all_items'             => __( 'All Reviews', 'empfohlen' ),
+        'add_new_item'          => __( 'Add New Review', 'empfohlen' ),
+        'add_new'               => __( 'Add New Review', 'empfohlen' ),
+        'new_item'              => __( 'New Review', 'empfohlen' ),
+        'edit_item'             => __( 'Edit Review', 'empfohlen' ),
+        'update_item'           => __( 'Update Review', 'empfohlen' ),
+        'view_item'             => __( 'View Review', 'empfohlen' ),
+        'view_items'            => __( 'View Reviews', 'empfohlen' ),
+        'search_items'          => __( 'Search Reviews', 'empfohlen' ),
+        'not_found'             => __( 'Review Not found', 'empfohlen' ),
+        'not_found_in_trash'    => __( 'Review Not found in Trash', 'empfohlen' ),
+        'featured_image'        => __( 'Featured Image', 'empfohlen' ),
+        'set_featured_image'    => __( 'Set featured image', 'empfohlen' ),
+        'remove_featured_image' => __( 'Remove featured image', 'empfohlen' ),
+        'use_featured_image'    => __( 'Use as featured image', 'empfohlen' ),
+        'insert_into_item'      => __( 'Insert into item', 'empfohlen' ),
+        'uploaded_to_this_item' => __( 'Uploaded to this item', 'empfohlen' ),
+        'items_list'            => __( 'reviews list', 'empfohlen' ),
+        'items_list_navigation' => __( 'reviews list navigation', 'empfohlen' ),
+        'filter_items_list'     => __( 'Filter reviews list', 'empfohlen' ),
     );
      
      $args = array(
-            'label'                 => __( 'Review', 'emp' ),
+            'label'                 => __( 'Review', 'empfohlen' ),
             'public' => true,
             'exclude_from_search' => true,
             'publicly_queryable' => true,
@@ -151,8 +151,8 @@ function emp_submit_review_post(){
         $task_id      = (int) $_POST['task_id'];
 
         if ( empty($review_title) || empty($review_content) ){
-            if ( empty($review_title) ){ $_SESSION['error'][] = 'Review title can not be empty'; }
-            if ( empty($review_content) ){ $_SESSION['error'][] = 'Review content can not be empty'; }    
+            if ( empty($review_title) ){ $_SESSION['error'][] = __('Review title can not be empty','empfohlen'); }
+            if ( empty($review_content) ){ $_SESSION['error'][] = __('Review content can not be empty','empfohlen'); }    
         }else{
           // create review post type post. 
           $review_id = (int) wp_insert_post(array(
@@ -188,7 +188,7 @@ function emp_submit_review_post(){
                   foreach ($review_files['size'] as $f_key => $fs_value) {
                     $file_mime = mime_content_type( $review_files['tmp_name'][$f_key] );  
                      if( !in_array($file_mime, $allowed_files_type) ){
-                          $_SESSION['error'][] =  $file_mime.' files not allowed to upload';
+                          $_SESSION['error'][] =  $file_mime.' '.__('files not allowed to upload','empfohlen');
                           continue; 
                      }
                       $tmp_name = $review_files["tmp_name"][$f_key];
@@ -201,9 +201,9 @@ function emp_submit_review_post(){
 
 
 
-             $_SESSION['success'] = 'Review succesfully Added';
+             $_SESSION['success'] = __('Review succesfully Added','empfohlen');
          } else {
-             $_SESSION['error'][] = 'Error Adding Review';
+             $_SESSION['error'][] = __('Error Adding Review','empfohlen');
          }
         } // else create review 
         wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
@@ -267,7 +267,7 @@ function emp_submit_review_post(){
 //             $ehtml .= '</div>';
 
 //             $headers = array( 'Content-type: text/html' );
-//             $emil_status = wp_mail( $user_info->user_email, __('Review ('.$review_id .') Updated','emp') , $ehtml, $headers);
+//             $emil_status = wp_mail( $user_info->user_email, __('Review ('.$review_id .') Updated','empfohlen') , $ehtml, $headers);
 
 
 //           }

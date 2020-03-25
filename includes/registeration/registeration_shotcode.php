@@ -77,12 +77,12 @@ function get_empfohlen_form_login($redirect=false) {
       
     //$return .= '</div>';
     $return .= '<div class="field-wrapper">';
-    $return .= '<label for="username">'.__("Username","empfohlen_login").'</label>';
+    $return .= '<label for="username">'.__("Username","empfohlen").'</label>';
     $return .= '<input id="username" name="username" required="" type="text" placeholder="" />';
     $return .= '</div>';
     $return .= '<div class="field-wrapper">';
-    $return .= '<label for="password">'.__('Password','empfohlen_login').'</label>';
-    $return .= '  <input id="password" name="password" required="" type="password" placeholder="'.__('Password','empfohlen_login').'" />';
+    $return .= '<label for="password">'.__('Password','empfohlen').'</label>';
+    $return .= '  <input id="password" name="password" required="" type="password" placeholder="'.__('Password','empfohlen').'" />';
     $return .= '</div>';
     // $return .= "  <p>
     //   <label for=\"empfohlen_username\">".__('Username','empfohlen_login')."</label>
@@ -101,9 +101,9 @@ function get_empfohlen_form_login($redirect=false) {
     $return .= '  <input type="hidden" name="emp_submit_login_nonce" value="'.wp_create_nonce('emp-submit-login-nonce').'"/>';
     $return .= '<div class="submit-wrapper">';
     // $return .= '<a class="password_reset">Forgot Password? </a>';
-    $return .= '  <button type="submit">Login</button>';
+    $return .= '  <button type="submit">'.__('Login','empfohlen').'</button>';
     $return .= '</div>';
-     $return .= '<div class="submit-wrapper"><a href="'.$register_url.'">'.__("Register new account","emp").'</a></div>'
+     $return .= '<div class="submit-wrapper"><a href="'.$register_url.'">'.__("Register new account","empfohlen").'</a></div>'
     // $return .= '  <div id="signinCaptcha">';
     // $return .= '</div>';
     // $return .= "  <button type=\"submit\">".__('Login','empfohlen_login')."</button>\r\n";
@@ -115,9 +115,9 @@ function get_empfohlen_form_login($redirect=false) {
       $emp_member_dashboard = (int) (isset($empfohlen_setting_options['emp_member_dashboard'])?($empfohlen_setting_options['emp_member_dashboard']):0); 
 
       $return =  '<div class="already_loggedin">';
-      $return .= '<h4>'.__('You are already logged in.', 'empfohlen_login').'</h4>';
+      $return .= '<h4>'.__('You are already logged in.', 'empfohlen').'</h4>';
       if ( $emp_member_dashboard > 0 ){
-       $return .= '<a href="'.get_permalink($emp_member_dashboard).'">'.__('Click here to redirect to dashboard', 'empfohlen_login').'</a>';
+       $return .= '<a href="'.get_permalink($emp_member_dashboard).'">'.__('Click here to redirect to dashboard', 'empfohlen').'</a>';
       }
       $return .= '</div>';
     // $return = __('User is logged in.','empfohlen_login');
@@ -165,7 +165,7 @@ function emp_login_submit() {
             exit(); 
           }
         }else{
-          $_SESSION['login_error'] = 'Please enter username or password ';
+          $_SESSION['login_error'] = __('Please enter username or password ','empfohlen');
         }
         wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
         exit();
@@ -277,38 +277,38 @@ function get_empfohlen_form_register($redirect=false) {
     $return .= '</div>';
     $return .= '<div class="field-wrapper two">';
     $return .= '    <div class="two-left">';
-    $return .= '        <label for="emp_user_first">'.__('First Name', 'emp').'</label><br>';
+    $return .= '        <label for="emp_user_first">'.__('First Name', 'empfohlen').'</label><br>';
     $return .= '        <input id="emp_user_first" name="emp_user_first" required=""  type="text">';
     $return .= '    </div>';
     $return .= '    <div class="two-right">';
-    $return .= '        <label for="emp_user_last">'.__('Surname', 'emp').'</label><br>';
+    $return .= '        <label for="emp_user_last">'.__('Surname', 'empfohlen').'</label><br>';
     $return .= '        <input name="emp_user_last" id="emp_user_last" type="text"/>';
     $return .= '    </div>';
     $return .= '</div>';
     $return .= '<div class="field-wrapper two">';
     $return .= '    <div class="two-left">';
-    $return .= '        <label for="emp_user_Login">'.__('Username', 'emp').'</label><br>';
+    $return .= '        <label for="emp_user_Login">'.__('Username', 'empfohlen').'</label><br>';
     $return .= '        <input name="emp_user_login" id="emp_user_login" required="" type="text"/>';
     $return .= '    </div>';
     $return .= '    <div class="two-right">';
-    $return .= '        <label for="emp_user_email">'.__('Email', 'emp').'</label><br>';
+    $return .= '        <label for="emp_user_email">'.__('Email', 'empfohlen').'</label><br>';
     $return .= '        <input name="emp_user_email" id="emp_user_email" required="" type="email"/>';
     $return .= '    </div>';
     $return .= '</div>';
     $return .= '<div class="field-wrapper two">';
     $return .= '    <div class="two-left">';
-    $return .= '        <label for="password">'.__('Password', 'emp').'</label><br>';
+    $return .= '        <label for="password">'.__('Password', 'empfohlen').'</label><br>';
     $return .= '        <input name="emp_user_pass" id="password" required="" type="password"/>';
     $return .= '    </div>';
     $return .= '    <div class="two-right">';
-    $return .= '        <label for="password_again">'.__('Password Again', 'emp').'</label><br>';
+    $return .= '        <label for="password_again">'.__('Password Again', 'empfohlen').'</label><br>';
     $return .= '        <input name="emp_user_pass_confirm" id="password_again" required="" type="password"/>';
     $return .= '    </div>';
     $return .= '</div>';
   
     $currency_list =   EmpHelper::get_currency_list();
     $return .= '<div class="field-wrapper">';
-    $return .= '<label for="currency">'.__('Currency', 'emp').'</label><br>';
+    $return .= '<label for="currency">'.__('Currency', 'empfohlen').'</label><br>';
     $return .= '<div class="dtable w100 mt_20">';
     $return .= '<select class="reg_currency_dropdown" name="emp_user_currency">';
     if (!empty($currency_list)){
@@ -320,7 +320,7 @@ function get_empfohlen_form_register($redirect=false) {
     $return .= '</div>';
     $return .= '</div>';
     $return .= '<div class="field-wrapper ">';
-    $return .= '    <label for="emp_user_birthday">'.__('Birthday', 'emp').'</label><br>';
+    $return .= '    <label for="emp_user_birthday">'.__('Birthday', 'empfohlen').'</label><br>';
     // $return .= '    <input name="emp_user_birthday" id="emp_user_birthday" type="text"/>';
      $return .= '<div class="dtable w100 mt_20">'; 
      $return .= '<div class="dob_cont">'; 
@@ -331,20 +331,20 @@ function get_empfohlen_form_register($redirect=false) {
     $return .= '</div>';
     $return .= '</div>';
     $return .= '<div class="field-wrapper">';
-    $return .= '    <label for="emp_user_address">'.__('Address', 'emp').'</label><br>';
+    $return .= '    <label for="emp_user_address">'.__('Address', 'empfohlen').'</label><br>';
     $return .= '<input name="emp_user_address" id="emp_user_address" type="text"/>';
     $return .= '</div>';
     $return .= '<div class="field-wrapper">';
-    $return .= '    <label for="emp_user_city">'.__('City', 'emp').'</label><br>';
+    $return .= '    <label for="emp_user_city">'.__('City', 'empfohlen').'</label><br>';
     $return .= '<input name="emp_user_city" id="emp_user_city" type="text"/>';
     $return .= '</div>';
     $return .= '<div class="field-wrapper row">';
     $return .= '<div class="col-sm-6">';
-    $return .= '<label for="emp_user_state">'.__('State', 'emp').'</label><br>';
+    $return .= '<label for="emp_user_state">'.__('State', 'empfohlen').'</label><br>';
     $return .= '<input name="emp_user_state" id="emp_user_state" type="text"/>';
     $return .= '</div>';
     $return .= '<div class="col-sm-6">';
-    $return .= '<label for="emp_user_zip">'.__('Zip', 'emp').'</label><br>';
+    $return .= '<label for="emp_user_zip">'.__('Zip', 'empfohlen').'</label><br>';
     $return .= '<input name="emp_user_zip" id="emp_user_zip" type="text"/>';
     $return .= '</div>';
     $return .= '</div>';
@@ -425,8 +425,8 @@ function get_empfohlen_form_register($redirect=false) {
      $return .= "  <input type=\"hidden\" name=\"action\" value=\"emp_registeration_submit\">\r\n";
       // $return .= '<input id="emp_register_btn" type="submit" value="'.__('Register Your Account', 'emp').'"/>';
     $return .= '</p>';
-    $return .= '<div class="submit-wrapper"><button type="submit">'.__('Register', 'emp').'</button></div>';
-    $return .= '<div class="submit-wrapper"><a href="'.$login_url.'">'.__('Already have account Sign in', 'emp').'</a></div>';
+    $return .= '<div class="submit-wrapper"><button type="submit">'.__('Register', 'empfohlen').'</button></div>';
+    $return .= '<div class="submit-wrapper"><a href="'.$login_url.'">'.__('Already have account Sign in', 'empfohlen').'</a></div>';
   $return .= '</form>';
      
   // echo "<pre> return "; print_r( $return ); echo "</pre> ";  exit; 
@@ -435,8 +435,8 @@ function get_empfohlen_form_register($redirect=false) {
      $emp_member_dashboard = (int) $empfohlen_setting_options['emp_member_dashboard'];  
      $emp_member_page = get_permalink($emp_member_dashboard);
      $return = '<div class="already_register">';
-      $return .= '<div class="submit-wrapper m_20"><button class="btn"><a class="color_white" href="'.$emp_member_page.'">'.__('Already login click here to go to dashboard page', 'emp').'</a></button></div>';
-      $return .= '<div class="submit-wrapper m_20"><button class="btn"><a class="color_white" href="'.wp_logout_url(home_url()).'">Logout</a></button></div>';
+      $return .= '<div class="submit-wrapper m_20"><button class="btn"><a class="color_white" href="'.$emp_member_page.'">'.__('Already login click here to go to dashboard page', 'empfohlen').'</a></button></div>';
+      $return .= '<div class="submit-wrapper m_20"><button class="btn"><a class="color_white" href="'.wp_logout_url(home_url()).'">'.__('Logout','empfohlen').'</a></button></div>';
      $return .= '</div>';
      return $return; 
    
@@ -515,12 +515,12 @@ function emp_reg_new_user() {
       $user_group     = $postData['user_group'];
       $user_currency     = $postData['emp_user_currency'];
         if ( empty($username) || empty($email)  || empty($password) || empty($password_c) )  {
-           $_SESSION['reg_error']   =  'please enter all required field';
+           $_SESSION['reg_error']   =  __('please enter all required field', 'empfohlen');
            wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
            exit();
         }
         if( $password !== $password_c  ){
-           $_SESSION['reg_error']   =  'password do not match';
+           $_SESSION['reg_error']   =  __('password do not match','empfohlen');
             wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
             exit();
         }
@@ -571,10 +571,10 @@ function emp_reg_new_user() {
               $headers = array( 'Content-type: text/html' );
               // wp_mail( $to, $subject, $message, $headers, $attachments );
               $headers = array( 'Content-type: text/html' );
-              $email_status =  wp_mail( $email, __('Account Verification','emp') , $html, $headers);
+              $email_status =  wp_mail( $email, __('Account Verification','empfohlen') , $html, $headers);
                       
             }
-            $_SESSION['reg_success'] = 'Your have Succesfully registered please login here';
+            $_SESSION['reg_success'] = __('Your have Succesfully registered please login here', 'empfohlen');
             $empfohlen_setting_options = get_option( 'emp_setting' );
             $emp_login_page = (int) $empfohlen_setting_options['emp_login_page'];  
             $redirect_url = get_permalink($emp_login_page);
@@ -607,7 +607,7 @@ function verify_user_code(){
             update_user_meta($data['id'], 'account_activated', 1);
             // echo __( '<strong>Success:</strong> Your account has been activated! ', 'text-domain' );
              if ( ! session_id() ) { session_start(); }
-             $_SESSION['account_verified_success'] = 'Your e-mail has been verified!';
+             $_SESSION['account_verified_success'] = __('Your e-mail has been verified!','empfohlen');
 
             $empfohlen_setting_options = get_option( 'emp_setting' );
             $emp_login_page = (int) (isset($empfohlen_setting_options['emp_login_page'])?($empfohlen_setting_options['emp_login_page']):0); 
@@ -618,7 +618,7 @@ function verify_user_code(){
             }
             exit; 
         }else{
-          echo '<h3>Verification Code incorrect or expired.</h3>';
+          echo '<h3>'.__('Verification Code incorrect or expired','empfohlen').'</h3>';
           exit; 
         }
     }
@@ -632,7 +632,7 @@ function empfohlen_registeration_cong_shortcode ($atts,$content=false) {
   $congHtml .= '<div id="myModal" class="reg_modal cmodal">';
   $congHtml .= '<div class="reg_modal-content">';
   $congHtml .= '  <span class="close close_reg" >&times;</span>';
-  $congHtml .= '  <p>Congratulation for the registration please confirm you e-mail!</p>';
+  $congHtml .= '  <p>'.__('Congratulation for the registration please confirm you e-mail!','empfohlen').'</p>';
   $congHtml .= '</div>';
   $congHtml .= '</div>';
   $congHtml .= '</div>'; 
@@ -652,7 +652,7 @@ function email_verification_resend_submit_callback() {
     check_ajax_referer( 'email-verification-nonce', 'security' );
     $account_activated =   get_user_meta($userData->ID, 'account_activated', true);
     if($account_activated){
-      $return['status'] =  'success'; 
+      $return['status'] =  __('Success','empfohlen'); 
       $return['code'] =  'already_verified';
       $return['message'] =  'Already verified'; 
       wp_send_json( $return ); 

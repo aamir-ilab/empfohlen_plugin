@@ -33,37 +33,37 @@ function empfohlen_get_task_capabilities() {
 if( !function_exists( 'empfohlen_task_post_type' ) ){
     function empfohlen_task_post_type(){
          $labels = array(
-		'name'                  => _x( 'Tasks', 'Post Type General Name', 'emp' ),
-		'singular_name'         => _x( 'Task', 'Post Type Singular Name', 'emp' ),
-		'menu_name'             => __( 'Task', 'emp' ),
-		'name_admin_bar'        => __( 'Task', 'emp' ),
-		'archives'              => __( 'Task Archives', 'emp' ),
-		'attributes'            => __( 'Task Attributes', 'emp' ),
-		'parent_item_colon'     => __( 'Parent Task:', 'emp' ),
-		'all_items'             => __( 'All Tasks', 'emp' ),
-		'add_new_item'          => __( 'Add New Task', 'emp' ),
-		'add_new'               => __( 'Add New Task', 'emp' ),
-		'new_item'              => __( 'New Task', 'emp' ),
-		'edit_item'             => __( 'Edit Task', 'emp' ),
-		'update_item'           => __( 'Update Task', 'emp' ),
-		'view_item'             => __( 'View Task', 'emp' ),
-		'view_items'            => __( 'View Tasks', 'emp' ),
-		'search_items'          => __( 'Search Tasks', 'emp' ),
-		'not_found'             => __( 'Task Not found', 'emp' ),
-		'not_found_in_trash'    => __( 'Task Not found in Trash', 'emp' ),
-		'featured_image'        => __( 'Featured Image', 'emp' ),
-		'set_featured_image'    => __( 'Set featured image', 'emp' ),
-		'remove_featured_image' => __( 'Remove featured image', 'emp' ),
-		'use_featured_image'    => __( 'Use as featured image', 'emp' ),
-		'insert_into_item'      => __( 'Insert into item', 'emp' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'emp' ),
-		'items_list'            => __( 'tasks list', 'emp' ),
-		'items_list_navigation' => __( 'tasks list navigation', 'emp' ),
-		'filter_items_list'     => __( 'Filter tasks list', 'emp' ),
+		'name'                  => _x( 'Tasks', 'Post Type General Name', 'empfohlen' ),
+		'singular_name'         => _x( 'Task', 'Post Type Singular Name', 'empfohlen' ),
+		'menu_name'             => __( 'Task', 'empfohlen' ),
+		'name_admin_bar'        => __( 'Task', 'empfohlen' ),
+		'archives'              => __( 'Task Archives', 'empfohlen' ),
+		'attributes'            => __( 'Task Attributes', 'empfohlen' ),
+		'parent_item_colon'     => __( 'Parent Task:', 'empfohlen' ),
+		'all_items'             => __( 'All Tasks', 'empfohlen' ),
+		'add_new_item'          => __( 'Add New Task', 'empfohlen' ),
+		'add_new'               => __( 'Add New Task', 'empfohlen' ),
+		'new_item'              => __( 'New Task', 'empfohlen' ),
+		'edit_item'             => __( 'Edit Task', 'empfohlen' ),
+		'update_item'           => __( 'Update Task', 'empfohlen' ),
+		'view_item'             => __( 'View Task', 'empfohlen' ),
+		'view_items'            => __( 'View Tasks', 'empfohlen' ),
+		'search_items'          => __( 'Search Tasks', 'empfohlen' ),
+		'not_found'             => __( 'Task Not found', 'empfohlen' ),
+		'not_found_in_trash'    => __( 'Task Not found in Trash', 'empfohlen' ),
+		'featured_image'        => __( 'Featured Image', 'empfohlen' ),
+		'set_featured_image'    => __( 'Set featured image', 'empfohlen' ),
+		'remove_featured_image' => __( 'Remove featured image', 'empfohlen' ),
+		'use_featured_image'    => __( 'Use as featured image', 'empfohlen' ),
+		'insert_into_item'      => __( 'Insert into item', 'empfohlen' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'empfohlen' ),
+		'items_list'            => __( 'tasks list', 'empfohlen' ),
+		'items_list_navigation' => __( 'tasks list navigation', 'empfohlen' ),
+		'filter_items_list'     => __( 'Filter tasks list', 'empfohlen' ),
 	);
 	 
 	 $args = array(
-            'label' => __( 'Task', 'emp' ),
+            'label' => __( 'Task', 'empfohlen' ),
             'public' => true,
             'exclude_from_search' => true,
             'publicly_queryable' => true,
@@ -185,7 +185,7 @@ function emp_submit_task_post(){
 
         
         if ( $user_id !== $task_member_id ){
-            $_SESSION['task_error'][] =  'You are not allowed to submit this task';
+            $_SESSION['task_error'][] =  __('You are not allowed to submit this task','empfohlen');
             wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
             return false; 
         }
@@ -221,7 +221,7 @@ function emp_submit_task_post(){
                    $file_mime = mime_content_type( $task_files['tmp_name'][$f_key] );  
                      // echo "<pre> file_mime  "; print_r( $file_mime  ); echo "</pre> ";  
                      if( !in_array($file_mime, $allowed_files_type) ){
-                          $_SESSION['task_error'][] =  $file_mime.' files not allowed to upload';
+                          $_SESSION['task_error'][] =  $file_mime.' '.__('files not allowed to upload','empfohlen');
                           continue; 
                      }
 
@@ -238,7 +238,7 @@ function emp_submit_task_post(){
 
 
 
-        $_SESSION['task_success'] = 'Task succesfully saved';
+        $_SESSION['task_success'] = __('Task succesfully saved','empfohlen');
         wp_redirect(esc_url_raw($_SERVER['REQUEST_URI']));
         exit(); 
 
@@ -352,7 +352,7 @@ add_action( 'add_meta_boxes',  'add_meta_boxes_task_document' );
      if (!empty($invoice_exist)){
         $invoice = $invoice_exist[0];
         $inv =  '<div class="invoice">';
-        $inv .= '<a href="'.get_edit_post_link($invoice->ID).'">Invoice Detail</div>';
+        $inv .= '<a href="'.get_edit_post_link($invoice->ID).'">'.__('Invoice Detail','empfohlen').'</div>';
      } else {
         $inv =  '<div class="generate_invoice">';
         $inv .= '<a class="button button-success button-large generate_task_invoice" data-tid="'.$post->ID.'">Task Complete(Generate Invoice)</a>';
@@ -518,7 +518,7 @@ function task_complete_generate_invoice() {
             update_post_meta($task_id, 'task_status', 'completed');
 
             $return['status'] = 'success';
-            $return['message'] = 'Invoice Created succesfully';
+            $return['message'] = __('Invoice Created succesfully','empfohlen');
             $return['data'] = '<a class="button button-success button-large" data-tid="'.$task_id.'" href="'.get_edit_post_link($invoice_id).'">Invoice Detail</a>';
             
 
@@ -531,7 +531,7 @@ function task_complete_generate_invoice() {
             $ehtml  = 'Your <a href="'.get_permalink($task->ID).'"> Task('.$task->post_title.')</a> has been completed and a new '; 
             $ehtml .= 'Invoice ('. $invoice_id_code.') has been created';
             $headers = array( 'Content-type: text/html' );
-            wp_mail( $user_info->user_email, __('Task ('.$task_id_code.') Completed','emp') , $ehtml, $headers);
+            wp_mail( $user_info->user_email, __('Task ('.$task_id_code.') Completed','empfohlen') , $ehtml, $headers);
 
 
 

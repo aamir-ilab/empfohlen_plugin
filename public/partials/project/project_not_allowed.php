@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
         $empfohlen_setting_options = get_option( 'emp_setting' );
         $emp_member_dashboard = (int) $empfohlen_setting_options['emp_member_dashboard'];  
         $member_dashboard_url = get_permalink($emp_member_dashboard);
-        echo  sprintf(__('Your are not allowed to access this project click <a href="%s"> here to go to Dashboard</a>', 'emp'),$member_dashboard_url);      
+        echo  sprintf(__('Your are not allowed to access this project click <a href="%s"> here to go to Dashboard</a>', 'empfohlen'),$member_dashboard_url);      
 
          ?></h3>
     </div>

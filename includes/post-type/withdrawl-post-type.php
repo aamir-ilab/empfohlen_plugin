@@ -33,37 +33,37 @@ function empfohlen_get_withdrawl_capabilities() {
 if( !function_exists( 'empfohlen_withdrawl_post_type' ) ){
     function empfohlen_withdrawl_post_type(){
          $labels = array(
-		'name'                  => _x( 'Withdrawls', 'Post Type General Name', 'emp' ),
-		'singular_name'         => _x( 'Withdrawl', 'Post Type Singular Name', 'emp' ),
-		'menu_name'             => __( 'Withdrawl', 'emp' ),
-		'name_admin_bar'        => __( 'Withdrawl', 'emp' ),
-		'archives'              => __( 'Withdrawl Archives', 'emp' ),
-		'attributes'            => __( 'Withdrawl Attributes', 'emp' ),
-		'parent_item_colon'     => __( 'Parent Withdrawl:', 'emp' ),
-		'all_items'             => __( 'All Withdrawls', 'emp' ),
-		'add_new_item'          => __( 'Add New Withdrawl', 'emp' ),
-		'add_new'               => __( 'Add New Withdrawl', 'emp' ),
-		'new_item'              => __( 'New Withdrawl', 'emp' ),
-		'edit_item'             => __( 'Edit Withdrawl', 'emp' ),
-		'update_item'           => __( 'Update Withdrawl', 'emp' ),
-		'view_item'             => __( 'View Withdrawl', 'emp' ),
-		'view_items'            => __( 'View Withdrawls', 'emp' ),
-		'search_items'          => __( 'Search Withdrawls', 'emp' ),
-		'not_found'             => __( 'Withdrawl Not found', 'emp' ),
-		'not_found_in_trash'    => __( 'Withdrawl Not found in Trash', 'emp' ),
-		'featured_image'        => __( 'Featured Image', 'emp' ),
-		'set_featured_image'    => __( 'Set featured image', 'emp' ),
-		'remove_featured_image' => __( 'Remove featured image', 'emp' ),
-		'use_featured_image'    => __( 'Use as featured image', 'emp' ),
-		'insert_into_item'      => __( 'Insert into item', 'emp' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'emp' ),
-		'items_list'            => __( 'withdrawls list', 'emp' ),
-		'items_list_navigation' => __( 'withdrawls list navigation', 'emp' ),
-		'filter_items_list'     => __( 'Filter withdrawls list', 'emp' ),
+		'name'                  => _x( 'Withdrawls', 'Post Type General Name', 'empfohlen' ),
+		'singular_name'         => _x( 'Withdrawl', 'Post Type Singular Name', 'empfohlen' ),
+		'menu_name'             => __( 'Withdrawl', 'empfohlen' ),
+		'name_admin_bar'        => __( 'Withdrawl', 'empfohlen' ),
+		'archives'              => __( 'Withdrawl Archives', 'empfohlen' ),
+		'attributes'            => __( 'Withdrawl Attributes', 'empfohlen' ),
+		'parent_item_colon'     => __( 'Parent Withdrawl:', 'empfohlen' ),
+		'all_items'             => __( 'All Withdrawls', 'empfohlen' ),
+		'add_new_item'          => __( 'Add New Withdrawl', 'empfohlen' ),
+		'add_new'               => __( 'Add New Withdrawl', 'empfohlen' ),
+		'new_item'              => __( 'New Withdrawl', 'empfohlen' ),
+		'edit_item'             => __( 'Edit Withdrawl', 'empfohlen' ),
+		'update_item'           => __( 'Update Withdrawl', 'empfohlen' ),
+		'view_item'             => __( 'View Withdrawl', 'empfohlen' ),
+		'view_items'            => __( 'View Withdrawls', 'empfohlen' ),
+		'search_items'          => __( 'Search Withdrawls', 'empfohlen' ),
+		'not_found'             => __( 'Withdrawl Not found', 'empfohlen' ),
+		'not_found_in_trash'    => __( 'Withdrawl Not found in Trash', 'empfohlen' ),
+		'featured_image'        => __( 'Featured Image', 'empfohlen' ),
+		'set_featured_image'    => __( 'Set featured image', 'empfohlen' ),
+		'remove_featured_image' => __( 'Remove featured image', 'empfohlen' ),
+		'use_featured_image'    => __( 'Use as featured image', 'empfohlen' ),
+		'insert_into_item'      => __( 'Insert into item', 'empfohlen' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'empfohlen' ),
+		'items_list'            => __( 'withdrawls list', 'empfohlen' ),
+		'items_list_navigation' => __( 'withdrawls list navigation', 'empfohlen' ),
+		'filter_items_list'     => __( 'Filter withdrawls list', 'empfohlen' ),
 	);
 	 
 	 $args = array(
-            'label'                 => __( 'Withdrawl', 'emp' ),
+            'label'                 => __( 'Withdrawl', 'empfohlen' ),
             'public' => true,
             'exclude_from_search' => true,
             'publicly_queryable' => true,
@@ -123,19 +123,6 @@ add_action( 'admin_init', 'add_withdrawl_caps');
 
 
 
- 
-
-
-
-
-
-
-
-
-
-
-
-
 add_action( 'wp_ajax_payout_withdrawl_submit', 'payout_withdrawl_submit_callback' );
 add_action( 'wp_ajax_nopriv_payout_withdrawl_submit', 'payout_withdrawl_submit_callback' );
 function payout_withdrawl_submit_callback() {
@@ -168,7 +155,7 @@ function payout_withdrawl_submit_callback() {
 
     if(!$is_member){
         $return['status'] =  'error'; 
-        $return['message'] =  'Only members can submit a payout request'; 
+        $return['message'] =  __('Only members can submit a payout request','empfohlen'); 
         wp_send_json( $return ); 
     }
 
@@ -183,7 +170,7 @@ function payout_withdrawl_submit_callback() {
     $balances = get_field('balance_amount',  'user_'.$userData->ID );
     if(empty($balances)){
         $return['status'] =  'error'; 
-        $return['message'] =  'You have zero balance to payout'; 
+        $return['message'] =  __('You have zero balance to payout','empfohlen'); 
         wp_send_json( $return ); 
     }
 
@@ -211,7 +198,7 @@ function payout_withdrawl_submit_callback() {
 
     if(!empty($withdrawl_exist)){
         $return['status'] =   'error'; 
-        $return['message'] =  'You Already have a pending withdrawl payment request'; 
+        $return['message'] =  __('You Already have a pending withdrawl payment request','empfohlen'); 
         wp_send_json( $return ); 
     }
 
@@ -221,7 +208,7 @@ function payout_withdrawl_submit_callback() {
 
     if($payout_amount < 1){
         $return['status'] =   'error'; 
-        $return['message'] =  'Incorrect withdrawl amount'; 
+        $return['message'] =  __('Incorrect withdrawl amount','empfohlen'); 
         wp_send_json( $return ); 
     }
 
@@ -245,7 +232,7 @@ function payout_withdrawl_submit_callback() {
 
 
       $return['status'] =  'success'; 
-      $return['message'] =  'Your withdrawl request has been submited succesfully'; 
+      $return['message'] =  __('Your withdrawl request has been submited succesfully','empfohlen'); 
       wp_send_json( $return ); 
       exit; 
 
@@ -321,7 +308,7 @@ function payout_withdrawl_submit_callback() {
  
   }else{
     $return['status'] =  'error'; 
-    $return['message'] =  'please login to submit request'; 
+    $return['message'] =  __('please login to submit request','empfohlen'); 
     wp_send_json( $return ); 
   }
   wp_send_json( $return ); 
@@ -367,22 +354,22 @@ function save_widthdrawl_post_callback($post_id){
             $ehtml .= '</hr>';
 
             $ehtml .= '<div>'; 
-              $ehtml .= '<p>Withdrawl Info</p>';
-              $ehtml .= '<p>Withdrawl ID: '.$withdrawl_id.'</p>';
-              $ehtml .= '<p>Withdrawl Title: '.$post->post_title.'</p>';
-              $ehtml .= '<p>Withdrawl Status: '.$withdrawl_status.'</p>';
-              $ehtml .= '<p>Withdrawl Amount: '.$withdrawl_currency.' '.$withdrawl_amount.'</p>';
+              $ehtml .= '<p>'.__('Withdrawl Info:','empfohlen').'</p>';
+              $ehtml .= '<p>'.__('Withdrawl ID: ','empfohlen').$withdrawl_id.'</p>';
+              $ehtml .= '<p>'.__('Withdrawl Title: ','empfohlen').$post->post_title.'</p>';
+              $ehtml .= '<p>'.__('Withdrawl Status: ','empfohlen').$withdrawl_status.'</p>';
+              $ehtml .= '<p>'.__('Withdrawl Amount: ','empfohlen').$withdrawl_currency.' '.$withdrawl_amount.'</p>';
             $ehtml .= '</div>';
 
             $ehtml .= '</hr>';
 
             $ehtml .= '<div>'; 
-            $ehtml .= '<p>Withdrawl Description:</p>';
+            $ehtml .= '<p>'.__('Withdrawl Description:','empfohlen').'</p>';
             $ehtml .= $withdrawl_info;
             $ehtml .= '</div>';
 
             $headers = array( 'Content-type: text/html' );
-            $emil_status = wp_mail( $user_info->user_email, __('Withdrawl ('.$withdrawl_id .') Updated','emp') , $ehtml, $headers);
+            $emil_status = wp_mail( $user_info->user_email, __('Withdrawl ('.$withdrawl_id .') Updated','empfohlen') , $ehtml, $headers);
 
 
           }
@@ -501,44 +488,44 @@ function withdrawl_complete_deduct_amount() {
                     $withdrawl_id_code = get_field( "withdrawl_id", $withdrawl->ID);
                     $w_permalink = get_permalink($withdrawl->ID);
 
-                    $ehtml = sprintf(__('Your <a href="%s"> Withdrawl Request(%s)</a> has been completed and amount has been transfered to your account', 'emp'),$w_permalink,$withdrawl_id_code);                    
+                    $ehtml = sprintf(__('Your <a href="%s"> Withdrawl Request(%s)</a> has been completed and amount has been transfered to your account', 'empfohlen'),$w_permalink,$withdrawl_id_code);                    
                   
                     $headers = array( 'Content-type: text/html' );
-                    wp_mail( $user_info->user_email, __('Withdrawl ('.$withdrawl_id_code.') Completed','emp') , $ehtml, $headers);
+                    wp_mail( $user_info->user_email, __('Withdrawl ('.$withdrawl_id_code.') Completed','empfohlen') , $ehtml, $headers);
                     
                     $return['status']   = 'success';
-                    $return['message']  = 'Withdrawl Completed Succesfully';
-                    $return['data'] = '<a class="button button-success button-large">Withdrawl completed and payment has been paid</a>';
+                    $return['message']  = __('Withdrawl Completed Succesfully','empfohlen');
+                    $return['data'] = '<a class="button button-success button-large">'.__('Withdrawl completed and payment has been paid','empfohlen').'</a>';
                     wp_send_json( $return ); 
 
                  }else{
                     $return['status']   = 'error';
-                    $return['message']  = 'User Earning amount should be grater than zero. User has not earning to deduct from';
-                    $return['data'] = '<a class="button button-success button-large">Error</a>';
+                    $return['message']  = __('User Earning amount should be grater than zero. User has not earning to deduct from','empfohlen');
+                    $return['data'] = '<a class="button button-success button-large">'.__('Error','empfohlen').'</a>';
                     wp_send_json( $return ); 
                  }
               }else{
                 $return['status']   = 'error';
-                $return['message']  = 'Withdrawl Member(User) doest not exist.';
-                $return['data'] = '<a class="button button-success button-large">Error</a>';
+                $return['message']  = __('Withdrawl Member(User) doest not exist.','empfohlen');
+                $return['data'] = '<a class="button button-success button-large">'.__('Error','empfohlen').'</a>';
                 wp_send_json( $return ); 
               }
             }else{
               $return['status']   = 'error';
-              $return['message']  = 'Withdrawl amount must be grater than zero.';
-              $return['data'] = '<a class="button button-success button-large">Error</a>';
+              $return['message']  = __('Withdrawl amount must be grater than zero.','empfohlen');
+              $return['data'] = '<a class="button button-success button-large">'.__('Error'.'empfohlen').'</a>';
               wp_send_json( $return ); 
             }
           }else{
             $return['status']   = 'error';
-            $return['message']  = 'Only Withdrawl with status pending can be processed';
-            $return['data'] = '<a class="button button-success button-large">Error</a>';
+            $return['message']  = __('Only Withdrawl with status pending can be processed','empfohlen');
+            $return['data'] = '<a class="button button-success button-large">'.__('Error','empfohlen').'</a>';
             wp_send_json( $return ); 
           }
         }
     }
 
     $return['status']   = 'error';
-    $return['message']  = 'Error processing your request.';
+    $return['message']  = __('Error processing your request.','empfohlen');
     wp_send_json( $return ); 
 }

@@ -15,30 +15,30 @@
     	if(isset($_SESSION['reg_success'])){ unset($_SESSION['reg_success']); } 
     	if(isset($_SESSION['reg_error'])){ unset($_SESSION['reg_error']); } 
 
-    	echo "<pre> success "; print_r( $success ); echo "</pre> ";  
-    	echo "<pre> error "; print_r( $error ); echo "</pre> ";  
+    	// echo "<pre> success "; print_r( $success ); echo "</pre> ";  
+    	// echo "<pre> error "; print_r( $error ); echo "</pre> ";  
 
 		?>
 		</div>
 
 		<div class="field-wrapper two">
         <div class="two-left">
-            <label for="emp_user_first"><?php _e('First Name', 'emp'); ?></label><br>
+            <label for="emp_user_first"><?php _e('First Name', 'empfohlen'); ?></label><br>
             <input id="emp_user_first" name="emp_user_first"   type="text" placeholder="First name">
         </div>
         <div class="two-right">
-            <label for="emp_user_last"><?php _e('Surname', 'emp'); ?></label><br>
+            <label for="emp_user_last"><?php _e('Surname', 'empfohlen'); ?></label><br>
             <input name="emp_user_last" id="emp_user_last" type="text"/>
         </div>
     </div>
 
     <div class="field-wrapper two">
         <div class="two-left">
-            <label for="emp_user_Login"><?php _e('Username', 'emp'); ?></label><br>
+            <label for="emp_user_Login"><?php _e('Username', 'empfohlen'); ?></label><br>
             <input name="emp_user_login" id="emp_user_login" class="required" type="text"/>
         </div>
         <div class="two-right">
-            <label for="emp_user_email"><?php _e('Email', 'emp'); ?></label><br>
+            <label for="emp_user_email"><?php _e('Email', 'empfohlen'); ?></label><br>
             <input name="emp_user_email" id="emp_user_email" class="required" type="email"/>
         </div>
     </div>
@@ -47,11 +47,11 @@
 
     <div class="field-wrapper two">
         <div class="two-left">
-            <label for="password"><?php _e('Password', 'emp'); ?></label><br>
+            <label for="password"><?php _e('Password', 'empfohlen'); ?></label><br>
             <input name="emp_user_pass" id="password" class="required" type="password"/>
         </div>
         <div class="two-right">
-            <label for="password_again"><?php _e('Password Again', 'emp'); ?></label><br>
+            <label for="password_again"><?php _e('Password Again', 'empfohlen'); ?></label><br>
             <input name="emp_user_pass_confirm" id="password_again" class="required" type="password"/>
         </div>
     </div>
@@ -59,12 +59,12 @@
 
 
     <div class="field-wrapper">
-        <label for="emp_user_birthday"><?php _e('Birthday', 'emp'); ?></label><br>
+        <label for="emp_user_birthday"><?php _e('Birthday', 'empfohlen'); ?></label><br>
         <input name="emp_user_birthday" id="emp_user_birthday" type="text"/>
     </div>
 
     <div class="field-wrapper">
-        <label for="emp_user_address"><?php _e('Address', 'emp'); ?></label><br>
+        <label for="emp_user_address"><?php _e('Address', 'empfohlen'); ?></label><br>
         <textarea rows="4" cols="50" name="emp_user_address" id="emp_user_address"></textarea>
     </div>
 
@@ -118,6 +118,6 @@
 	
 		<input type="hidden" name="emp_register_nonce" value="<?php echo wp_create_nonce('emp-register-nonce'); ?>"/>	   
 	  <input type="hidden" name="action" value="emp_registeration_submit"> 
-		<div class="submit-wrapper"><button type="submit"><?php echo _e('Register Your Account', 'emp');?></button></div>
+		<div class="submit-wrapper"><button type="submit"><?php echo _e('Register Your Account', 'empfohlen');?></button></div>
 
 </form>

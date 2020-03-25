@@ -33,37 +33,37 @@ function empfohlen_get_request_capabilities() {
 if( !function_exists( 'empfohlen_request_post_type' ) ){
     function empfohlen_request_post_type(){
          $labels = array(
-		'name'                  => _x( 'Requests', 'Post Type General Name', 'emp' ),
-		'singular_name'         => _x( 'Request', 'Post Type Singular Name', 'emp' ),
-		'menu_name'             => __( 'Request', 'emp' ),
-		'name_admin_bar'        => __( 'Request', 'emp' ),
-		'archives'              => __( 'Request Archives', 'emp' ),
-		'attributes'            => __( 'Request Attributes', 'emp' ),
-		'parent_item_colon'     => __( 'Parent Request:', 'emp' ),
-		'all_items'             => __( 'All Requests', 'emp' ),
-		'add_new_item'          => __( 'Add New Request', 'emp' ),
-		'add_new'               => __( 'Add New Request', 'emp' ),
-		'new_item'              => __( 'New Request', 'emp' ),
-		'edit_item'             => __( 'Edit Request', 'emp' ),
-		'update_item'           => __( 'Update Request', 'emp' ),
-		'view_item'             => __( 'View Request', 'emp' ),
-		'view_items'            => __( 'View Requests', 'emp' ),
-		'search_items'          => __( 'Search Requests', 'emp' ),
-		'not_found'             => __( 'Request Not found', 'emp' ),
-		'not_found_in_trash'    => __( 'Request Not found in Trash', 'emp' ),
-		'featured_image'        => __( 'Featured Image', 'emp' ),
-		'set_featured_image'    => __( 'Set featured image', 'emp' ),
-		'remove_featured_image' => __( 'Remove featured image', 'emp' ),
-		'use_featured_image'    => __( 'Use as featured image', 'emp' ),
-		'insert_into_item'      => __( 'Insert into item', 'emp' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'emp' ),
-		'items_list'            => __( 'requests list', 'emp' ),
-		'items_list_navigation' => __( 'requests list navigation', 'emp' ),
-		'filter_items_list'     => __( 'Filter requests list', 'emp' ),
+		'name'                  => _x( 'Requests', 'Post Type General Name', 'empfohlen' ),
+		'singular_name'         => _x( 'Request', 'Post Type Singular Name', 'empfohlen' ),
+		'menu_name'             => __( 'Request', 'empfohlen' ),
+		'name_admin_bar'        => __( 'Request', 'empfohlen' ),
+		'archives'              => __( 'Request Archives', 'empfohlen' ),
+		'attributes'            => __( 'Request Attributes', 'empfohlen' ),
+		'parent_item_colon'     => __( 'Parent Request:', 'empfohlen' ),
+		'all_items'             => __( 'All Requests', 'empfohlen' ),
+		'add_new_item'          => __( 'Add New Request', 'empfohlen' ),
+		'add_new'               => __( 'Add New Request', 'empfohlen' ),
+		'new_item'              => __( 'New Request', 'empfohlen' ),
+		'edit_item'             => __( 'Edit Request', 'empfohlen' ),
+		'update_item'           => __( 'Update Request', 'empfohlen' ),
+		'view_item'             => __( 'View Request', 'empfohlen' ),
+		'view_items'            => __( 'View Requests', 'empfohlen' ),
+		'search_items'          => __( 'Search Requests', 'empfohlen' ),
+		'not_found'             => __( 'Request Not found', 'empfohlen' ),
+		'not_found_in_trash'    => __( 'Request Not found in Trash', 'empfohlen' ),
+		'featured_image'        => __( 'Featured Image', 'empfohlen' ),
+		'set_featured_image'    => __( 'Set featured image', 'empfohlen' ),
+		'remove_featured_image' => __( 'Remove featured image', 'empfohlen' ),
+		'use_featured_image'    => __( 'Use as featured image', 'empfohlen' ),
+		'insert_into_item'      => __( 'Insert into item', 'empfohlen' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'empfohlen' ),
+		'items_list'            => __( 'requests list', 'empfohlen' ),
+		'items_list_navigation' => __( 'requests list navigation', 'empfohlen' ),
+		'filter_items_list'     => __( 'Filter requests list', 'empfohlen' ),
 	);
 	 
 	 $args = array(
-            'label' => __( 'Request', 'emp' ),
+            'label' => __( 'Request', 'empfohlen' ),
             'public' => true,
             'exclude_from_search' => true,
             'publicly_queryable' => true,
@@ -230,7 +230,7 @@ function generate_task() {
             $ehtml = 'Your Request againt Project : ('.$projectData->post_title.') has been approved and a '; 
             $ehtml .= '<a href="'.get_the_permalink($task_id).'">Task('.$task_id_code.')</a> has been created';
             $headers = array( 'Content-type: text/html' );
-            wp_mail( $user_info->user_email, __('Request Accepted and Task Created','emp') , $ehtml, $headers);
+            wp_mail( $user_info->user_email, __('Request Accepted and Task Created','empfohlen') , $ehtml, $headers);
 
             // add_action( 'admin_notices', 'my_test_notice' );
             wp_send_json($return); 

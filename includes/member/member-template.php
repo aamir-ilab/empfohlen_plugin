@@ -33,7 +33,7 @@ if(isset($_SESSION['account_verified_success']) && !empty($_SESSION['account_ver
   <div class="close_nofi">
   <a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
   </div>
-  <strong>Success!</strong> <?php echo $_SESSION['account_verified_success'];?>
+  <strong><?php echo __('Success!','empfohlen')?></strong> <?php echo $_SESSION['account_verified_success'];?>
 </div>
 <?php
  unset($_SESSION['account_verified_success']); 
@@ -45,12 +45,19 @@ if(isset($_SESSION['account_verified_success']) && !empty($_SESSION['account_ver
 <!-- h4 style="text-align: center">Member Dashboard </h4> -->
 		 <div class="tabs">
 		 		<ul class="tabBar">
-		 			<li class="<?= $tmpl == 'overview'? 'active': ''?>" name="overview"><a href="<?php echo get_permalink() ?>?tmpl=overview">Overview</a></li>
-		 			<li class="<?= $tmpl == 'jobs'? 'active': ''?>" name="jobs"><a href="<?php echo get_permalink() ?>?tmpl=jobs">Jobs</a></li>
-		 			<li class="<?= $tmpl == 'setting'? 'active': ''?>" name="settings"><a href="<?php echo get_permalink() ?>?tmpl=setting">Settings</a></li>
-		 			<li class="<?= $tmpl == 'pay'? 'active': ''?>" name="transactions"><a href="<?php echo get_permalink() ?>?tmpl=pay">Paying out</a></li>
-		 			<li class="<?= $tmpl == 'tickets'? 'active': ''?>" name="tickets"><a href="<?php echo get_permalink() ?>?tmpl=tickets">Tickets</a></li>
-		 			<li class="<?= $tmpl == 'reviews'? 'active': ''?>" name="reviews"><a href="<?php echo get_permalink() ?>?tmpl=reviews">Review</a></li>
+		 			<li class="<?= $tmpl == 'overview'? 'active': ''?>" name="overview">
+		 				<a href="<?php echo get_permalink() ?>?tmpl=overview"><?php echo __('Overview','empfohlen')?></a>
+		 			</li>
+		 			<li class="<?= $tmpl == 'jobs'? 'active': ''?>" name="jobs">
+		 				<a href="<?php echo get_permalink() ?>?tmpl=jobs"><?php echo __('Jobs','empfohlen')?></a></li>
+		 			<li class="<?= $tmpl == 'setting'? 'active': ''?>" name="settings">
+		 				<a href="<?php echo get_permalink() ?>?tmpl=setting"><?php echo __('Settings','empfohlen')?></a></li>
+		 			<li class="<?= $tmpl == 'pay'? 'active': ''?>" name="transactions">
+		 				<a href="<?php echo get_permalink() ?>?tmpl=pay"><?php echo __('Paying out','empfohlen')?></a></li>
+		 			<li class="<?= $tmpl == 'tickets'? 'active': ''?>" name="tickets">
+		 				<a href="<?php echo get_permalink() ?>?tmpl=tickets"><?php echo __('Tickets','empfohlen')?></a></li>
+		 			<li class="<?= $tmpl == 'reviews'? 'active': ''?>" name="reviews">
+		 				<a href="<?php echo get_permalink() ?>?tmpl=reviews"><?php echo __('Review','empfohlen')?></a></li>
 		 		</ul>
 		 </div>
 
@@ -60,7 +67,7 @@ if(isset($_SESSION['account_verified_success']) && !empty($_SESSION['account_ver
 		 		<div class="nofi_bottom_pointer mb_20">	
 		 		<div class="cmodal relative alert alert-success alert-dismissible bg_black_shad m_0 border_radius_25" style="color: white;font-weight: bold;">
 				  <div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>
-				  <strong>Welcome Message! </strong> Unlock new orders by completing the available tasks.
+				  <strong><?php echo __('Welcome Message!','empfohlen')?></strong><?php echo __('Unlock new orders by completing the available tasks.','empfohlen')?>
 				</div>
 				</div>
 		 </div>

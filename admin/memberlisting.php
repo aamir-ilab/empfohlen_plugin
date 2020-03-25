@@ -21,8 +21,8 @@ class Customers_List extends WP_List_Table {
 	public function __construct() {
 
 		parent::__construct( [
-			'singular' => __( 'Members', 'emp' ), //singular name of the listed records
-			'plural'   => __( 'Member', 'emp' ), //plural name of the listed records
+			'singular' => __( 'Members', 'empfohlen' ), //singular name of the listed records
+			'plural'   => __( 'Member', 'empfohlen' ), //plural name of the listed records
 			'ajax'     => false //does this table support ajax?
 		]);
 
@@ -108,7 +108,7 @@ class Customers_List extends WP_List_Table {
 
 	/** Text displayed when no customer data is available */
 	public function no_items() {
-		_e( 'No member avaliable.', 'emp' );
+		_e( 'No member avaliable.', 'empfohlen' );
 	}
 
 
@@ -259,12 +259,12 @@ class Customers_List extends WP_List_Table {
 	function get_columns() {
 		$columns = [
 			'cb'      => '<input type="checkbox" />',
-			'id'    	=> __('ID', 'emp'),
-			'name'    => __('Name', 'emp'),
-			'email' 	=> __('Email', 'emp'),
-			'group' 	=> __('Group', 'emp'),
-			'skill' 	=> __('Skill', 'emp'),
-			'balance' 	=> __('Balance', 'emp')			 
+			'id'    	=> __('ID', 'empfohlen'),
+			'name'    => __('Name', 'empfohlen'),
+			'email' 	=> __('Email', 'empfohlen'),
+			'group' 	=> __('Group', 'empfohlen'),
+			'skill' 	=> __('Skill', 'empfohlen'),
+			'balance' 	=> __('Balance', 'empfohlen')			 
 		];
 		return $columns;
 	}
@@ -354,8 +354,8 @@ class Member_Listing {
 		 // echo "<pre>  "; print_r( 'member_listing_menu' ); echo "</pre> ";  exit; 
 		$hook = add_submenu_page(
 	        'empfohlen',
-	        __( 'Empfohlen Member Listing', 'emp' ),
-	        __( 'Member Listing', 'emp' ),
+	        __( 'Empfohlen Member Listing', 'empfohlen' ),
+	        __( 'Member Listing', 'empfohlen' ),
 	        'manage_emp_menu_member_listing',
 	        'empfohlen-member-listing',
 	        array( $this, 'member_listing_settings_page' )

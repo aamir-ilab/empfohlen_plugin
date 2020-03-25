@@ -144,6 +144,8 @@ class Empfohlen {
 
 		$plugin_i18n = new Empfohlen_i18n();
 
+		// echo "<pre> plugin_i18n "; print_r( $plugin_i18n ); echo "</pre> ";  exit; 
+
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}

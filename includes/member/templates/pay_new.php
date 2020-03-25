@@ -74,7 +74,7 @@ echo'<div class="fusion-builder-row fusion-row ">
                 <div class="amountContainerNew payout">
                     <div class="textContainer">
                         <div class="icon"></div>
-                        <div class="text">This is the total of your earnings already checked:</div>
+                        <div class="text">'.__('This is the total of your earnings already checked:','empfohlen').'</div>
                     </div>
                     <div class="value">
                         <div class="defaultContent">'.EmpHelper::currency_to_code($user_currency).' '.number_format($total_user_price,2).' </div>
@@ -85,7 +85,7 @@ echo'<div class="fusion-builder-row fusion-row ">
                 </div>
                 <div class="buttonBar">'; 
                 if (!empty($total_user_price)){ 
-                    echo '<a class="button show_widthdrawl" data-toggle="modal" data-target="#withdrawal_modal">Request a withdrawal</a>'; 
+                    echo '<a class="button show_widthdrawl" data-toggle="modal" data-target="#withdrawal_modal">'.__('Request a withdrawal','empfohlen').'</a>'; 
                 }
                 echo '
                 </div>
@@ -130,7 +130,7 @@ echo'<div class="fusion-builder-row fusion-row ">
 
 
 		<div class="fusion-layout-column fusion_builder_column fusion_builder_column_2_3 fusion-builder-column-2 fusion-two-third fusion-column-last 1_3 revenues">
-    	<div class="fusion-column-wrapper"><h3><?php _e('Invoices','emp');?></h3></div>
+    	<div class="fusion-column-wrapper"><h3><?php _e('Invoices','empfohlen');?></h3></div>
 			<div class="withdrawal_list">
 				<?php
 				if (!empty($invoice_exist)) { 
@@ -179,7 +179,7 @@ echo '</div> <!-- fusion-row end -->';
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="payOutModalLabel">Pay out form</h5>
+        <h5 class="modal-title" id="payOutModalLabel"><?php echo __('Pay out form','empfohlen')?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body payout_withdrawl_body empfohlen_form_payout">
@@ -197,7 +197,7 @@ echo '</div> <!-- fusion-row end -->';
         <div class="row payment_info">
                
              <div class="field-wrapper">
-                <label for="rf_title">Amount </label>
+                <label for="rf_title"><?php echo __('Amount','empfohlen')?></label>
                 <div class="amount_field_box">
                   <span><?php echo $user_currency; ?></span>
                   <input id="payout_amount" class="payout_amount" type="text" name="payout_amount">
@@ -205,12 +205,12 @@ echo '</div> <!-- fusion-row end -->';
              </div>
 
              <div class="field-wrapper">
-                <label for="rf_title">Description</label>
+                <label for="rf_title"><?php echo __('Description','empfohlen')?></label>
                 <textarea class="wdr_infobox" id="payout_description" name="payout_description" rows="6" cols="50"></textarea>
              </div>
 
              <div class="field-wrapper">
-                <button type="button" class="payout_btn btn-primary withdrawl_btn">Withdrawl</button>
+                <button type="button" class="payout_btn btn-primary withdrawl_btn"><?php echo __('Withdrawl','empfohlen')?></button>
              </div>
 
 	      </div>

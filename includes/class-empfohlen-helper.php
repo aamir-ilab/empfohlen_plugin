@@ -89,19 +89,19 @@ class EmpHelper {
  			if (!empty($duration_array[0])  && ($duration_array[0] >0)) { 
  				$hour = (int) $duration_array[0]; 
  				$ret .= '<span class="hour">';
- 				$ret .=	($hour > 1)?($hour.__(' hours ', 'emp')):($hour.__(' hour', 'emp'));
+ 				$ret .=	($hour > 1)?($hour.__(' hours ', 'empfohlen')):($hour.__(' hour', 'empfohlen'));
  				$ret .= '</span>';
  			}
  			if (!empty($duration_array[1])  && ($duration_array[1] >0)) { 
  				$minute = (int) $duration_array[1]; 
  				$ret .= '<span class="minute">';
- 				$ret .=	($minute > 1)?($minute.__(' minutes ', 'emp')):($minute.__(' minute', 'emp'));
+ 				$ret .=	($minute > 1)?($minute.__(' minutes ', 'empfohlen')):($minute.__(' minute', 'empfohlen'));
  				$ret .= '</span>';
  			}
  			if (!empty($duration_array[2])  && ($duration_array[2] >0)) { 
  				$second = (int) $duration_array[2]; 
  				$ret .= '<span class="second">';
- 				$ret .=	($second > 1)?($second.__(' seconds ', 'emp')):($second.__(' second', 'emp'));
+ 				$ret .=	($second > 1)?($second.__(' seconds ', 'empfohlen')):($second.__(' second', 'empfohlen'));
  				$ret .= '</span>';
  			}
  		$ret .= '</span>';
@@ -138,9 +138,9 @@ class EmpHelper {
 
 			$ret = '<div class="exp_duration">';
 			 if($exp_date < $now) {
-			 		$ret  .= '<span class="d_expired">'.__('Expired: ', 'emp').EmpHelper::Expired_humanTiming($exp_date).' '.__('ago', 'emp').'</span>';
+			 		$ret  .= '<span class="d_expired">'.__('Expired: ', 'empfohlen').EmpHelper::Expired_humanTiming($exp_date).' '.__('ago', 'empfohlen').'</span>';
 			 }else{
-			 		$ret  .= '<span class="d_left">'.__('Time Left: ', 'emp').EmpHelper::Left_humanTiming($exp_date).' '.__('remaning', 'emp').'</span>';
+			 		$ret  .= '<span class="d_left">'.__('Time Left: ', 'empfohlen').EmpHelper::Left_humanTiming($exp_date).' '.__('remaning', 'empfohlen').'</span>';
 			 }
 			$ret .= '</div>';
 
@@ -363,7 +363,7 @@ static function successBannerHtml($message){
       <div class="close_nofi">
       	<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
       </div>
-      <strong>Success ! </strong> '.$message.'   
+      <strong>'.__('Success! ','empfohlen').' </strong> '.$message.'   
   </div>'; 
 
   return $b_html;
@@ -376,7 +376,7 @@ static function errorBannerHtml($message){
 	$b_html = '
 	<div id="top-alert" class="cmodal relative alert alert-danger alert-dismissible mt_20" role="alert">
     <div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>
-    <strong>Error ! </strong>'.$message.'
+    <strong>'.__('Error! ','empfohlen').' </strong>'.$message.'
    </div>'; 
 
   return $b_html;

@@ -33,37 +33,37 @@ function empfohlen_get_project_capabilities() {
 if( !function_exists( 'empfohlen_project_post_type' ) ){
     function empfohlen_project_post_type(){
          $labels = array(
-		'name'                  => _x( 'Projects', 'Post Type General Name', 'emp' ),
-		'singular_name'         => _x( 'Project', 'Post Type Singular Name', 'emp' ),
-		'menu_name'             => __( 'Project', 'emp' ),
-		'name_admin_bar'        => __( 'Project', 'emp' ),
-		'archives'              => __( 'Project Archives', 'emp' ),
-		'attributes'            => __( 'Project Attributes', 'emp' ),
-		'parent_item_colon'     => __( 'Parent Project:', 'emp' ),
-		'all_items'             => __( 'All Projects', 'emp' ),
-		'add_new_item'          => __( 'Add New Project', 'emp' ),
-		'add_new'               => __( 'Add New Project', 'emp' ),
-		'new_item'              => __( 'New Project', 'emp' ),
-		'edit_item'             => __( 'Edit Project', 'emp' ),
-		'update_item'           => __( 'Update Project', 'emp' ),
-		'view_item'             => __( 'View Project', 'emp' ),
-		'view_items'            => __( 'View Projects', 'emp' ),
-		'search_items'          => __( 'Search Projects', 'emp' ),
-		'not_found'             => __( 'Project Not found', 'emp' ),
-		'not_found_in_trash'    => __( 'Project Not found in Trash', 'emp' ),
-		'featured_image'        => __( 'Featured Image', 'emp' ),
-		'set_featured_image'    => __( 'Set featured image', 'emp' ),
-		'remove_featured_image' => __( 'Remove featured image', 'emp' ),
-		'use_featured_image'    => __( 'Use as featured image', 'emp' ),
-		'insert_into_item'      => __( 'Insert into item', 'emp' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'emp' ),
-		'items_list'            => __( 'projects list', 'emp' ),
-		'items_list_navigation' => __( 'projects list navigation', 'emp' ),
-		'filter_items_list'     => __( 'Filter projects list', 'emp' ),
+		'name'                  => _x( 'Projects', 'Post Type General Name', 'empfohlen' ),
+		'singular_name'         => _x( 'Project', 'Post Type Singular Name', 'empfohlen' ),
+		'menu_name'             => __( 'Project', 'empfohlen' ),
+		'name_admin_bar'        => __( 'Project', 'empfohlen' ),
+		'archives'              => __( 'Project Archives', 'empfohlen' ),
+		'attributes'            => __( 'Project Attributes', 'empfohlen' ),
+		'parent_item_colon'     => __( 'Parent Project:', 'empfohlen' ),
+		'all_items'             => __( 'All Projects', 'empfohlen' ),
+		'add_new_item'          => __( 'Add New Project', 'empfohlen' ),
+		'add_new'               => __( 'Add New Project', 'empfohlen' ),
+		'new_item'              => __( 'New Project', 'empfohlen' ),
+		'edit_item'             => __( 'Edit Project', 'empfohlen' ),
+		'update_item'           => __( 'Update Project', 'empfohlen' ),
+		'view_item'             => __( 'View Project', 'empfohlen' ),
+		'view_items'            => __( 'View Projects', 'empfohlen' ),
+		'search_items'          => __( 'Search Projects', 'empfohlen' ),
+		'not_found'             => __( 'Project Not found', 'empfohlen' ),
+		'not_found_in_trash'    => __( 'Project Not found in Trash', 'empfohlen' ),
+		'featured_image'        => __( 'Featured Image', 'empfohlen' ),
+		'set_featured_image'    => __( 'Set featured image', 'empfohlen' ),
+		'remove_featured_image' => __( 'Remove featured image', 'empfohlen' ),
+		'use_featured_image'    => __( 'Use as featured image', 'empfohlen' ),
+		'insert_into_item'      => __( 'Insert into item', 'empfohlen' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this item', 'empfohlen' ),
+		'items_list'            => __( 'projects list', 'empfohlen' ),
+		'items_list_navigation' => __( 'projects list navigation', 'empfohlen' ),
+		'filter_items_list'     => __( 'Filter projects list', 'empfohlen' ),
 	);
 	 
 	 $args = array(
-            'label'                 => __( 'Project', 'emp' ),
+            'label'                 => __( 'Project', 'empfohlen' ),
             'public' => true,
             'exclude_from_search' => true,
             'publicly_queryable' => true,
@@ -326,8 +326,8 @@ function save_post_project_baseprice( $post_id ) {
    $ret['cb']               = $columns['cb'];
    $ret['title']            = $columns['title'];
    $ret['taxonomy-skill']   = $columns['taxonomy-skill'];
-   $ret['keywords']         = __ ( 'Key words', 'emp' );
-   $ret['pay']              = __ ( 'Pay', 'emp' );
+   $ret['keywords']         = __ ( 'Key words', 'empfohlen' );
+   $ret['pay']              = __ ( 'Pay', 'empfohlen' );
    $ret['date']             = $columns['date'];
    return $ret;
  }
@@ -400,8 +400,8 @@ function project_start_create_task() {
 
         // check if project exist.
         if(empty($project)){
-           $return['status']   = __('Error','emp');
-           $return['message']  = __('Error creating task for this project','emp');
+           $return['status']   = __('Error','empfohlen');
+           $return['message']  = __('Error creating task for this project','empfohlen');
            wp_send_json( $return ); 
         }
 
@@ -409,8 +409,8 @@ function project_start_create_task() {
         $expiration_date      =   get_field( "expiration_date", $project_id );
         $isExpired            = EmpHelper::isExpired($expiration_date);
         if($isExpired ){
-            $return['status']   = __('Error','emp');
-            $return['message']  = __('Project Expired Date passed away.','emp');
+            $return['status']   = __('Error','empfohlen');
+            $return['message']  = __('Project Expired Date passed away.','empfohlen');
             wp_send_json( $return ); 
         }
 
@@ -418,8 +418,8 @@ function project_start_create_task() {
         // check if project has request disabled. 
         $request_enable = get_field( "request_enable", $project_id);
         if($request_enable){
-            $return['status']   = __('Error','emp');
-            $return['message']  = __('Need to submit a request to start work on this project.','emp');
+            $return['status']   = __('Error','empfohlen');
+            $return['message']  = __('Need to submit a request to start work on this project.','empfohlen');
             wp_send_json( $return ); 
         }
 
@@ -449,11 +449,11 @@ function project_start_create_task() {
          // echo "<pre> task_exist "; print_r(  $task_exist  ); echo "</pre> ";  
 
         if($task_exist){
-            $return['status']   = __('Error','emp');
-            $return['message']  = __('Task Already Exist.','emp');
+            $return['status']   = __('Error','empfohlen');
+            $return['message']  = __('Task Already Exist.','empfohlen');
             $task = $task_exist[0];
             $task_status = get_post_meta($task->ID,'task_status',true); 
-            $return['data'] = '<a class="button button-success button-large  task_detail_btn" href="'.get_permalink($task->ID).'">'.__('Task Detail','emp').' ('.$task_status.')</a>';
+            $return['data'] = '<a class="button button-success button-large  task_detail_btn" href="'.get_permalink($task->ID).'">'.__('Task Detail','empfohlen').' ('.$task_status.')</a>';
             wp_send_json($return); 
          }else{
 
@@ -474,16 +474,16 @@ function project_start_create_task() {
                update_post_meta($task_id, 'project_id', $project_id);
               
               $return['status']  = __('success');
-              $return['message'] = __('Task Created succesfully.','emp');
+              $return['message'] = __('Task Created succesfully.','empfohlen');
               $task_status       = get_post_meta($task_id,'task_status',true); 
-              $return['data'] = '<a class="button button-success button-large" href="'.get_permalink($task_id).'">'.__('Task Detail','emp').' ('.$task_status.')</a>';
+              $return['data'] = '<a class="button button-success button-large" href="'.get_permalink($task_id).'">'.__('Task Detail','empfohlen').' ('.$task_status.')</a>';
               wp_send_json($return); 
 
             }
          }
     } 
     $return['status']   = 'error';
-    $return['message']  = 'Error creating task for this project.';
+    $return['message']  = __('Error creating task for this project.','empfohlen');
     wp_send_json( $return ); 
    
 }

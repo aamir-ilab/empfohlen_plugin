@@ -36,7 +36,7 @@ unset($_SESSION['prof_error']);
 if( !empty($success) ){?>
    <div class="cmodal relative alert alert-success alert-dismissible mt_20" style="background-color: #8bc34ad4;color: white;font-weight: bold;">
       <div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>
-      <strong>Success!</strong> 
+      <strong><?php echo __('Success!','empfohlen')?></strong> 
       <?php echo $success;?>
    </div>
 <?php
@@ -44,7 +44,7 @@ if( !empty($success) ){?>
 if( !empty($error) ){ ?>
    <div id="top-alert" class="alert alert-danger" role="alert">
     <div class="close_nofi"><a  href="#" class="close" data-dismiss="alert" aria-label="close">×</a></div>
-    <strong>Error!</strong> 
+    <strong><?php echo __('Error!','empfohlen')?></strong> 
     <?php echo $error;?>
    </div>
 <?php  
@@ -54,37 +54,37 @@ if( !empty($error) ){ ?>
 <div class="content_bg p_20 setting">
   
   <div class="setting_header">
-        <div class="set_title boxTitle"><?php _e('Your settings','emp'); ?></div>
-        <p class="subTitle"><?php _e('Your data and profile settings are located here','emp'); ?></p>
+        <div class="set_title boxTitle"><?php _e('Your settings','empfohlen'); ?></div>
+        <p class="subTitle"><?php _e('Your data and profile settings are located here','empfohlen'); ?></p>
   </div>  
  <div class="fusion-builder-row fusion-row ">
     <form id="emp_profile_form" class="emp_form_profile" method="post" enctype="multipart/form-data">
         <div class="col-md-6 p_0">
             <div class="subBox">
                 <div class="field_box">
-                    <label for="emp_user_id"><?php _e('User ID', 'emp'); ?></label>
+                    <label for="emp_user_id"><?php _e('User ID', 'empfohlen'); ?></label>
                     <div class="notEditable"><span><?php echo  $userData->ID; ?></span></div>
                 </div>
                 <div class="field_box">
-                     <label for="emp_user_Login"><?php _e('Username', 'emp'); ?></label>
+                     <label for="emp_user_Login"><?php _e('Username', 'empfohlen'); ?></label>
                      <div class="notEditable"><span><?php echo  $userData->user_login; ?></span></div>
                 </div>
                 <div class="field_box editableContent">
-                      <label for="emp_user_first"><?php _e('First Name', 'emp'); ?></label>
+                      <label for="emp_user_first"><?php _e('First Name', 'empfohlen'); ?></label>
                       <div class="editable focus_close">
                           <span><?php echo  $userData->display_name; ?></span>
                           <input name="emp_user_first" id="emp_user_first" type="text" value="<?php echo  $userData->display_name; ?>" />
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                      <label for="emp_user_last"><?php _e('Surname', 'emp'); ?></label>
+                      <label for="emp_user_last"><?php _e('Surname', 'empfohlen'); ?></label>
                       <div class="editable focus_close">
                           <span><?php echo  $userData->user_nicename; ?></span>
                           <input name="emp_user_last" id="emp_user_last" type="text" value="<?php echo  $userData->user_nicename; ?>"/>
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                    <label for="emp_user_birthday"><?php _e('Birthday', 'emp'); ?></label>
+                    <label for="emp_user_birthday"><?php _e('Birthday', 'empfohlen'); ?></label>
                     <div class="editable edit_dob">
                           <span><?php echo $birthday; ?></span>
                           <!-- <input name="emp_user_birthday" id="emp_user_birthday" type="text" value="<?php // echo $emp_user_birthday; ?>" /> -->
@@ -99,28 +99,28 @@ if( !empty($error) ){ ?>
             </div>
             <div class="subBox addressbox">
                 <div class="field_box editableContent">
-                      <label for="emp_user_address"><?php _e('Address', 'emp'); ?></label>
+                      <label for="emp_user_address"><?php _e('Address', 'empfohlen'); ?></label>
                       <div class="editable focus_close">
                           <span><?php echo  $address; ?></span>
                           <input name="emp_user_address" id="emp_user_address" type="text" value="<?php echo $address;?>" />
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                      <label for="emp_user_city"><?php _e('City', 'emp'); ?></label>
+                      <label for="emp_user_city"><?php _e('City', 'empfohlen'); ?></label>
                       <div class="editable focus_close">
                           <span><?php echo  $city; ?></span>
                           <input name="emp_user_city" id="emp_user_city" type="text" value="<?php echo  $city; ?>"/>
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                    <label for="emp_user_state"><?php _e('State', 'emp'); ?></label>
+                    <label for="emp_user_state"><?php _e('State', 'empfohlen'); ?></label>
                     <div class="editable focus_close">
                           <span><?php  echo $state; ?></span>
                           <input name="emp_user_state" id="emp_user_state" type="text" value="<?php  echo $state; ?>" />
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                    <label for="emp_user_zip"><?php _e('Zip', 'emp'); ?></label>
+                    <label for="emp_user_zip"><?php _e('Zip', 'empfohlen'); ?></label>
                     <div class="editable focus_close">
                           <span><?php echo $zip; ?></span>
                           <input name="emp_user_zip" id="emp_user_zip" type="text" value="<?php echo $zip; ?>" />
@@ -129,14 +129,14 @@ if( !empty($error) ){ ?>
             </div>
             <div class="subBox addressbox">
                 <div class="field_box editableContent">
-                      <label for="emp_user_email"><?php _e('E-mail address', 'emp'); ?></label>
+                      <label for="emp_user_email"><?php _e('E-mail address', 'empfohlen'); ?></label>
                       <div class="editable focus_close">
                           <span><?php echo  $userData->user_email; ?></span>
                           <input name="emp_user_email" id="emp_user_email" type="emil" value="<?php echo $userData->user_email;?>" />
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                      <label for="emp_user_contact"><?php _e('Contact number', 'emp'); ?></label>
+                      <label for="emp_user_contact"><?php _e('Contact number', 'empfohlen'); ?></label>
                       <div class="editable focus_close">
                           <span><?php echo  $contact; ?></span>
                           <input name="emp_user_contact" id="emp_user_contact" type="text" value="<?php echo $contact;?>" />
@@ -172,7 +172,7 @@ if( !empty($error) ){ ?>
            </div>
         <div class="subBox addressbox">
             <div class="other-info">
-            <h4 style="margin: 10px 0;"><strong><?php _e('Relevant information','emp');?></strong></h4>
+            <h4 style="margin: 10px 0;"><strong><?php _e('Relevant information','empfohlen');?></strong></h4>
             <?php
             $skill = get_terms(
                 'skill',
@@ -216,22 +216,22 @@ if( !empty($error) ){ ?>
             </div>
         </div>
         <div class="subBox password_reset_box">
-            <div><a class="reset_password_link"><?php _e('Click here to reset your password','emp'); ?></a></div>
+            <div><a class="reset_password_link"><?php _e('Click here to reset your password','empfohlen'); ?></a></div>
             <div class="reset_password_form">
                 <div class="field_box editableContent">
-                      <label for="emp_user_current_password"><?php _e('Current Password', 'emp'); ?></label>
+                      <label for="emp_user_current_password"><?php _e('Current Password', 'empfohlen'); ?></label>
                       <div class="input_bx">
                           <input name="emp_user_current_password" id="emp_user_current_password" type="password" value="" />
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                      <label for="emp_user_new_password"><?php _e('New Password', 'emp'); ?></label>
+                      <label for="emp_user_new_password"><?php _e('New Password', 'empfohlen'); ?></label>
                       <div class="input_bx">
                           <input name="emp_user_new_password" id="emp_user_new_password" type="password" value="" />
                       </div> 
                 </div>
                 <div class="field_box editableContent">
-                      <label for="emp_user_new_password_conf"><?php _e('New Password Confirmation', 'emp'); ?></label>
+                      <label for="emp_user_new_password_conf"><?php _e('New Password Confirmation', 'empfohlen'); ?></label>
                       <div class="input_bx">
                           <input name="emp_user_new_password_conf" id="emp_user_new_password_conf" type="password" value="" />
                       </div> 
@@ -239,7 +239,7 @@ if( !empty($error) ){ ?>
             </div>
         </div>
         <div class="subBox password_reset_box">
-          <label for="emp_user_contact"><?php _e('Default Currency','emp');?></label>
+          <label for="emp_user_contact"><?php _e('Default Currency','empfohlen');?></label>
           <select class="prof_currency_dropdown" name="emp_user_currency">
           <?php
             if(!empty($currency_list)){
@@ -251,13 +251,13 @@ if( !empty($error) ){ ?>
           </select>
         </div>
         <div class="subBox addressbox">
-            <div><a href="<?php echo wp_logout_url(get_home_url());?>" class="logout_link" class="emp_logout"><?php _e('Click here to Logout','emp'); ?></a></div>
+            <div><a href="<?php echo wp_logout_url(get_home_url());?>" class="logout_link" class="emp_logout"><?php _e('Click here to Logout','empfohlen'); ?></a></div>
         </div>
         <div class="subBox addressbox">
             <div>
             <input type="hidden" name="emp_profile_nonce" value="<?php echo wp_create_nonce('emp-profile-nonce'); ?>"/>
             <input type="hidden" name="action" value="edit_profile" />
-            <input id="emp_profile_btn" class="up-pro" type="submit" value="<?php _e('Upate Your Profile', 'emp'); ?>"/>
+            <input id="emp_profile_btn" class="up-pro" type="submit" value="<?php _e('Upate Your Profile', 'empfohlen'); ?>"/>
             </div>
         </div>
         </div>

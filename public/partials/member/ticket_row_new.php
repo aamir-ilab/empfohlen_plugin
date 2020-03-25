@@ -45,8 +45,8 @@ $ticket_response 		=   get_field( "ticket_response", $post->ID );
 		 	<div class="col tick_status"><span><?php echo $ticket_status;?></span></div>
 
 		 	<div class="col tick_infoButton">
-      	<span class="expand" data-pid="<?php echo $post->ID; ?>">Info</span>
-      	<span class="collapse" data-pid="<?php echo $post->ID; ?>">Info</span>
+      	<span class="expand" data-pid="<?php echo $post->ID; ?>"><?php echo __('Info','empfohlen')?></span>
+      	<span class="collapse" data-pid="<?php echo $post->ID; ?>"><?php echo __('Info','empfohlen')?></span>
       </div>
 
 
@@ -58,7 +58,7 @@ $ticket_response 		=   get_field( "ticket_response", $post->ID );
 
 		 <div class="tic_body">
 		 		 <div class="t_content color_white">
-				 	<h4 class="color_white t_content_title">Ticket Description : </h4>
+				 	<h4 class="color_white t_content_title"><?php echo __('Ticket Description :','empfohlen')?></h4>
 				 	<div class="t_content_description"><?php echo $description;?></div>
 				 </div> 
 		 </div>

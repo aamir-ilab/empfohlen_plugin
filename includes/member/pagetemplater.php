@@ -296,7 +296,7 @@ function project_submit_request_callback() {
 
 		if(!$is_member){
 				$return['status'] =  'error'; 
-      	$return['message'] =  'Only members can submit a request '; 
+      	$return['message'] =  __('Only members can submit a request ','empfohlen'); 
       	wp_send_json( $return ); 
 		}
 
@@ -356,7 +356,7 @@ function project_submit_request_callback() {
 		 
 		 if(!$is_member_can_request && !$is_skill_can_request ){
 		 	$return['status'] 	=  'error'; 
-      $return['message'] 	=  'You are not allowed to submit request on this Project.'; 
+      $return['message'] 	=  __('You are not allowed to submit request on this Project.','empfohlen'); 
       $return['debug']['is_member_can_request'] 	=  $is_member_can_request;
       $return['debug']['is_group_can_request'] 		=  $is_group_can_request;
       wp_send_json( $return );
@@ -386,7 +386,7 @@ function project_submit_request_callback() {
 
 			if(!empty($request_exist)){
 					$return['status'] =  'error'; 
-		      $return['message'] =  'You already submit request to this project'; 
+		      $return['message'] =  __('You already submit request to this project','empfohlen'); 
 		      wp_send_json( $return ); 
 			}
 
@@ -419,7 +419,7 @@ function project_submit_request_callback() {
 
 		 
 		 $return['status'] =  'success'; 
-		 $return['message'] =  'Your request has been submited succesfully'; 
+		 $return['message'] =  __('Your request has been submited succesfully','empfohlen'); 
 		 wp_send_json( $return ); 
 
 
@@ -427,7 +427,7 @@ function project_submit_request_callback() {
   }else{
 
   	 	$return['status'] =  'error'; 
-      $return['message'] =  'please login to submit request'; 
+      $return['message'] =  __('please login to submit request','empfohlen'); 
       wp_send_json( $return ); 
   }
 

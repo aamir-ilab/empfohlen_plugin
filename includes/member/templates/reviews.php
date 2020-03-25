@@ -39,7 +39,7 @@ $userData = $current_user->data;
 
 
 <div class="reviewList content_bg">
-  <h3 class="dinline p_task_heading p_review_heading"><?php _e('My Reviews','emp');?></h3>
+  <h3 class="dinline p_task_heading p_review_heading"><?php _e('My Reviews','empfohlen');?></h3>
    <div class="review_list">
        <?php
         while ( $reviews->have_posts() ) : $reviews->the_post();     

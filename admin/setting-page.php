@@ -18,8 +18,8 @@ class EmpfohlenSetting {
 		 // echo "<pre>  "; print_r( ' setting ' ); echo "</pre> ";  exit; 
 
 		add_menu_page(
-			__('Empfohlen', 'emp' ), 
-			__('Empfohlen', 'emp' ), 
+			__('Empfohlen', 'empfohlen' ), 
+			__('Empfohlen', 'empfohlen' ), 
 			'manage_emp_menu', // capability
 			'empfohlen', // menu_slug
 			array( $this, 'empfohlen_dashboard_admin_page' ), // function
@@ -30,8 +30,8 @@ class EmpfohlenSetting {
 
 		add_submenu_page(
 	        'empfohlen',
-	        __( 'Empfohlen Dashboard', 'emp' ),
-	        __( 'Dashboard', 'emp' ),
+	        __( 'Empfohlen Dashboard', 'empfohlen' ),
+	        __( 'Dashboard', 'empfohlen' ),
 	        'manage_emp_menu_dashboard',
 	        'empfohlen-dashboard',
 	        array( $this, 'empfohlen_dashboard_admin_page' ),
@@ -40,8 +40,8 @@ class EmpfohlenSetting {
 
 		add_submenu_page(
 	        'empfohlen',
-	        __( 'Empfohlen Setting', 'emp' ),
-	        __( 'Empfohlen Setting', 'emp' ),
+	        __( 'Empfohlen Setting', 'empfohlen' ),
+	        __( 'Empfohlen Setting', 'empfohlen' ),
 	        'manage_emp_menu_setting',
 	        'empfohlen-setting',
 	        array( $this, 'empfohlen_setting_create_admin_page' )

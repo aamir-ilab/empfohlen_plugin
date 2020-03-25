@@ -75,7 +75,7 @@ if ($task_id > 0) {
 
 		 <div class="review_body">
 		 		 <div class="t_content color_white">
-				 	<h4 class="color_white t_content_title">Review Description : </h4>
+				 	<h4 class="color_white t_content_title"><?php echo __('Review Description :','empfohlen')?></h4>
 				 	<div class="t_content_description"><?php echo $description;?></div>
 				 </div> 
 		 </div>
